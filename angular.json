@@ -16,7 +16,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/project-manhattan/browser",
-            "index": "apps/project-manhattan/src/index.html",
+            "index": "apps/project-manhattan/src/index.original.html",
             "main": "apps/project-manhattan/src/main.ts",
             "polyfills": "apps/project-manhattan/src/polyfills.ts",
             "tsConfig": "apps/project-manhattan/tsconfig.app.json",
