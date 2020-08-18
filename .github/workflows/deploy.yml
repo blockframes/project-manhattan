@@ -26,9 +26,9 @@ jobs:
           node-version: '10'
       # Install the dependencies need to build the app
       - run: npm install
-      - run: npx ng run project-manhattan:server
-      - run: npx ng run project-manhattan:build
-      - run: npx ng run functions:build
+      - run: npx ng run project-manhattan:server:production
+      - run: npx ng run project-manhattan:build:production
+      - run: npx ng run functions:build:production
       - name: firebase deploy
         uses: w9jds/firebase-action@master
         with:

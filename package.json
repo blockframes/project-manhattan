@@ -13,7 +13,7 @@
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
-    "affected:build": "nx affected:build",
+    "affected:build": "nx affected:build --prod",
     "affected:server": "nx affected --target=server",
     "affected:e2e": "nx affected:e2e",
     "affected:test": "nx affected:test",
