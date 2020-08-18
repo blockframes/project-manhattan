@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/project-manhattan",
+            "outputPath": "dist/project-manhattan/browser",
             "index": "apps/project-manhattan/src/index.html",
             "main": "apps/project-manhattan/src/main.ts",
             "polyfills": "apps/project-manhattan/src/polyfills.ts",
@@ -23,7 +23,8 @@
             "aot": true,
             "assets": [
               "apps/project-manhattan/src/favicon.ico",
-              "apps/project-manhattan/src/assets"
+              "apps/project-manhattan/src/assets",
+              "apps/project-manhattan/src/manifest.webmanifest"
             ],
             "styles": [
               "apps/project-manhattan/src/styles.scss"
@@ -57,7 +58,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/project-manhattan/ngsw-config.json"
             }
           }
         },
@@ -83,7 +86,8 @@
           "options": {
             "tsConfig": [
               "apps/project-manhattan/tsconfig.app.json",
-              "apps/project-manhattan/tsconfig.spec.json"
+              "apps/project-manhattan/tsconfig.spec.json",
+              "apps/project-manhattan/tsconfig.server.json"
             ],
             "exclude": [
               "**/node_modules/**",
@@ -103,6 +107,53 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/project-manhattan/server",
+            "main": "apps/project-manhattan/server.ts",
+            "tsConfig": "apps/project-manhattan/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "apps/project-manhattan/src/environments/environment.ts",
+                  "with": "apps/project-manhattan/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "project-manhattan:build",
+            "serverTarget": "project-manhattan:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "project-manhattan:build:production",
+              "serverTarget": "project-manhattan:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "project-manhattan:build:production",
+            "serverTarget": "project-manhattan:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
         }
       }
     },
