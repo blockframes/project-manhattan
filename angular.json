@@ -25,7 +25,9 @@
               "apps/project-manhattan/src/favicon.ico",
               "apps/project-manhattan/src/assets"
             ],
-            "styles": ["apps/project-manhattan/src/styles.scss"],
+            "styles": [
+              "apps/project-manhattan/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -83,7 +85,10 @@
               "apps/project-manhattan/tsconfig.app.json",
               "apps/project-manhattan/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/project-manhattan/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/project-manhattan/**/*"
+            ]
           }
         },
         "test": {
@@ -94,6 +99,10 @@
             "passWithNoTests": true,
             "setupFile": "apps/project-manhattan/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -118,7 +127,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/project-manhattan-e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "apps/project-manhattan-e2e/tsconfig.e2e.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/project-manhattan-e2e/**/*"

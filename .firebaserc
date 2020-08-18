@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "project-manhattan-2cadf": {
+      "hosting": {
+        "project-manhattan": [
+          "project-manhattan-2cadf"
+        ]
+      }
+    }
+  }
+}

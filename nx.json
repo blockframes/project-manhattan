@@ -15,9 +15,17 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "accessToken": "NGNhYTkzNDQtYzkzMi00YTM3LTg0OTItZDAzMDJjYjExMmRlfHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
@@ -27,7 +35,9 @@
     },
     "project-manhattan-e2e": {
       "tags": [],
-      "implicitDependencies": ["project-manhattan"]
+      "implicitDependencies": [
+        "project-manhattan"
+      ]
     }
   }
 }
