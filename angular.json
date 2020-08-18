@@ -10,7 +10,7 @@
       },
       "root": "apps/project-manhattan",
       "sourceRoot": "apps/project-manhattan/src",
-      "prefix": "project-manhattan",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

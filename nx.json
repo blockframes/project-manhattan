@@ -25,7 +25,7 @@
           "e2e",
           "server"
         ],
-        "cacheDirectory": "/cache",
+        "cacheDirectory": "./cache",
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
