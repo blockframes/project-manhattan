@@ -106,14 +106,19 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {}
+          "options": {
+            "ssr": true
+          }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/project-manhattan/server",
             "main": "apps/project-manhattan/server.ts",
-            "tsConfig": "apps/project-manhattan/tsconfig.server.json"
+            "tsConfig": "apps/project-manhattan/tsconfig.server.json",
+            "externalDependencies": [
+              "@firebase/firestore"
+            ]
           },
           "configurations": {
             "production": {

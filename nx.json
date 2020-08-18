@@ -22,8 +22,10 @@
           "build",
           "test",
           "lint",
-          "e2e"
+          "e2e",
+          "server"
         ],
+        "cacheDirectory": "/cache",
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }

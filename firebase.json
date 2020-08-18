@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "project-manhattan",
-      "public": "dist/apps/project-manhattan",
+      "public": "dist/project-manhattan/browser",
       "ignore": [
         "**/.*"
       ],
@@ -20,9 +20,12 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "/index.html"
+          "function": "ssr"
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "source": "dist/project-manhattan"
+  }
 }
