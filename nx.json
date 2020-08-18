@@ -18,13 +18,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "NGNhYTkzNDQtYzkzMi00YTM3LTg0OTItZDAzMDJjYjExMmRlfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint",
-          "e2e",
-          "server"
-        ],
+        "cacheableOperations": ["build", "test", "lint", "e2e", "server"],
         "cacheDirectory": "./cache",
         "canTrackAnalytics": false,
         "showUsageWarnings": true
@@ -37,9 +31,10 @@
     },
     "project-manhattan-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "project-manhattan"
-      ]
+      "implicitDependencies": ["project-manhattan"]
+    },
+    "functions": {
+      "tags": ["project-manhattan"]
     }
   }
 }

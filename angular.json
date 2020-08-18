@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/project-manhattan/browser",
+            "outputPath": "dist/apps/project-manhattan/browser",
             "index": "apps/project-manhattan/src/index.html",
             "main": "apps/project-manhattan/src/main.ts",
             "polyfills": "apps/project-manhattan/src/polyfills.ts",
@@ -26,9 +26,7 @@
               "apps/project-manhattan/src/assets",
               "apps/project-manhattan/src/manifest.webmanifest"
             ],
-            "styles": [
-              "apps/project-manhattan/src/styles.scss"
-            ],
+            "styles": ["apps/project-manhattan/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -41,7 +39,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
@@ -89,10 +87,7 @@
               "apps/project-manhattan/tsconfig.spec.json",
               "apps/project-manhattan/tsconfig.server.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/project-manhattan/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/project-manhattan/**/*"]
           }
         },
         "test": {
@@ -113,12 +108,10 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/project-manhattan/server",
+            "outputPath": "dist/apps/project-manhattan/server",
             "main": "apps/project-manhattan/server.ts",
             "tsConfig": "apps/project-manhattan/tsconfig.server.json",
-            "externalDependencies": [
-              "@firebase/firestore"
-            ]
+            "externalDependencies": ["@firebase/firestore"]
           },
           "configurations": {
             "production": {
@@ -129,7 +122,7 @@
                   "with": "apps/project-manhattan/src/environments/environment.prod.ts"
                 }
               ],
-              "sourceMap": false,
+              "sourceMap": true,
               "optimization": true
             }
           }
@@ -152,9 +145,7 @@
           "options": {
             "browserTarget": "project-manhattan:build:production",
             "serverTarget": "project-manhattan:server:production",
-            "routes": [
-              "/"
-            ]
+            "routes": ["/"]
           },
           "configurations": {
             "production": {}
@@ -183,13 +174,66 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/project-manhattan-e2e/tsconfig.e2e.json"
-            ],
+            "tsConfig": ["apps/project-manhattan-e2e/tsconfig.e2e.json"],
             "exclude": [
               "**/node_modules/**",
               "!apps/project-manhattan-e2e/**/*"
             ]
+          }
+        }
+      }
+    },
+    "functions": {
+      "root": "apps/functions",
+      "sourceRoot": "apps/functions/src",
+      "projectType": "application",
+      "prefix": "functions",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps",
+            "main": "apps/functions/src/main.ts",
+            "tsConfig": "apps/functions/tsconfig.app.json",
+            "assets": ["apps/functions/src/package.json"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/functions/src/environments/environment.ts",
+                  "with": "apps/functions/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "functions:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/functions/tsconfig.app.json",
+              "apps/functions/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/functions/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/functions/jest.config.js",
+            "tsConfig": "apps/functions/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

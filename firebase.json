@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "project-manhattan",
-      "public": "dist/project-manhattan/dist/project-manhattan/browser",
+      "public": "dist/apps/project-manhattan/browser",
       "ignore": [
         "**/.*"
       ],
@@ -26,6 +26,27 @@
     }
   ],
   "functions": {
-    "source": "dist/project-manhattan"
+    "source": "dist/apps"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }
