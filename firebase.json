@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "project-manhattan",
-      "public": "dist/project-manhattan/browser",
+      "public": "dist/project-manhattan/dist/project-manhattan/browser",
       "ignore": [
         "**/.*"
       ],

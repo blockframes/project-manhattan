@@ -30,7 +30,8 @@
     "dev:ssr": "ng run project-manhattan:serve-ssr",
     "serve:ssr": "node dist/project-manhattan/server/main.js",
     "build:ssr": "ng build --prod && ng run project-manhattan:server:production",
-    "prerender": "ng run project-manhattan:prerender"
+    "prerender": "ng run project-manhattan:prerender",
+    "deploy": "ng run project-manhattan:deploy"
   },
   "private": true,
   "dependencies": {
