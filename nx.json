@@ -1,0 +1,33 @@
+{
+  "npmScope": "project-manhattan",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "project-manhattan": {
+      "tags": []
+    },
+    "project-manhattan-e2e": {
+      "tags": [],
+      "implicitDependencies": ["project-manhattan"]
+    }
+  }
+}

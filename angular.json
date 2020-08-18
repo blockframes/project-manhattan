@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "projects": {
+    "project-manhattan": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/project-manhattan",
+      "sourceRoot": "apps/project-manhattan/src",
+      "prefix": "project-manhattan",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/project-manhattan",
+            "index": "apps/project-manhattan/src/index.html",
+            "main": "apps/project-manhattan/src/main.ts",
+            "polyfills": "apps/project-manhattan/src/polyfills.ts",
+            "tsConfig": "apps/project-manhattan/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/project-manhattan/src/favicon.ico",
+              "apps/project-manhattan/src/assets"
+            ],
+            "styles": ["apps/project-manhattan/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/project-manhattan/src/environments/environment.ts",
+                  "with": "apps/project-manhattan/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "project-manhattan:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "project-manhattan:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "project-manhattan:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/project-manhattan/tsconfig.app.json",
+              "apps/project-manhattan/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/project-manhattan/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/project-manhattan/jest.config.js",
+            "tsConfig": "apps/project-manhattan/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/project-manhattan/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "project-manhattan-e2e": {
+      "root": "apps/project-manhattan-e2e",
+      "sourceRoot": "apps/project-manhattan-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/project-manhattan-e2e/cypress.json",
+            "tsConfig": "apps/project-manhattan-e2e/tsconfig.e2e.json",
+            "devServerTarget": "project-manhattan:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "project-manhattan:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/project-manhattan-e2e/tsconfig.e2e.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/project-manhattan-e2e/**/*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "project-manhattan"
+}
