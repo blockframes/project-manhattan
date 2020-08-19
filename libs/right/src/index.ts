@@ -1,1 +1,2 @@
-export * from './lib/right.module';
+export * from './lib/get-income';
+export * from './lib/model';
