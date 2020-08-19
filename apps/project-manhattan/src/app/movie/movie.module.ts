@@ -28,13 +28,16 @@ const routes: Route[] = [{
   pathMatch: 'full'
 },{
   path: 'list',
-  component: ListComponent
+  component: ListComponent,
+  data: { animation: 'list' }
 },{
   path: 'create',
-  component: CreateComponent
+  component: CreateComponent,
+  data: { animation: 'view' }
 }, {
   path: ':movieId',
-  component: ViewComponent
+  component: ViewComponent,
+  data: { animation: 'view' }
 }];
 
 @NgModule({

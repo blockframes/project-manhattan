@@ -7,11 +7,23 @@
     </a>
   </mat-toolbar>
 
-  <main gdColumns="repeat(8, 1fr)" gdGap="16px">
-    <ng-container *ngFor="let movie of list$ | async">
-      <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')"/>
-      </a>
+  <ng-container *ngIf="list$ | async as list; else loading">
+    <ng-container *ngIf="list.length else empty">
+      <main @slideUpList gdColumns="repeat(6, 1fr)" gdGap="16px">
+        <ng-container *ngFor="let movie of list">
+          <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
+            <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')" />
+          </a>
+        </ng-container>
+      </main>
     </ng-container>
-  </main>
+  </ng-container>
+  <ng-template #loading>
+    <div class="loading" @slideDown fxLayout fxLayoutAlign="center center">
+      <p>loading...</p>
+    </div>
+  </ng-template>
+  <ng-template #empty>
+    <p>Nothing here</p>
+  </ng-template>
 </ng-container>
