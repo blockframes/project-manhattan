@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "project-manhattan/server": ["apps/project-manhattan/server"]
+      "project-manhattan/server": ["apps/project-manhattan/server"],
+      "@blockframes/right": ["libs/right/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

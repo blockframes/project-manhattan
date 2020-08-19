@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
 
-  getTranslation(lang: string) {
+  async getTranslation(lang: string) {
     return this.http.get<Translation>(`${environment.baseUrl}/assets/i18n/${lang}.json`);
   }
 }
@@ -27,9 +27,13 @@ export class TranslocoHttpLoader implements TranslocoLoader {
       useValue: translocoConfig({
         availableLangs: ['fr'],
         defaultLang: 'fr',
+        fallbackLang: 'fr',
         // Remove this option if your application doesn't support changing language in runtime.
         reRenderOnLangChange: false,
         prodMode: environment.production,
+        flatten: {
+          aot: environment.production
+        }
       })
     },
     { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }

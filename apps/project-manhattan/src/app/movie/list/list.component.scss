@@ -8,6 +8,7 @@ main {
 
 a.movie-card {
   border-radius: 4px;
+  line-height: 0; // needed to remove bottom padding
   cursor: pointer;
   @include mat-elevation(2);
 

@@ -35,6 +35,9 @@
     },
     "functions": {
       "tags": ["project-manhattan"]
+    },
+    "right": {
+      "tags": []
     }
   }
 }

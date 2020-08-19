@@ -10,7 +10,7 @@
   <main gdColumns="repeat(8, 1fr)" gdGap="16px">
     <ng-container *ngFor="let movie of list$ | async">
       <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" />
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')"/>
       </a>
     </ng-container>
   </main>
