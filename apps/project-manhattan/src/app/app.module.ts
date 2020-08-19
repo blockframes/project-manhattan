@@ -6,6 +6,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco/transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +15,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FlexLayoutModule.withConfig({ssrObserveBreakpoints: ['xs', 'lt-md'] }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    TranslocoRootModule
   ],
   providers: [],
   bootstrap: [AppComponent],
