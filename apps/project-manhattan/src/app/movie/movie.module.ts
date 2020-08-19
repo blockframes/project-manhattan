@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Components
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
+import { ViewComponent } from './view/view.component';
+import { GetMoviePipe } from './pipes';
 
 // Libs
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
@@ -18,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
 
 const routes: Route[] = [{
   path: '',
@@ -29,10 +32,13 @@ const routes: Route[] = [{
 },{
   path: 'create',
   component: CreateComponent
+}, {
+  path: ':movieId',
+  component: ViewComponent
 }];
 
 @NgModule({
-  declarations: [ListComponent, CreateComponent],
+  declarations: [ListComponent, CreateComponent, ViewComponent, GetMoviePipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -44,6 +50,7 @@ const routes: Route[] = [{
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatRippleModule,
     RouterModule.forChild(routes)
   ],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'movie' }],

@@ -1,8 +1,8 @@
 <ng-container *transloco="let t; read: 'movie.create'">
   <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field>
-      <mat-label>{{ t('name.label') | titlecase }}</mat-label>
-      <input matInput [placeholder]="t('name.placeholder') | titlecase" />
+      <mat-label>{{ t('title.label') | titlecase }}</mat-label>
+      <input matInput [placeholder]="t('title.placeholder') | titlecase" />
     </mat-form-field>
     <footer fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
       <a mat-button routerLink="../list">{{ t('cancel') | titlecase }}</a>

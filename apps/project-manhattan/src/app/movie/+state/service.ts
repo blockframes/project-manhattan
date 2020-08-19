@@ -12,4 +12,8 @@ export class MovieService {
   query(queryFn: QueryFn = ref => ref) {
     return this.collection.valueChanges(queryFn);
   }
+
+  valueChanges(id: string) {
+    return this.collection.doc<Movie>(id).valueChanges();
+  }
 }

@@ -19,5 +19,8 @@
       "project-manhattan/server": ["apps/project-manhattan/server"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  }
 }

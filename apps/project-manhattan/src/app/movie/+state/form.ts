@@ -3,7 +3,7 @@ export class MovieForm extends FormGroup {
 
   constructor() {
     super({
-      name: new FormControl(),
+      title: new FormControl(),
     })
   }
 

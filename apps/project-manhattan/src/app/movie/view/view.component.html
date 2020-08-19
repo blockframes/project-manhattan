@@ -1,0 +1,15 @@
+<ng-container *transloco="let t; read: 'movie.view'">
+  <ng-container *ngIf="movie$ | async as movie">
+
+    <mat-toolbar fxLayout fxLayoutAlign="start center">
+      <a mat-button-icon routerLink="../list">
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <h1>{{ movie.title | titlecase }}</h1>
+    </mat-toolbar>
+  
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </ng-container>
+</ng-container>

@@ -9,9 +9,9 @@
 
   <main gdColumns="repeat(8, 1fr)" gdGap="16px">
     <ng-container *ngFor="let movie of list$ | async">
-      <mat-card>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')">
-      </mat-card>
+      <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" />
+      </a>
     </ng-container>
   </main>
 </ng-container>

@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create',
+  selector: 'movie-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
