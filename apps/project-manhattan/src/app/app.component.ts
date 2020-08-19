@@ -1,9 +1,19 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostBinding, ViewChild } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { routeAnimation } from './animations';
 
 @Component({
-  selector: 'project-manhattan-root',
-  template: '<router-outlet></router-outlet>',
+  selector: 'app-root',
+  template: `<router-outlet #outlet="outlet"></router-outlet>`,
   styles: [':host { display: block; height: 100%; }'],
+  animations: [routeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  @ViewChild('outlet') outlet: RouterOutlet;
+  
+  @HostBinding('@routeAnimation')
+  get animation() {
+    return this.outlet?.activatedRouteData?.animation;
+  }
+}

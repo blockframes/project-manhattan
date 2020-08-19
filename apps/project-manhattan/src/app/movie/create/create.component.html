@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field>
       <mat-label>{{ t('title.label') | titlecase }}</mat-label>
-      <input matInput [placeholder]="t('title.placeholder') | titlecase" />
+      <input matInput formControlName="title" [placeholder]="t('title.placeholder') | titlecase" />
     </mat-form-field>
     <footer fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
       <a mat-button routerLink="../list">{{ t('cancel') | titlecase }}</a>

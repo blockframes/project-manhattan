@@ -22,8 +22,13 @@
               "apps/project-manhattan/src/assets",
               "apps/project-manhattan/src/manifest.webmanifest"
             ],
-            "styles": ["apps/project-manhattan/src/styles.scss"],
-            "scripts": []
+            "styles": ["apps/project-manhattan/src/styles/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/project-manhattan/src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -107,7 +112,12 @@
             "outputPath": "dist/apps/project-manhattan/server",
             "main": "apps/project-manhattan/server.ts",
             "tsConfig": "apps/project-manhattan/tsconfig.server.json",
-            "externalDependencies": ["@firebase/firestore"]
+            "externalDependencies": ["@firebase/firestore"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/project-manhattan/src/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {
