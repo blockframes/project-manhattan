@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class TranslocoHttpLoader implements TranslocoLoader {
   constructor(private http: HttpClient) {}
 
-  async getTranslation(lang: string) {
+  getTranslation(lang: string) {
     return this.http.get<Translation>(`${environment.baseUrl}/assets/i18n/${lang}.json`);
   }
 }
