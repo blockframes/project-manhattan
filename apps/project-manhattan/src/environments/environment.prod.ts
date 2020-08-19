@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'https://raw.githubusercontent.com/blockframes/project-manhattan/master/src',// 'https://project-manhattan-2cadf.web.app',
+  baseUrl: 'https://project-manhattan-2cadf.web.app',
   production: true,
   firebase: {
     apiKey: "AIzaSyALSyA92jfqNOFCTas--u-SiCQX5FmZNmo",
