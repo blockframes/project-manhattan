@@ -31,7 +31,9 @@
     "serve:ssr": "node dist/project-manhattan/server/main.js",
     "build:ssr": "ng build --prod && ng run project-manhattan:server:production",
     "prerender": "ng run project-manhattan:prerender",
-    "deploy": "ng run project-manhattan:deploy"
+    "deploy": "ng run project-manhattan:deploy",
+    "i18n:extract": "transloco-keys-manager extract --unflat",
+    "i18n:find": "transloco-keys-manager find"
   },
   "private": true,
   "dependencies": {
@@ -63,6 +65,7 @@
     "@angular/cli": "~10.0.0",
     "@angular/compiler-cli": "^10.0.0",
     "@angular/language-service": "^10.0.0",
+    "@ngneat/transloco-keys-manager": "^2.2.1",
     "@nguniversal/builders": "^10.0.2",
     "@nrwl/cypress": "10.0.12",
     "@nrwl/jest": "10.0.12",

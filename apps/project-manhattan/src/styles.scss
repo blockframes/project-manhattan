@@ -37,3 +37,6 @@ $project-manhattan-theme: mat-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+span > mat-icon, mat-icon > span {
+  margin-right: 8px;
+}

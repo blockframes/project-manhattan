@@ -3,11 +3,7 @@
   "projects": {
     "project-manhattan": {
       "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "apps/project-manhattan",
       "sourceRoot": "apps/project-manhattan/src",
       "prefix": "app",
@@ -26,7 +22,9 @@
               "apps/project-manhattan/src/assets",
               "apps/project-manhattan/src/manifest.webmanifest"
             ],
-            "styles": ["apps/project-manhattan/src/styles.scss"],
+            "styles": [
+              "apps/project-manhattan/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -87,7 +85,10 @@
               "apps/project-manhattan/tsconfig.spec.json",
               "apps/project-manhattan/tsconfig.server.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/project-manhattan/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/project-manhattan/**/*"
+            ]
           }
         },
         "test": {
@@ -111,7 +112,9 @@
             "outputPath": "dist/apps/project-manhattan/server",
             "main": "apps/project-manhattan/server.ts",
             "tsConfig": "apps/project-manhattan/tsconfig.server.json",
-            "externalDependencies": ["@firebase/firestore"]
+            "externalDependencies": [
+              "@firebase/firestore"
+            ]
           },
           "configurations": {
             "production": {
@@ -145,7 +148,9 @@
           "options": {
             "browserTarget": "project-manhattan:build:production",
             "serverTarget": "project-manhattan:server:production",
-            "routes": ["/"]
+            "routes": [
+              "/"
+            ]
           },
           "configurations": {
             "production": {}
@@ -174,7 +179,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/project-manhattan-e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "apps/project-manhattan-e2e/tsconfig.e2e.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/project-manhattan-e2e/**/*"
@@ -196,7 +203,9 @@
             "outputPath": "dist/apps",
             "main": "apps/functions/src/main.ts",
             "tsConfig": "apps/functions/tsconfig.app.json",
-            "assets": ["apps/functions/src/package.json"]
+            "assets": [
+              "apps/functions/src/package.json"
+            ]
           },
           "configurations": {
             "production": {
@@ -225,7 +234,10 @@
               "apps/functions/tsconfig.app.json",
               "apps/functions/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/functions/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/functions/**/*"
+            ]
           }
         },
         "test": {
@@ -243,6 +255,9 @@
     "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
+    "@nrwl/angular:component": {
+      "style": "scss"
+    },
     "@nrwl/workspace": {
       "library": {
         "linter": "tslint"

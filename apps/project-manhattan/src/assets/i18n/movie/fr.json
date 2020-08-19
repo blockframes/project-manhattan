@@ -1,0 +1,17 @@
+{
+  "create": {
+    "name": {
+      "label": "nom",
+      "placeholder": "nom du film"
+    },
+    "cancel": "annuler",
+    "submit": "valider"
+  },
+  "list": {
+    "title": "mes films",
+    "create": "ajouter",
+    "item": {
+      "alt": "poster du film"
+    }
+  }
+}

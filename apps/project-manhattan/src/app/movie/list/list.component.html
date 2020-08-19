@@ -1,0 +1,17 @@
+<ng-container *transloco="let t; read: 'movie.list'">
+  <mat-toolbar fxLayoutAlign="space-between center">
+    <h1>{{ t('title') | titlecase }}</h1>
+    <a mat-button routerLink="../create">
+      <mat-icon>add</mat-icon>
+      <span>{{ t('create') }}</span>
+    </a>
+  </mat-toolbar>
+
+  <main gdColumns="repeat(8, 1fr)" gdGap="16px">
+    <ng-container *ngFor="let movie of list$ | async">
+      <mat-card>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')">
+      </mat-card>
+    </ng-container>
+  </main>
+</ng-container>
