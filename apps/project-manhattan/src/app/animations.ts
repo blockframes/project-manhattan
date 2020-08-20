@@ -72,7 +72,44 @@ export const slideDownList = slideList('slideDownList', '-20px');
 export const slideUpList = slideList('slideUpList', '20px');
 
 
+///////////
+// SCALE //
+///////////
 
+const scale = (name: string, size: number) => trigger(name, [
+  transition(':enter', [
+    style({ opacity: '0', transform: `scale(${size})` }),
+    animate(`0.2s ${Easing.easeOutcubic}`, style({opacity: '1', transform: 'scale(1)'})
+ )]),
+  transition(':leave', [
+    style({opacity: '1', transform: 'scale(1)'}),
+    animate(`0.2s ${Easing.easeIncubic}`, style({opacity: '0', transform: `scale(${size})`})
+ )])
+]);
+/** Animation used for view-like pages */
+export const scaleIn = scale('scaleIn', 0.95);
+/** Animation used for view-like pages */
+export const scaleOut = scale('scaleOut', 1.1);
+
+const scaleList = (name: string, size: number) => (selector: string) => trigger(name, [
+  transition(':enter', [
+    query(selector, [
+      style({  opacity: 0, transform: `scale(${size})` }),
+      stagger(-30, [animate(`0.2s ${Easing.easeOutcubic}`, style({opacity: 1, transform: 'scale(1)'}))])
+    ], { optional: true }),
+  ]),
+  transition(':leave', [
+    query(selector, [
+      style({ opacity: 1, transform: 'scale(1)'}),
+      stagger(30, [animate(`0.2s ${Easing.easeIncubic}`, style({opacity: 1, transform: `scale(${size})`}))])
+    ], { optional: true }),
+  ])
+]);
+
+/** Animation used for view-like pages */
+export const scaleInList = scaleList('scaleInList', 0.95);
+/** Animation used for view-like pages */
+export const scaleOutList = scaleList('scaleOutList', 1.1);
 
 
 
