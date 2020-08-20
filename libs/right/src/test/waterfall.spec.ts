@@ -1,6 +1,6 @@
-import { Right, Terms, Income, LocalWaterfall, createTerms, createRight, createParty, Party } from '../index';
+import { Right, Terms, Income, createTerms, createRight, createParty, Party } from '../index';
 import { createIncome, Summary, createSummary } from '../lib/model';
-import { removeOverflow } from '../lib/get-income';
+import { removeOverflow, LocalWaterfall } from '../lib/waterfall';
 
 describe('Remove overflow', () => {
   let right: Right;

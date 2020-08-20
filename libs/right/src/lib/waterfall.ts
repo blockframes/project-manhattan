@@ -1,4 +1,4 @@
-import { Right, Event, Terms, Income, termIncompatibility, Party, Summary, createSummary } from './model';
+import { Right, Event, Terms, Income, termIncompatibility, Party, Summary, createSummary, createIncome } from './model';
 import * as cdt from './condition.model';
 
 interface WaterfallJson {
@@ -111,9 +111,20 @@ export class LocalWaterfall {
     return Object.values(this.rights).filter((right) => right.parentIds?.includes(parentId));
   }
 
-  async getIncome(income: Income, right: Right): Promise<number> {
-    
-    throw new Error("Method not implemented.");
+  async getIncome(income: Income, right: Right): Promise<void> {
+    const canCashIn = await this.checkAllCondition(right);
+    const rest = canCashIn
+      ? await this.cashIn(income.amount, right)
+      : income.amount;
+
+    if (rest > 0) {
+      // Create a copy of the income with the amount updated after right took value
+      const nextIncome = createIncome({ ...income, amount: rest });
+      const nexts = await this.queryNext(right.id);
+      for (const next of nexts) {
+        this.getIncome(nextIncome, next);
+      }
+    }
   }
 
   /**
