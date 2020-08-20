@@ -11,6 +11,7 @@ import { GetMoviePipe } from './pipes';
 
 // Libs
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
+import { GridModule } from '../utils/grid';
 
 // Material
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -47,6 +48,7 @@ const routes: Route[] = [{
     ReactiveFormsModule,
     TranslocoModule,
     FlexLayoutModule,
+    GridModule,
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,

@@ -9,13 +9,13 @@
 
   <ng-container *ngIf="list$ | async as list; else loading">
     <ng-container *ngIf="list.length else empty">
-      <main @slideUpList gdColumns="repeat(6, 1fr)" gdGap="16px">
-        <ng-container *ngFor="let movie of list">
-          <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
+      <grid @slideUpList >
+        <ng-container *ngFor="let movie of list; trackBy: trackById">
+          <a matRipple @scaleIn class="movie-card" [routerLink]="['..', movie.id]">
             <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')" />
           </a>
         </ng-container>
-      </main>
+      </grid>
     </ng-container>
   </ng-container>
   <ng-template #loading>
