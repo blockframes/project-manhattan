@@ -1,21 +1,27 @@
-import { Right, Terms, Income, LocalWaterfall, createTerms } from '../index';
+import { Right, Terms, Income, LocalWaterfall, createTerms, createRight, createParty, Party } from '../index';
+import { createIncome, StepCondition } from '../lib/model';
+import { removeOverflow } from '../lib/get-income';
 
-
+describe('Remove overflow', () => {
+  let right: Right;
+  beforeEach(() => {
+    right = createRight({
+      id: '0',
+      received: 10,
+      conditions: [{ kind: 'step', rightId: '0', max: 50 } as StepCondition]
+    })
+  })
+  it('Without overflow', () => {
+    const total = removeOverflow(10, right);
+    expect(total).toBe(10);
+  });
+  it('With overflow', () => {
+    const total = removeOverflow(100, right);
+    expect(total).toBe(40);
+  });
+})
 
 describe('Get Income from waterfall', () => {
-
-  test('Get first right', async () => {
-    const terms: Terms[] = [createTerms({ id: 'terms' })];
-    const rights: Right[] = [
-      { id: '2', percentage: 1, termsId: 'terms', parentId: '1' },
-      { id: '1', percentage: 0.5, termsId: 'terms', parentId: '0' },
-      { id: '0', percentage: 0.5,  termsId: 'terms' },
-    ];
-    const income: Income = { termId: 'terms', amount: 100 };
-    const waterfall = new LocalWaterfall({ rights, terms });
-    const first = await waterfall.getFirstRight(income);
-    expect(first?.id).toBe('0');
-  });
 
   test('Check terms incompatibility on territory', async () => {
     const terms: Terms[] = [
@@ -34,12 +40,52 @@ describe('Get Income from waterfall', () => {
     expect(falsy).toBeFalsy();
   });
 
-  test('Simple income', async () => {
+  // TODO: check also on channels
+
+
+  test('Get first right', async () => {
     const terms: Terms[] = [createTerms({ id: 'terms' })];
-    const rights: Right[] = [{ id: '0', percentage: 0.5,  termsId: 'terms' }];
-    const income: Income = { termId: 'terms', amount: 100 };
+    const rights: Right[] = [
+      createRight({ id: '2', percentage: 1, termsId: 'terms', parentIds: ['1'] }),
+      createRight({ id: '1', percentage: 0.5, termsId: 'terms', parentIds: ['0'] }),
+      createRight({ id: '0', percentage: 0.5,  termsId: 'terms' }),
+    ];
+    const income: Income = createIncome({ termsId: 'terms', amount: 100 });
     const waterfall = new LocalWaterfall({ rights, terms });
-    const rest = await waterfall.getIncome(income, '0');
+    const first = await waterfall.queryFirstRight(income);
+    expect(first?.id).toBe('0');
+  });
+
+  test('Query the next right', async () => {
+    const rights: Right[] = [
+      createRight({ id: '2(bis)', percentage: 1, termsId: 'local', parentIds: ['1'] }),
+      createRight({ id: '2', percentage: 1, termsId: 'inter', parentIds: ['1'] }),
+      createRight({ id: '1', percentage: 0.5, termsId: 'inter', parentIds: ['0'] }),
+      createRight({ id: '0', percentage: 0.5,  termsId: 'inter' }),
+    ];
+    const waterfall = new LocalWaterfall({ rights });
+    const next = await waterfall.queryNext('1');
+    const has2 = next.map(v => v.id).includes('2');
+    const has2Bis = next.map(v => v.id).includes('2(bis)');
+    expect(has2 && has2Bis).toBeTruthy();
+  });
+
+  test('Simple cashIn', async () => {
+    const parties: Party[] = [createParty({ id: 'c8' })];
+    const rights: Right[] = [createRight({ id: '0', percentage: 0.5, orgId: 'c8' })];
+    const waterfall = new LocalWaterfall({ rights, parties });
+    const right = await waterfall.getRight('0');
+    const rest = await waterfall.cashIn(100, right);
     expect(rest).toBe(50);
   });
+
+  // test('Simple income', async () => {
+  //   const terms: Terms[] = [createTerms({ id: 'terms' })];
+  //   const rights: Right[] = [createRight({ id: '0', percentage: 0.5,  termsId: 'terms' })];
+  //   const income: Income = { termId: 'terms', amount: 100 };
+  //   const waterfall = new LocalWaterfall({ rights, terms });
+  //   const right = await waterfall.getRight('0');
+  //   const rest = await waterfall.getIncome(income, right);
+  //   expect(rest).toBe(50);
+  // });
 });
