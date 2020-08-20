@@ -16,14 +16,122 @@ export interface ReceiptRight {
   }[];
 }
 
+/////////////
+// SUMMARY //
+/////////////
+export interface Summary {
+  title: {
+    total: number;
+    [termsId: string]: number;
+  }
+  [orgId: string]: {
+    total: number;
+    [termsId: string]: number;
+  }
+}
+
+
+///////////
+// RIGHT //
+///////////
+
 export interface Right {
   id: string;
   percentage: number;
-  parentId?: string;
+  received: number;
+  parentIds?: string[];
+  orgId: string;
+  termsId: string;
+  conditions?:  Condition[];
+}
+
+export function createRight(params: Partial<Right> = {}): Right {
+  return {
+    id: '',
+    percentage: 0,
+    received: 0,
+    orgId: '',
+    termsId: '',
+    parentIds: [],
+    ...params
+  };
+}
+
+///////////////
+// CONDITION //
+///////////////
+export interface Condition {
+  kind: 'total' | 'step' | 'stepList' | 'terms' | 'termsList';
+  min?: number;
+  max?: number;
+}
+/** Stop when movie received a certain amount */
+export interface TotalCondition extends Condition {
+  kind: 'total';
+  movieId: string;
   termsId: string;
 }
 
-/** Etape dans le waterfall */
+export function isTotalCondition(cdt: Condition): cdt is TotalCondition {
+  return cdt.kind === 'total';
+}
+
+/** Stop when right received some amount */
+export interface StepCondition extends Condition {
+  kind: 'step';
+  rightId: string;
+}
+
+export function isStepCondition(cdt: Condition): cdt is StepCondition {
+  return cdt.kind === 'step';
+}
+
+/** Stop when a list of right received some amount */
+export interface StepListCondition extends Condition {
+  kind: 'stepList';
+  type: "union" | "intersection";
+  rightIds: string[];
+}
+
+export function isStepListCondition(cdt: Condition): cdt is StepListCondition {
+  return cdt.kind === 'stepList';
+}
+
+/** Stop when a Party receive a certain amount on one terms */
+interface TermsCondition extends Condition {
+  kind: 'terms';
+  termsId: string;
+  partyId: string;
+  total: number;
+}
+
+export function isTermsCondition(cdt: Condition): cdt is TermsCondition {
+  return cdt.kind === 'terms';
+}
+
+/** Stop when a Party receive a certain amount on many terms */
+export interface TermListCondition extends Condition {
+  kind: 'termsList';
+  type: "union" | "intersection";
+  termsIds: string[];
+  partyId: string;
+  total: number;
+}
+
+export function isTermsListCondition(cdt: Condition): cdt is TermListCondition {
+  return cdt.kind === 'termsList';
+}
+
+///////////
+// EVENT //
+///////////
+
+export interface Event {
+  id: string;
+  
+}
+
+/** Etape dans le waterfall
 // vc: name changed because of reserved word Event
 export interface Event {
   id: string;
@@ -32,7 +140,28 @@ export interface Event {
     ref: string; // vc: RightId
     percentage: number; // => percentage of money cashed in / amount invested
   }[];
+} */
+
+///////////
+// PARTY //
+///////////
+
+export interface Party {
+  id: string;
+  received: number;
 }
+
+export function createParty(params: Partial<Party> = {}): Party {
+  return {
+    id: '',
+    received: 0,
+    ...params
+  };
+}
+
+///////////
+// TERMS //
+///////////
 
 export interface Excludable {
   included: string[];
@@ -65,12 +194,24 @@ export function termIncompatibility(a: Terms, b: Terms, field: 'territories' | '
   || a[field].included.some(included => b[field].excluded.includes(included));
 }
 
-
+////////////
+// INCOME //
+////////////
 
 
 export interface Income {
-  termId: string;
+  id: string;
+  termsId: string;
   amount: number;
+}
+
+export function createIncome(params: Partial<Income> = {}): Income {
+  return {
+    id: '',
+    termsId: '',
+    amount: 0,
+    ...params
+  }
 }
 
 export interface Waterfall {
