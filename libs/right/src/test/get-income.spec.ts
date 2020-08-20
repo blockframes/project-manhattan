@@ -1,22 +1,23 @@
 import { Right, Terms, Income, LocalWaterfall, createTerms, createRight, createParty, Party } from '../index';
-import { createIncome, StepCondition } from '../lib/model';
+import { createIncome, Summary, createSummary } from '../lib/model';
 import { removeOverflow } from '../lib/get-income';
 
 describe('Remove overflow', () => {
   let right: Right;
+  let summary: Summary;
   beforeEach(() => {
+    summary = createSummary({ rights: { '0': 10 }});
     right = createRight({
       id: '0',
-      received: 10,
-      conditions: [{ kind: 'step', rightId: '0', max: 50 } as StepCondition]
-    })
+      conditions: [{ kind: 'step', rightId: '0', max: 50 } as any]
+    });
   })
   it('Without overflow', () => {
-    const total = removeOverflow(10, right);
+    const total = removeOverflow(10, right, summary);
     expect(total).toBe(10);
   });
   it('With overflow', () => {
-    const total = removeOverflow(100, right);
+    const total = removeOverflow(100, right, summary);
     expect(total).toBe(40);
   });
 })

@@ -1,4 +1,5 @@
-import { Right, Event, Terms, Income, termIncompatibility, Party, Condition, StepCondition, isStepCondition, Summary, isStepListCondition, StepListCondition } from './model';
+import { Right, Event, Terms, Income, termIncompatibility, Party, Summary, createSummary } from './model';
+import * as cdt from './condition.model';
 
 interface WaterfallJson {
   events?: Event[];
@@ -40,7 +41,7 @@ export class LocalWaterfall {
     this.events = toObject(data.events);
     this.rights = toObject(data.rights);
     this.terms = toObject(data.terms);
-    this.summary = { title: { total: 0 } };
+    this.summary = createSummary();
   }
 
   async getEvent(id: string) {
@@ -65,14 +66,6 @@ export class LocalWaterfall {
     this.onCreateIncome(income);
   }
 
-  /** Update the right & trigger onUpdate */
-  updateRight(id: string, update: Partial<Right>) {
-    const before = { ...this.rights[id] };
-    const after = { ...update, ...this.rights[id] };
-    this.rights[id] = after;
-    this.onUpdateRight({ before, after });
-  }
-
   /** When an income is created update summary & run process */
   async onCreateIncome(income: Income) {
     const right = await this.queryFirstRight(income);
@@ -84,17 +77,6 @@ export class LocalWaterfall {
       throw new Error('There is no first right for the income with id ' + income.id);
     }
   }
-
-  /** Update the summary */
-  onUpdateRight(change: {before: Right, after: Right}) {
-    const amount = change.after.received - change.before.received;
-    const right = change.after;
-    if (amount > 0) {
-      this.summary[right.orgId].total += amount;
-      this.summary[right.orgId][right.termsId] += amount;
-    }
-  }
-
 
 
   /** Check if terms are compatible */
@@ -141,8 +123,13 @@ export class LocalWaterfall {
    */
   async cashIn(base: number, right: Right): Promise<number> {
     const amount = base * right.percentage;
-    const remain = removeOverflow(amount, right);
-    this.updateRight(right.id, { received: right.received + remain });
+    const summary = await this.getSummary();
+    const remain = removeOverflow(amount, right, summary);
+    // Update summary
+    summary.rights[right.id] += remain;
+    summary.orgs[right.orgId].total += remain;
+    summary.orgs[right.orgId][right.termsId] += remain;
+    
     return base - remain;
   }
 
@@ -152,40 +139,56 @@ export class LocalWaterfall {
   async checkAllCondition(right: Right) {
     if (right.conditions?.length) {
       const summary = await this.getSummary();
-      return right.conditions.every(cdt => this.checkCondition(cdt, summary));
+      return right.conditions.every(cdt => checkCondition(cdt, summary));
     } else {
       return true;
     }
   }
 
-  checkCondition(condition: Condition, summary: Summary) {
-    if (isStepCondition(condition)) {
-      return checkStepCondition(condition, summary);
-    }
-    if (isStepListCondition(condition)) {
-      return checkListStepCondition(condition, summary);
-    }
-  }
+
 }
 
 /** remove the overflow of an income */
-export function removeOverflow(amount: number, right: Right) {
-  const selfTarget = (cdt: Condition): cdt is StepCondition => isStepCondition(cdt) && cdt.rightId === right.id;
+export function removeOverflow(amount: number, right: Right, summary: Summary) {
+  const selfTarget = (condition: cdt.Condition): condition is cdt.RightCondition => {
+    return cdt.isRightCondition(condition) && condition.rightId === right.id;
+  };
   const step = right.conditions?.find(selfTarget);
   if (step?.max) {
-    const remain = step.max - right.received;
+    const remain = step.max - summary.rights[right.id];
     return Math.min(amount, remain);
   } else {
     return amount;
   }
 }
 
-
-function checkStepCondition(cdt: StepCondition, summary: Summary) {
-  const total = summary[cdt.rightId].total;
-  const checkMin = !cdt.min || total > cdt.min;
-  const checkMax = !cdt.max || total < cdt.max;
-  return checkMin && checkMax;
+/** Verify a condition */
+function checkCondition(condition: cdt.Condition, summary: Summary) {
+  const total = getTotal(condition, summary);
+  if (total) {
+    const checkMin = !condition.min || total > condition.min;
+    const checkMax = !condition.max || total < condition.max;
+    return checkMin && checkMax;
+  } else {
+    return false; // TODO: what if this is a custom condition ???
+  }
 }
 
-function checkListStepCondition(cdt: StepListCondition, summary: Summary) {}
+function getTotal(condition: cdt.Condition, summary: Summary) {
+  if (cdt.isRightCondition(condition)) {
+    return summary.rights[condition.rightId];
+  }
+  if (cdt.isOrgCondition(condition)) {
+    return summary.orgs[condition.orgId].total;
+  }
+  if (cdt.isOrgTermsCondition(condition)) {
+    return summary.orgs[condition.orgId][condition.termsId];
+  }
+  if (cdt.isTitleCondition(condition)) {
+    return summary.title.total;
+  }
+  if (cdt.isTitleTermsCondition(condition)) {
+    return summary.title[condition.termsId];
+  }
+  return 0;
+}
