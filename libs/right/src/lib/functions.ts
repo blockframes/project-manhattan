@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { Income, Right, createSummary, createIncome } from './model';
+import { Income, Right, createSummary, createIncome, Summary } from './model';
 import { removeOverflow, checkCondition } from './utils';
 
 const db = admin.firestore();
@@ -24,13 +24,16 @@ export const incomeOnCreate = functions.firestore
     
     db.runTransaction(async tx => {
       // Query last Summary
-      const lastSummaryQuery = db.collection(`movies/${movieId}/summary`).orderBy('date', 'desc').limit(1);
-      const lastSummary = await tx.get(lastSummaryQuery).then(doc => doc.docs[0]);
+      const lastSummaryQuery = db.collection(`movies/${movieId}/summaries`).orderBy('date', 'desc').limit(1);
+      const lastSummarySnap = await tx.get(lastSummaryQuery).then(doc => doc.docs[0]);
+      const lastSummary = lastSummarySnap.data() as Summary;
       // Create the summary: use the incomeId as id
       const summary = createSummary({
-        ...lastSummary.data(),
         id: incomeId,
-        previous: lastSummary.id,
+        previous: lastSummarySnap.id,
+        title: lastSummary.title,
+        rights: lastSummary.rights,
+        orgs: lastSummary.orgs,
       });
 
       ///////////
@@ -38,21 +41,15 @@ export const incomeOnCreate = functions.firestore
       ///////////
 
       /** Query rights by their parentId, if 'root' then it's the first */
-      const queryRights = (parentId: string | 'root', termsId: string) => {
+      const queryRights = (parentId: string, termsId: string) => {
         const queryFn: QueryFn = ref => ref.where('parentIds', 'array-contains', parentId).where('termsIds', 'array-contains', termsId);
         return queryCollection<Right>(tx, `movies/${movieId}/rights`, queryFn);
       }
 
-      /** Update the amount received by the title */
-      const updateTitle = (income: Income) => {
-        summary.title.total += income.amount;
-        summary.title[income.termsId] += income.amount;
-      }
-
-
       /** Get the first right for a specific income */
       const queryFirstRight = async (income: Income): Promise<Right> => {
-        const rights = await queryRights('root', income.termsId);
+        // If a right is the first for a terms, the parentId is the termsId
+        const rights = await queryRights(income.termsId, income.termsId);
         if (rights.length > 1) {
           throw new Error('There are multiple first right for terms id: ' + income.termsId);
         }
@@ -60,6 +57,15 @@ export const incomeOnCreate = functions.firestore
           throw new Error('Could not find first right for terms id: ' + income.termsId);
         }
         return rights[0];
+      }
+
+      /** Set the value of an entry of the summary */
+      const setSummaryEntry = (entry: number |  undefined, increment: number): void => {
+        if (entry) {
+          entry += increment;
+        } else {
+          entry = increment;
+        }
       }
 
       /**
@@ -71,9 +77,12 @@ export const incomeOnCreate = functions.firestore
         const amount = income.amount * right.percentage;
         const remain = removeOverflow(amount, right, summary);
         // Update summary
-        summary.rights[right.id] += remain;
-        summary.orgs[right.orgId].total += remain;
-        summary.orgs[right.orgId][income.termsId] += remain;
+        if (!summary.orgs[right.orgId]) {
+          summary.orgs[right.orgId] = { total: 0 };
+        }
+        setSummaryEntry(summary.orgs[right.orgId].total, remain);
+        setSummaryEntry(summary.orgs[right.orgId][income.termsId], remain);
+        setSummaryEntry(summary.rights[right.id], remain);
         
         return income.amount - remain;
       }
@@ -100,8 +109,9 @@ export const incomeOnCreate = functions.firestore
           // Create a copy of the income with the amount updated after right took value
           const nextIncome = createIncome({ ...income, amount: rest });
           const nexts = await queryRights(right.id, income.termsId);
+
           for (const next of nexts) {
-            getIncome(nextIncome, next);
+            await getIncome(nextIncome, next);
           }
         }
       }
@@ -111,7 +121,10 @@ export const incomeOnCreate = functions.firestore
       // RUN PROCESS //
       /////////////////
       const income = snap.data() as Income;
-      updateTitle(income);  // Update the title before everything else
+      /** Update the amount received by the title */
+      setSummaryEntry(summary.title.total, income.amount);
+      setSummaryEntry(summary.title[income.termsId], income.amount);
+
       const firstRight = await queryFirstRight(income);
       await getIncome(income, firstRight);
 
@@ -121,7 +134,7 @@ export const incomeOnCreate = functions.firestore
 
       // Note: this is important to update the last summary,
       // we want to cancel tx in case it has been updated in between
-      return tx.update(lastSummary.ref, { next: incomeId });
+      return tx.update(lastSummarySnap.ref, { next: incomeId });
     });
   });
 
