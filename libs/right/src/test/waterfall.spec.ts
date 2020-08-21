@@ -1,6 +1,7 @@
-import { Right, Terms, Income, createTerms, createRight, createParty, Party } from '../index';
+import { Right, Terms, Income, createTerms, createRight } from '../index';
 import { createIncome, Summary, createSummary } from '../lib/model';
-import { removeOverflow, LocalWaterfall } from '../lib/waterfall';
+import { LocalWaterfall } from '../lib/waterfall';
+import { removeOverflow } from '../lib/utils';
 
 describe('Remove overflow', () => {
   let right: Right;
@@ -47,9 +48,9 @@ describe('Get Income from waterfall', () => {
   test('Get first right', async () => {
     const terms: Terms[] = [createTerms({ id: 'terms' })];
     const rights: Right[] = [
-      createRight({ id: '2', percentage: 1, termsId: 'terms', parentIds: ['1'] }),
-      createRight({ id: '1', percentage: 0.5, termsId: 'terms', parentIds: ['0'] }),
-      createRight({ id: '0', percentage: 0.5,  termsId: 'terms' }),
+      createRight({ id: '2', percentage: 1, termsIds: ['terms'], parentIds: ['1'] }),
+      createRight({ id: '1', percentage: 0.5, termsIds: ['terms'], parentIds: ['0'] }),
+      createRight({ id: '0', percentage: 0.5,  termsIds: ['terms'] }),
     ];
     const income: Income = createIncome({ termsId: 'terms', amount: 100 });
     const waterfall = new LocalWaterfall({ rights, terms });
@@ -59,34 +60,17 @@ describe('Get Income from waterfall', () => {
 
   test('Query the next right', async () => {
     const rights: Right[] = [
-      createRight({ id: '2(bis)', percentage: 1, termsId: 'local', parentIds: ['1'] }),
-      createRight({ id: '2', percentage: 1, termsId: 'inter', parentIds: ['1'] }),
-      createRight({ id: '1', percentage: 0.5, termsId: 'inter', parentIds: ['0'] }),
-      createRight({ id: '0', percentage: 0.5,  termsId: 'inter' }),
+      createRight({ id: '2(bis)', percentage: 1, termsIds: ['local'], parentIds: ['1'] }),
+      createRight({ id: '2', percentage: 1, termsIds: ['inter'], parentIds: ['1'] }),
+      createRight({ id: '1', percentage: 0.5, termsIds: ['inter'], parentIds: ['0'] }),
+      createRight({ id: '0', percentage: 0.5,  termsIds: ['inter'] }),
     ];
     const waterfall = new LocalWaterfall({ rights });
-    const next = await waterfall.queryNext('1');
+    const next = await waterfall.queryRights('1', 'inter');
     const has2 = next.map(v => v.id).includes('2');
     const has2Bis = next.map(v => v.id).includes('2(bis)');
-    expect(has2 && has2Bis).toBeTruthy();
+    expect(has2).toBeTruthy();
+    expect(has2Bis).toBeFalsy();
   });
 
-  test('Simple cashIn', async () => {
-    const parties: Party[] = [createParty({ id: 'c8' })];
-    const rights: Right[] = [createRight({ id: '0', percentage: 0.5, orgId: 'c8' })];
-    const waterfall = new LocalWaterfall({ rights, parties });
-    const right = await waterfall.getRight('0');
-    const rest = await waterfall.cashIn(100, right);
-    expect(rest).toBe(50);
-  });
-
-  // test('Simple income', async () => {
-  //   const terms: Terms[] = [createTerms({ id: 'terms' })];
-  //   const rights: Right[] = [createRight({ id: '0', percentage: 0.5,  termsId: 'terms' })];
-  //   const income: Income = { termId: 'terms', amount: 100 };
-  //   const waterfall = new LocalWaterfall({ rights, terms });
-  //   const right = await waterfall.getRight('0');
-  //   const rest = await waterfall.getIncome(income, right);
-  //   expect(rest).toBe(50);
-  // });
 });
