@@ -5,6 +5,7 @@ import { Condition } from './condition.model';
 /////////////
 export interface Summary {
   id: string;
+  date: Date;
   previous?: string;
   next?: string;
   title: {
@@ -25,6 +26,7 @@ export interface Summary {
 export function createSummary(params: Partial<Summary> = {}): Summary {
   return {
     id: '',
+    date: new Date(),
     title: {
       total: 0
     },

@@ -94,7 +94,7 @@ export class LocalWaterfall {
   
   /** Get the first right for a specific income */
   async queryFirstRight(income: Income): Promise<Right | undefined> {
-    const rights = await this.queryRights('root', income.termsId);
+    const rights = await this.queryRights(income.termsId, income.termsId);
     if (rights.length > 1) {
       throw new Error('There are multiple first right for terms id: ' + income.termsId);
     }

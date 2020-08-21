@@ -1,4 +1,17 @@
 {
-  "indexes": [],
+  "indexes": [{ 
+    "collectionGroup": "summaries",
+    "queryScope": "COLLECTION",
+    "fields": [
+      { "fieldPath": "date", "order": "DESCENDING" }
+    ]
+  }, { 
+    "collectionGroup": "rights",
+    "queryScope": "COLLECTION",
+    "fields": [
+      { "fieldPath": "parentIds", "arrayConfig": "CONTAINS" },
+      { "fieldPath": "termsIds", "arrayConfig": "CONTAINS" }
+    ]
+  }],
   "fieldOverrides": []
 }
