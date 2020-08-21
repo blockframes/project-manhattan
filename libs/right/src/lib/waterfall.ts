@@ -1,10 +1,9 @@
-import { Right, Terms, Income, Party, Summary, createSummary, createIncome } from './model';
+import { Right, Terms, Income, Summary, createSummary, createIncome } from './model';
 import { removeOverflow, checkCondition, termIncompatibility } from './utils';
 
 interface WaterfallJson {
   rights?: Right[];
   terms?: Terms[];
-  parties?: Party[];
 }
 
 function toObject<T extends { id: string }>(list?: T[]): Record<string, T> {
@@ -24,9 +23,8 @@ function toObject<T extends { id: string }>(list?: T[]): Record<string, T> {
  * 2. getIncome(income, right)
  * 21. checkEventCondition(right) -> boolean
  * 22. cashIn(income.amount) -> rest
- * 23. emitEvent()
  * 24. queryNext() -> next
- * 25. getIncome(restIncome, )
+ * 25. getIncome(restIncome, next)
  */
 
 export class LocalWaterfall {

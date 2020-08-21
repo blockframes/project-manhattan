@@ -1,23 +1,5 @@
 import { Condition } from './condition.model';
 
-export interface ReceiptRight {
-  id: string;
-  title?: string;
-  type?: string; // used only for presentation matter
-  cashedIn?: number;  // amount already received from this right
-  amount?: number;
-  min?: number; // vc: added because of expenses
-  max?: number; // vc: added because of expenses
-  // vc: base has been removed for from, if and after into blocks
-  blocks: {
-    percentage: number;
-    if?: Event; // eventId
-    fromTerm?: Terms; // rightsId (brut)
-    parent?: string; // RightId (net)
-    until?: Event; // eventId
-  }[];
-}
-
 /////////////
 // SUMMARY //
 /////////////
@@ -72,43 +54,6 @@ export function createRight(params: Partial<Right> = {}): Right {
     orgId: '',
     termsIds: [],
     parentIds: [],
-    ...params
-  };
-}
-
-///////////
-// EVENT //
-///////////
-
-export interface Event {
-  id: string;
-  
-}
-
-/** Etape dans le waterfall
-// vc: name changed because of reserved word Event
-export interface Event {
-  id: string;
-  condition?: "union" | "intersection";
-  events: {
-    ref: string; // vc: RightId
-    percentage: number; // => percentage of money cashed in / amount invested
-  }[];
-} */
-
-///////////
-// PARTY //
-///////////
-
-export interface Party {
-  id: string;
-  received: number;
-}
-
-export function createParty(params: Partial<Party> = {}): Party {
-  return {
-    id: '',
-    received: 0,
     ...params
   };
 }
