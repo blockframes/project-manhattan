@@ -39,18 +39,15 @@ export function checkCondition(condition: cdt.Condition, summary: Summary) {
 function getTotal(condition: cdt.Condition, summary: Summary) {
   if (cdt.isRightCondition(condition)) {
     return summary.rights[condition.rightId];
-  }
-  if (cdt.isOrgCondition(condition)) {
+  } else if (cdt.isOrgCondition(condition)) {
     return summary.orgs[condition.orgId].total;
-  }
-  if (cdt.isOrgTermsCondition(condition)) {
+  } else if (cdt.isOrgTermsCondition(condition)) {
     return summary.orgs[condition.orgId][condition.termsId];
-  }
-  if (cdt.isTitleCondition(condition)) {
+  } else if (cdt.isTitleCondition(condition)) {
     return summary.title.total;
-  }
-  if (cdt.isTitleTermsCondition(condition)) {
+  } else if (cdt.isTitleTermsCondition(condition)) {
     return summary.title[condition.termsId];
+  } else {
+    return 0;
   }
-  return 0;
 }
