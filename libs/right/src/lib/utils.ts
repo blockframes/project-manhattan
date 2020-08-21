@@ -26,6 +26,7 @@ export function removeOverflow(amount: number, right: Right, summary: Summary) {
 /** Verify a condition */
 export function checkCondition(condition: cdt.Condition, summary: Summary) {
   const total = getTotal(condition, summary);
+  // TODO: what about equality
   if (total) {
     const checkMin = !condition.min || total > condition.min;
     const checkMax = !condition.max || total < condition.max;
