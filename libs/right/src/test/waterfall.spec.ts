@@ -2,6 +2,7 @@ import { Right, Terms, Income, createTerms, createRight } from '../index';
 import { createIncome, Summary, createSummary } from '../lib/model';
 import { LocalWaterfall } from '../lib/waterfall';
 import { removeOverflow } from '../lib/utils';
+import { RightCondition } from '../lib/condition.model';
 
 describe('Remove overflow', () => {
   let right: Right;
@@ -10,7 +11,7 @@ describe('Remove overflow', () => {
     summary = createSummary({ rights: { '0': 10 }});
     right = createRight({
       id: '0',
-      conditions: [{ kind: 'step', rightId: '0', max: 50 } as any]
+      conditions: [{ kind: 'right', rightId: '0', max: 50 } as RightCondition]
     });
   })
   it('Without overflow', () => {
@@ -50,7 +51,7 @@ describe('Get Income from waterfall', () => {
     const rights: Right[] = [
       createRight({ id: '2', percentage: 1, termsIds: ['terms'], parentIds: ['1'] }),
       createRight({ id: '1', percentage: 0.5, termsIds: ['terms'], parentIds: ['0'] }),
-      createRight({ id: '0', percentage: 0.5,  termsIds: ['terms'] }),
+      createRight({ id: '0', percentage: 0.5,  termsIds: ['terms'], parentIds: ['terms'] }),
     ];
     const income: Income = createIncome({ termsId: 'terms', amount: 100 });
     const waterfall = new LocalWaterfall({ rights, terms });

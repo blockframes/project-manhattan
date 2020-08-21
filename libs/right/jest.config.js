@@ -1,6 +1,7 @@
 module.exports = {
   name: 'right',
   preset: '../../jest.config.js',
+  testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
