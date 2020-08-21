@@ -22,6 +22,9 @@ export interface ReceiptRight {
 // SUMMARY //
 /////////////
 export interface Summary {
+  id: string;
+  previous?: string;
+  next?: string;
   title: {
     total: number;
     [termsId: string]: number;
@@ -39,6 +42,7 @@ export interface Summary {
 
 export function createSummary(params: Partial<Summary> = {}): Summary {
   return {
+    id: '',
     title: {
       total: 0
     },
@@ -55,9 +59,9 @@ export function createSummary(params: Partial<Summary> = {}): Summary {
 export interface Right {
   id: string;
   percentage: number;
-  parentIds?: string[];
+  parentIds: string[];
   orgId: string;
-  termsId: string;
+  termsIds: string[];
   conditions?:  Condition[];
 }
 
@@ -66,7 +70,7 @@ export function createRight(params: Partial<Right> = {}): Right {
     id: '',
     percentage: 0,
     orgId: '',
-    termsId: '',
+    termsIds: [],
     parentIds: [],
     ...params
   };
@@ -138,11 +142,6 @@ export const createTerms = (params: Partial<Terms>): Terms => ({
   ...params
 })
 
-/** Either a exclude something from b or a includes something from b */
-export function termIncompatibility(a: Terms, b: Terms, field: 'territories' | 'channels') {
-  return a[field].excluded.some(excluded => b[field].included.includes(excluded))
-  || a[field].included.some(included => b[field].excluded.includes(included));
-}
 
 ////////////
 // INCOME //

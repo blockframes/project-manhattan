@@ -1,8 +1,7 @@
-import { Right, Event, Terms, Income, termIncompatibility, Party, Summary, createSummary, createIncome } from './model';
-import * as cdt from './condition.model';
+import { Right, Terms, Income, Party, Summary, createSummary, createIncome } from './model';
+import { removeOverflow, checkCondition, termIncompatibility } from './utils';
 
 interface WaterfallJson {
-  events?: Event[];
   rights?: Right[];
   terms?: Terms[];
   parties?: Party[];
@@ -31,26 +30,23 @@ function toObject<T extends { id: string }>(list?: T[]): Record<string, T> {
  */
 
 export class LocalWaterfall {
-  private events: Record<string, Event> = {};
   private rights: Record<string, Right> = {};
   private terms: Record<string, Terms> = {};
   private incomes: Record<string, Income> = {};
   private summary: Summary;
 
   constructor(data: WaterfallJson = {}) {
-    this.events = toObject(data.events);
     this.rights = toObject(data.rights);
     this.terms = toObject(data.terms);
     this.summary = createSummary();
   }
 
-  async getEvent(id: string) {
-    if (!id) throw new Error('Provide an id to method "getEvent"');
-    return this.events[id];
-  }
-  async getRight(id: string) {
-    if (!id) throw new Error('Provide an id to method "getRight"');
-    return this.rights[id];
+  async queryRights(parentId: string | 'root', termsId: string) {
+    return Object.values(this.rights).filter((right) => {
+      const hasParent = right.parentIds.includes(parentId);
+      const hasTerms = right.termsIds.includes(termsId);
+      return hasParent && hasTerms;
+    });
   }
   async getTerms(id: string) {
     if (!id) throw new Error('Provide an id to method "getTerms"');
@@ -100,27 +96,26 @@ export class LocalWaterfall {
   
   /** Get the first right for a specific income */
   async queryFirstRight(income: Income): Promise<Right | undefined> {
-    return Object.values(this.rights).find((right) => {
-      const hasParent = !!right.parentIds?.length;
-      return !hasParent && this.areTermsCompatible(right.termsId, income.termsId);
-    });
-  }
-
-  /** Query all rights after this one */
-  async queryNext(parentId: string) {
-    return Object.values(this.rights).filter((right) => right.parentIds?.includes(parentId));
+    const rights = await this.queryRights('root', income.termsId);
+    if (rights.length > 1) {
+      throw new Error('There are multiple first right for terms id: ' + income.termsId);
+    }
+    if (rights.length === 0) {
+      throw new Error('Could not find first right for terms id: ' + income.termsId);
+    }
+    return rights[0];
   }
 
   async getIncome(income: Income, right: Right): Promise<void> {
     const canCashIn = await this.checkAllCondition(right);
     const rest = canCashIn
-      ? await this.cashIn(income.amount, right)
+      ? await this.cashIn(income, right)
       : income.amount;
 
     if (rest > 0) {
       // Create a copy of the income with the amount updated after right took value
       const nextIncome = createIncome({ ...income, amount: rest });
-      const nexts = await this.queryNext(right.id);
+      const nexts = await this.queryRights(right.id, income.termsId);
       for (const next of nexts) {
         this.getIncome(nextIncome, next);
       }
@@ -132,16 +127,16 @@ export class LocalWaterfall {
    * @param base The amount incoming to the right
    * @param right The right used for calculation
    */
-  async cashIn(base: number, right: Right): Promise<number> {
-    const amount = base * right.percentage;
+  async cashIn(income: Income, right: Right): Promise<number> {
+    const amount = income.amount * right.percentage;
     const summary = await this.getSummary();
     const remain = removeOverflow(amount, right, summary);
     // Update summary
     summary.rights[right.id] += remain;
     summary.orgs[right.orgId].total += remain;
-    summary.orgs[right.orgId][right.termsId] += remain;
+    summary.orgs[right.orgId][income.termsId] += remain;
     
-    return base - remain;
+    return income.amount - remain;
   }
 
   ///////////////
@@ -157,49 +152,4 @@ export class LocalWaterfall {
   }
 
 
-}
-
-/** remove the overflow of an income */
-export function removeOverflow(amount: number, right: Right, summary: Summary) {
-  const selfTarget = (condition: cdt.Condition): condition is cdt.RightCondition => {
-    return cdt.isRightCondition(condition) && condition.rightId === right.id;
-  };
-  const step = right.conditions?.find(selfTarget);
-  if (step?.max) {
-    const remain = step.max - summary.rights[right.id];
-    return Math.min(amount, remain);
-  } else {
-    return amount;
-  }
-}
-
-/** Verify a condition */
-function checkCondition(condition: cdt.Condition, summary: Summary) {
-  const total = getTotal(condition, summary);
-  if (total) {
-    const checkMin = !condition.min || total > condition.min;
-    const checkMax = !condition.max || total < condition.max;
-    return checkMin && checkMax;
-  } else {
-    return false; // TODO: what if this is a custom condition ???
-  }
-}
-
-function getTotal(condition: cdt.Condition, summary: Summary) {
-  if (cdt.isRightCondition(condition)) {
-    return summary.rights[condition.rightId];
-  }
-  if (cdt.isOrgCondition(condition)) {
-    return summary.orgs[condition.orgId].total;
-  }
-  if (cdt.isOrgTermsCondition(condition)) {
-    return summary.orgs[condition.orgId][condition.termsId];
-  }
-  if (cdt.isTitleCondition(condition)) {
-    return summary.title.total;
-  }
-  if (cdt.isTitleTermsCondition(condition)) {
-    return summary.title[condition.termsId];
-  }
-  return 0;
 }
