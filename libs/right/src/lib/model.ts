@@ -37,7 +37,6 @@ export function createSummary(params: Partial<Summary> = {}): Summary {
 ///////////
 // RIGHT //
 ///////////
-
 export interface Right {
   id: string;
   percentage: number;
