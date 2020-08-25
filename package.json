@@ -66,6 +66,7 @@
     "@angular/cli": "~10.0.0",
     "@angular/compiler-cli": "^10.0.0",
     "@angular/language-service": "^10.0.0",
+    "@firebase/testing": "^0.20.11",
     "@ngneat/transloco-keys-manager": "^2.2.1",
     "@nguniversal/builders": "^10.0.2",
     "@nrwl/cypress": "10.0.12",
