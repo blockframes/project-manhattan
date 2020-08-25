@@ -8,8 +8,16 @@
       <h1>{{ movie.title | titlecase }}</h1>
     </mat-toolbar>
   
-    <main>
-      <router-outlet></router-outlet>
+    <nav mat-tab-nav-bar>
+      <ng-container *ngFor="let link of links">
+        <a mat-tab-link [routerLink]="link" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+          {{ link | titlecase }}
+        </a>
+      </ng-container>
+    </nav>
+
+    <main [@routeAnimation]="routeChange(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
     </main>
   </ng-container>
 </ng-container>

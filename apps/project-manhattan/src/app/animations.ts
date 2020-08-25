@@ -134,10 +134,10 @@ const prepare = [
 export const routeAnimation = trigger('routeAnimation', [
   transition('list => view', [
       ...prepare,
-      query(':enter', [ style({ transform: 'translateY(100vh)', boxShadow: '0px -2px 16px 0px rgba(0,0,0,0.3)' }) ], { optional: true }),
+      query(':enter', [ style({ opacity: 0, transform: 'translateY(40vh)', boxShadow: '0px -2px 16px 0px rgba(0,0,0,0.3)' }) ], { optional: true }),
       group([
-          query(':leave', [ animate(`200ms ease-in`, style({ opacity: 0, transform: 'scale(0.95)' })) ], { optional: true }),
-          query(':enter', [ animate(`500ms 100ms ${Easing.easeOutCirc}`, style({ transform: 'translateY(0)' })) ], { optional: true })
+          query(':leave', [ animate(`200ms ${Easing.easeIncubic}`, style({ opacity: 0, transform: 'scale(0.95)' })) ], { optional: true }),
+          query(':enter', [ animate(`500ms 100ms ${Easing.easeOutCirc}`, style({ opacity: 1, transform: 'translateY(0)' })) ], { optional: true })
       ]),
   ]),
   transition('view => list', [
@@ -145,8 +145,24 @@ export const routeAnimation = trigger('routeAnimation', [
       query(':enter', [ style({ opacity: 0, transform: 'scale(0.95)' }) ], { optional: true }),
       query(':leave', [ style({ zIndex: 1, boxShadow: '0px -2px 16px 0px rgba(0,0,0,0.3)' }) ], { optional: true }),
       group([
-        query(':leave', [ animate(`400ms ease-in`, style({ transform: 'translateY(100vh)' })) ], { optional: true }),
-        query(':enter', [ animate(`200ms 200ms ${Easing.easeOutCirc}`, style({ opacity: 1, transform: 'scale(1)' })) ], { optional: true }),
+        query(':leave', [ animate(`400ms ${Easing.easeIncubic}`, style({ opacity: 0, transform: 'translateY(40vh)' })) ], { optional: true }),
+        query(':enter', [ animate(`200ms 300ms ${Easing.easeOutCirc}`, style({ opacity: 1, transform: 'scale(1)' })) ], { optional: true }),
       ]),
   ]),
+  transition(':increment', [
+    ...prepare,
+    query(':enter', [ style({ opacity: 0, transform: 'translateX(30vw)' }) ], { optional: true }),
+    sequence([
+      query(':leave', [ animate(`500ms ${Easing.easeIncubic}`, style({ opacity: 0, transform: 'translateX(-30vw)' })) ], { optional: true }),
+      query(':enter', [ animate(`500ms ${Easing.easeOutcubic}`, style({ opacity: 1, transform: 'translateX(0)' })) ], { optional: true }),
+    ]),
+  ]),
+  transition(':decrement', [
+    ...prepare,
+    query(':enter', [ style({ opacity: 0, transform: 'translateX(-30vw)' }) ], { optional: true }),
+    sequence([
+      query(':leave', [ animate(`500ms ${Easing.easeIncubic}`, style({ opacity: 0, transform: 'translateX(30vw)' })) ], { optional: true }),
+      query(':enter', [ animate(`500ms ${Easing.easeOutcubic}`, style({ opacity: 1, transform: 'translateX(0)' })) ], { optional: true }),
+    ]),
+  ])
 ]);

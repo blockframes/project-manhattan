@@ -6,6 +6,12 @@ service cloud.firestore {
 
       match /movies/{movieId} {
         allow read, write: if true;
+          match /terms/{termsId} {
+            allow read, write: if true;
+          }
+          match /rights/{rightId} {
+            allow read, write: if true;
+          }
       }
     }
   }
