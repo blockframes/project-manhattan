@@ -5,18 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "debug-jest-lib",
-       "type": "node",
-       "request": "launch",
-       "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
-       "args": [
-         "test", 
-         "right",
-         "--codeCoverage=false",
-         "--testNamePattern=CarService",
-       ],
-       "cwd": "${workspaceFolder}",
-       "console": "internalConsole"
-     }
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File (using nx)",
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx.js",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "test",
+        "right",
+        "--testPathPattern=${fileBasenameNoExtension}",
+        "--runInBand"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    }
   ]
 }
