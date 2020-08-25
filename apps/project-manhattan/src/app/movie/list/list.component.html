@@ -11,7 +11,7 @@
     <ng-container *ngIf="list.length else empty">
       <grid @slideUpList >
         <ng-container *ngFor="let movie of list; trackBy: trackById">
-          <a matRipple @scaleIn class="movie-card" [routerLink]="['..', movie.id]">
+          <a matRipple @scaleIn class="movie-card" [routerLink]="['..', movie.id, 'right']">
             <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" [alt]="t('item.alt')" />
           </a>
         </ng-container>
@@ -19,9 +19,7 @@
     </ng-container>
   </ng-container>
   <ng-template #loading>
-    <div class="loading" @slideDown fxLayout fxLayoutAlign="center center">
-      <p>loading...</p>
-    </div>
+    <div class="loading" @slideDown fxLayout fxLayoutAlign="center center"></div>
   </ng-template>
   <ng-template #empty>
     <p>Nothing here</p>

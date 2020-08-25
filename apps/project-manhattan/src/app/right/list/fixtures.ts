@@ -1,5 +1,4 @@
-import { Right, Terms } from '../lib/model';
-import { RightCondition } from '../lib/condition.model';
+import { Right, Terms, RightCondition } from '../+state/model';
 
 export const RIGHTS: Right[] = [
   {

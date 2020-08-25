@@ -7,7 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -28,14 +28,23 @@ const routes: Route[] = [{
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FlexLayoutModule.withConfig({ssrObserveBreakpoints: ['xs', 'lt-md'] }),
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+      paramsInheritanceStrategy: 'always'
+    }),
     BrowserAnimationsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     TranslocoRootModule
   ],
-  providers: [],
+  providers: [{
+    provide: SETTINGS,
+    useValue: environment.production ? undefined : {
+      host: 'localhost:8080',
+      ssl: false
+    }
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

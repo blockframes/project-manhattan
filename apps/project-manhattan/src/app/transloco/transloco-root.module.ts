@@ -1,3 +1,4 @@
+import { Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   TRANSLOCO_LOADER,
@@ -7,7 +8,8 @@ import {
   translocoConfig,
   TranslocoModule
 } from '@ngneat/transloco';
-import { Injectable, NgModule } from '@angular/core';
+import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
+
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +22,14 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 }
 
 @NgModule({
+  imports: [
+    TranslocoLocaleModule.init({
+      defaultLocale: 'fr-FR',
+      langToLocaleMapping: {
+        fr: 'fr-FR'
+      }
+    })
+  ],
   exports: [ TranslocoModule ],
   providers: [
     {

@@ -1,0 +1,59 @@
+<ng-container *transloco="let t; read: 'right.list'">
+  <ng-container *ngIf="terms$ | async as termsList; else loading">
+    <ng-container *ngIf="termsList.length; else empty">
+      <mat-sidenav-container>
+
+        <!-- List -->
+        <mat-sidenav-content fxLayout fxLayoutGap="16px">
+          <ng-container *ngFor="let terms of termsList; trackBy: trackById">
+            <ng-container *ngIf="terms | queryRight | async as rights">
+              <div @slideUpList class="terms" fxLayout="column" fxLayoutGap="16px">
+                <h2>{{ terms.id }}</h2>
+                <ng-container *ngFor="let right of rights; trackBy: trackById">
+                  <mat-card matRipple (click)="select(right)">
+                    {{ right.id }}
+                  </mat-card>
+                </ng-container>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-sidenav-content>
+
+        <!-- View -->
+        <mat-sidenav [opened]="!!right" mode="side" position="end" (closed)="right = null">
+          <ng-container *ngIf="right">
+            <mat-toolbar>
+              <button mat-icon-button (click)="right = null">
+                <mat-icon>close</mat-icon>
+              </button>
+              <h2>{{ right.id }}</h2>
+            </mat-toolbar>
+            <section>
+              <h3>Description</h3>
+              <p>Terms: <b *ngFor="let termsId of right.termsIds">{{ termsId }}</b></p>
+              <p>Percentage: {{ right.percentage | percent }}</p>
+            </section>
+            <section *ngFor="let condition of right.conditions">
+              <h3>Condition: {{ condition.kind }}</h3>
+              <span *ngIf="condition.min">min: {{ condition.min | translocoCurrency }}</span>
+              <span *ngIf="condition.max">max: {{ condition.max | translocoCurrency }}</span>
+            </section>
+          </ng-container>
+        </mat-sidenav>
+
+      </mat-sidenav-container>
+
+    </ng-container>
+  </ng-container>
+
+  <ng-template #empty>
+    <p>There is no waterfall loaded yet. For the demo click here to load a dataset.</p>
+    <button mat-button (click)="uplaodDataset()">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>Upload dataset</span>
+    </button>
+  </ng-template>
+  <ng-template #loading>
+    <div class="loading" @slideDown fxLayout fxLayoutAlign="center center"></div>
+  </ng-template>
+</ng-container>

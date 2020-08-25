@@ -16,6 +16,7 @@ import { GridModule } from '../utils/grid';
 // Material
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,7 +39,16 @@ const routes: Route[] = [{
 }, {
   path: ':movieId',
   component: ViewComponent,
-  data: { animation: 'view' }
+  data: { animation: 'view' },
+  children: [{
+    path: 'right',
+    data: { animation: 0 },
+    loadChildren: () => import('../right/right.module').then(m => m.RightModule)
+  }, {
+    path: 'income',
+    data: { animation: 1 },
+    loadChildren: () => import('../income/income.module').then(m => m.IncomeModule)
+  }]
 }];
 
 @NgModule({
@@ -51,6 +61,7 @@ const routes: Route[] = [{
     GridModule,
     MatCardModule,
     MatToolbarModule,
+    MatTabsModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,

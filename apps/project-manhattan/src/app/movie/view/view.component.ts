@@ -1,19 +1,22 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { MovieService } from '../+state/service';
 import { Observable } from 'rxjs';
 import { Movie } from '../+state/model';
+import { routeAnimation } from '../../animations';
 
 @Component({
   selector: 'movie-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
+  animations: [routeAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit {
 
   movie$: Observable<Movie>;
+  links = ['right', 'income'];
 
   constructor(private service: MovieService, private route: ActivatedRoute) { }
 
@@ -22,6 +25,10 @@ export class ViewComponent implements OnInit {
       map(params => params['movieId'] as string),
       switchMap(movieId => this.service.valueChanges(movieId))
     );
+  }
+
+  routeChange(outlet: RouterOutlet) {
+    return outlet?.activatedRouteData?.animation;
   }
 
 }
