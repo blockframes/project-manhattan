@@ -1,17 +1,25 @@
 {
-  "indexes": [{ 
+  "indexes": [],
+  "fieldOverrides": [{
     "collectionGroup": "summaries",
-    "queryScope": "COLLECTION",
-    "fields": [
-      { "fieldPath": "date", "order": "DESCENDING" }
-    ]
-  }, { 
+    "fieldPath": "date",
+    "indexes": [{
+      "queryScope": "COLLECTION",
+      "order": "DESCENDING"
+    }]
+  },{
     "collectionGroup": "rights",
-    "queryScope": "COLLECTION",
-    "fields": [
-      { "fieldPath": "parentIds", "arrayConfig": "CONTAINS" },
-      { "fieldPath": "termsIds", "arrayConfig": "CONTAINS" }
-    ]
-  }],
-  "fieldOverrides": []
+    "fieldPath": "parentIds",
+    "indexes": [{
+      "queryScope": "COLLECTION",
+      "arrayConfig": "CONTAINS"
+    }]
+  },{
+    "collectionGroup": "rights",
+    "fieldPath": "termsIds",
+    "indexes": [{
+      "queryScope": "COLLECTION",
+      "arrayConfig": "CONTAINS"
+    }]
+  }]
 }
