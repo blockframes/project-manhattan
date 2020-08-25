@@ -16,7 +16,9 @@ export function removeOverflow(amount: number, right: Right, summary: Summary) {
   };
   const step = right.conditions?.find(selfTarget);
   if (step?.max) {
-    const remain = step.max - summary.rights[right.id];
+    // If right doesn't exist set to 0
+    const currentSold = summary.rights[right.id] || 0;
+    const remain = step.max - currentSold;
     return Math.min(amount, remain);
   } else {
     return amount;
@@ -25,15 +27,12 @@ export function removeOverflow(amount: number, right: Right, summary: Summary) {
 
 /** Verify a condition */
 export function checkCondition(condition: cdt.Condition, summary: Summary) {
-  const total = getTotal(condition, summary);
+  // If summary doesn't have the key we set total to 0
+  const total = getTotal(condition, summary) || 0;
   // TODO: what about equality
-  if (total) {
-    const checkMin = !condition.min || total > condition.min;
-    const checkMax = !condition.max || total < condition.max;
-    return checkMin && checkMax;
-  } else {
-    return false; // TODO: what if this is a custom condition ???
-  }
+  const checkMin = !condition.min || total > condition.min;
+  const checkMax = !condition.max || total < condition.max;
+  return checkMin && checkMax;
 }
 
 function getTotal(condition: cdt.Condition, summary: Summary) {

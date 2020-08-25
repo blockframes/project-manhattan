@@ -8,8 +8,16 @@ export interface Condition {
   max?: number;
 }
 
+
 export interface TitleCondition extends Condition {
   kind: 'titleTotal';
+}
+
+export function createTitleCondition(params: Partial<TitleCondition> = {}): TitleCondition {
+  return {
+    kind: 'titleTotal',
+    ...params
+  }
 }
 
 export function isTitleCondition(cdt: Condition): cdt is TitleCondition {
@@ -22,6 +30,16 @@ export interface TitleTermsCondition extends Condition {
   termsId: string;
 }
 
+
+export function createTitleTermsCondition(params: Partial<TitleTermsCondition> = {}): TitleTermsCondition {
+  return {
+    kind: 'titleTerms',
+    termsId: '',
+    ...params
+  }
+}
+
+
 export function isTitleTermsCondition(cdt: Condition): cdt is TitleTermsCondition {
   return cdt.kind === 'titleTerms';
 }
@@ -30,6 +48,14 @@ export function isTitleTermsCondition(cdt: Condition): cdt is TitleTermsConditio
 export interface RightCondition extends Condition {
   kind: 'right';
   rightId: string;
+}
+
+export function createRightCondition(params: Partial<RightCondition> = {}): RightCondition {
+  return {
+    kind: 'right',
+    rightId: '',
+    ...params
+  }
 }
 
 export function isRightCondition(cdt: Condition): cdt is RightCondition {
@@ -41,6 +67,15 @@ export interface OrgCondition extends Condition {
   orgId: string;
 }
 
+
+export function createOrgCondition(params: Partial<OrgCondition> = {}): OrgCondition {
+  return {
+    kind: 'orgTotal',
+    orgId: '',
+    ...params
+  }
+}
+
 export function isOrgCondition(cdt: Condition): cdt is OrgCondition {
   return cdt.kind === 'orgTotal';
 }
@@ -50,6 +85,15 @@ export interface OrgTermsCondition extends Condition {
   kind: 'orgTerms';
   termsId: string;
   orgId: string;
+}
+
+export function createOrgTermsCondition(params: Partial<OrgTermsCondition> = {}): OrgTermsCondition {
+  return {
+    kind: 'orgTerms',
+    termsId: '',
+    orgId: '',
+    ...params
+  }
 }
 
 export function isOrgTermsCondition(cdt: Condition): cdt is OrgTermsCondition {

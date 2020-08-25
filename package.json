@@ -8,6 +8,7 @@
     "nx": "nx",
     "start": "ng serve",
     "build": "npm run affected:server && npm run affected:build",
+    "pretest": "firebase emulators:start",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",

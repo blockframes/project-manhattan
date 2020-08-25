@@ -65,12 +65,13 @@ export async function processIncome(
       return rights[0];
     }
 
+    // We need to use parent / key to keep the mutation
     /** Set the value of an entry of the summary */
-    const setSummaryEntry = (entry: number |  undefined, increment: number): void => {
-      if (entry) {
-        entry += increment;
+    const setSummaryEntry = (parent: {[key: string]: number}, key: string, increment: number): void => {
+      if (parent[key]) {
+        parent[key] = parent[key] + increment;
       } else {
-        entry = increment;
+        parent[key] = increment;
       }
     }
 
@@ -86,9 +87,9 @@ export async function processIncome(
       if (!summary.orgs[right.orgId]) {
         summary.orgs[right.orgId] = { total: 0 };
       }
-      setSummaryEntry(summary.orgs[right.orgId].total, remain);
-      setSummaryEntry(summary.orgs[right.orgId][income.termsId], remain);
-      setSummaryEntry(summary.rights[right.id], remain);
+      setSummaryEntry(summary.orgs[right.orgId], 'total', remain);
+      setSummaryEntry(summary.orgs[right.orgId], income.termsId, remain);
+      setSummaryEntry(summary.rights, right.id, remain);
       
       return income.amount - remain;
     }
@@ -132,8 +133,8 @@ export async function processIncome(
     /////////////////
     const income = snap.data() as Income;
     /** Update the amount received by the title */
-    setSummaryEntry(summary.title.total, income.amount);
-    setSummaryEntry(summary.title[income.termsId], income.amount);
+    setSummaryEntry(summary.title, 'total', income.amount);
+    setSummaryEntry(summary.title, income.termsId, income.amount);
 
     const firstRight = await queryFirstRight(income);
     await getIncome(income, firstRight);
