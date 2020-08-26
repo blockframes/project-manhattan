@@ -16,7 +16,10 @@ import { routeAnimation } from '../../animations';
 export class ViewComponent implements OnInit {
 
   movie$: Observable<Movie>;
-  links = ['right', 'income'];
+  links = {
+    'right': 'waterfall', 
+    'income': 'emulator'
+  };
 
   constructor(private service: MovieService, private route: ActivatedRoute) { }
 

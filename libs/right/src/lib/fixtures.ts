@@ -1,46 +1,45 @@
 import { Right, Terms } from '../lib/model';
-import { RightCondition } from '../lib/condition.model';
+import { RightCondition, Condition } from '../lib/condition.model';
 
 export const RIGHTS: Right[] = [
   {
     id: "originTheatricalDistributionFees",
-    orgId: "Pathe",
-    percentage: 0.20,
+    orgId: "pathe",
+    percentage: 0.2,
     termsIds: ["originTheatrical"],
     parentIds: ["originTheatrical"],
   },
   {
     id: "originTvDistributionFees",
-    orgId: "Pathe",
-    percentage: 0.20,
+    orgId: "pathe",
+    percentage: 0.2,
     termsIds: ["originTv"],
     parentIds: ["originTv"],
   },
   {
     id: "originVideoDistributionFees",
-    orgId: "Pathe",
-    percentage: 0.20,
+    orgId: "pathe",
+    percentage: 0.2,
     termsIds: ["originVideo"],
     parentIds: ["originVideo"],
   },
-
   {
     id: "originVodDistributionFees",
-    orgId: "Pathe",
-    percentage: 0.20,
+    orgId: "pathe",
+    percentage: 0.2,
     termsIds: ["originVod"],
     parentIds: ["originVod"],
   },
   {
     id: "rowAllRightsDistributionFees",
-    orgId: "Pathe",
-    percentage: 0.20,
+    orgId: "pathe",
+    percentage: 0.2,
     termsIds: ["rowAllRights"],
     parentIds: ["rowAllRights"],
   },
   {
     id: "originTheatricalExpenses",
-    orgId: "Pathe",
+    orgId: "pathe",
     percentage: 1,
     termsIds: ["originTheatrical"],
     parentIds: ["originTheatricalDistributionFees"],
@@ -54,7 +53,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: "originVideoExpenses",
-    orgId: "Pathe",
+    orgId: "pathe",
     percentage: 1,
     termsIds: ["originVideo"],
     parentIds: ["originVideoDistributionFees"],
@@ -68,7 +67,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: "rowExpenses",
-    orgId: "Pathe",
+    orgId: "pathe",
     percentage: 1,
     termsIds: ["rowAllRights"],
     parentIds: ["rowAllRightsDistributionFees"],
@@ -78,10 +77,8 @@ export const RIGHTS: Right[] = [
         max: 56,
         rightId: "rowExpenses",
       },
-
     ],
    },
-
   {
     id: "RNPPAydTheatrical",
     orgId: "AYD",
@@ -118,68 +115,68 @@ export const RIGHTS: Right[] = [
     termsIds: ["originTv"],
   },
   {
-    id: "TVBroadcasterRNPP",
-    orgId: "TVBroadcaster",
-    percentage: 0.08,
+    id: "tVBroadcasterRNPP",
+    orgId: "tVBroadcaster",
+    percentage: 0.15,
     parentIds: ["originTvDistributionFees"],
     termsIds: ["originTv"],
   },
   {
-    id: "RNPPPatheTheatrical",
-    orgId: "Pathe",
+    id: "RNPPpatheTheatrical",
+    orgId: "pathe",
     percentage: 0.38,
     parentIds: ["originTheatricalExpenses"],
     termsIds: ["originTheatrical"],
   },
   {
-    id: "RNPPPatheVideo",
-    orgId: "Pathe",
+    id: "RNPPpatheVideo",
+    orgId: "pathe",
     percentage: 0.38,
     parentIds: ["originVideoExpenses"],
     termsIds: ["originVideo"],
   },
   {
-    id: "RNPPPatheVod",
-    orgId: "Pathe",
+    id: "RNPPpatheVod",
+    orgId: "pathe",
     percentage: 0.38,
     parentIds: ["originVodDistributionFees"],
     termsIds: ["originVod"],
   },
   {
-    id: "RNPPPatheRow",
-    orgId: "Pathe",
+    id: "RNPPpatheRow",
+    orgId: "pathe",
     percentage: 0.38,
     parentIds: ["rowExpenses"],
     termsIds: ["rowAllRights"],
   },
   {
-    id: "RNPPPatheTv",
-    orgId: "Pathe",
+    id: "RNPPpatheTv",
+    orgId: "pathe",
     percentage: 0.35,
     parentIds: ["originTvDistributionFees"],
     termsIds: ["originTv"],
   },
   {
-    id: "TvBroadcasterSupport",
-    orgId: "TVBroadcaster",
-    percentage: 0.10,
+    id: "tVBroadcasterSupport",
+    orgId: "tVBroadcaster",
+    percentage: 0.1,
     parentIds: ["prodFullSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
   },
   {
-    id: "EquitySupport",
-    orgId: "Equity",
+    id: "equitySupport",
+    orgId: "equity",
     percentage: 0.064,
     parentIds: ["prodFullSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
   },
   {
     id: "prodFullSupport",
-    orgId: "Prod",
+    orgId: "prod",
     parentIds: ["theatricalSupport", "videoSupport", "tvSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
     percentage: 1,
-    conditions:  [{
+    conditions:  [ {
       kind: "right",
       max: 150,
       rightId: "prodFullSupport",
@@ -187,20 +184,26 @@ export const RIGHTS: Right[] = [
   },
   {
     id: "prodFollowingSupport",
-    orgId: "Prod",
-    percentage: 0.50,
+    orgId: "prod",
+    percentage: 0.5,
     parentIds: ["prodFullSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
   },
   {
-    id: "PatheSupport",
-    orgId: "Pathe",
+    id: "patheSupport",
+    orgId: "pathe",
     percentage: 0.336,
     parentIds: ["prodFullSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
   },
+  {
+    id: "patheBonusSupport",
+    orgId: "pathe",
+    percentage: 1,
+    parentIds: ["bonusSupport"],
+    termsIds: ["bonusSupport"],
+  },
 ];
-
 export const CONDITIONS: RightCondition[] = [
   {
     kind: "right",
@@ -223,10 +226,10 @@ export const CONDITIONS: RightCondition[] = [
     rightId: "prodFullSupport",
   },
 ];
-
 export const TERMS: Terms[] = [
   {
     id: "originTheatrical",
+    title: "Exploitation Salles",
     territories: {
       included: ["France", "Switzerland", "Belgium"],
       excluded: [],
@@ -235,9 +238,11 @@ export const TERMS: Terms[] = [
       included: ["theatrical"],
       excluded: [],
     },
+    type: "origin",
   },
   {
     id: "originTv",
+    title: "Exploitation TV",
     territories: {
       included: ["France", "Switzerland", "Belgium"],
       excluded: [],
@@ -246,9 +251,11 @@ export const TERMS: Terms[] = [
       included: ["pay-tv", "free-tv"],
       excluded: [],
     },
+    type: "origin",
   },
   {
     id: "originVideo",
+    title: "Exploitation Vidéo",
     territories: {
       included: ["France", "Switzerland", "Belgium"],
       excluded: [],
@@ -257,9 +264,11 @@ export const TERMS: Terms[] = [
       included: ["video"],
       excluded: [],
     },
+    type: "origin",
   },
   {
     id: "originVod",
+    title: "Exploitation VOD",
     territories: {
       included: ["France", "Switzerland", "Belgium"],
       excluded: [],
@@ -268,9 +277,11 @@ export const TERMS: Terms[] = [
       included: ["est", "pay-per-view", "n-vod", "a-vod", "f-vod", "s-vod"],
       excluded: [],
     },
+    type: "origin",
   },
   {
     id: "rowAllRights",
+    title: "Exploitation Export",
     territories: {
       included: ["World"],
       excluded: ["France", "Switzerland", "Belgium"],
@@ -279,8 +290,11 @@ export const TERMS: Terms[] = [
       included: ["all-rights"],
       excluded: [],
     },
-  },  {
+    type: "origin",
+  },
+  {
     id: "theatricalSupport",
+    title: "Soutien financier salle",
     territories: {
       included: ["France"],
       excluded: [],
@@ -289,8 +303,10 @@ export const TERMS: Terms[] = [
       included: ["theatrical"],
       excluded: [],
     },
+    type: "support",
   },  {
     id: "videoSupport",
+    title: "Soutien financier vidéo",
     territories: {
         included: ["France"],
         excluded: [],
@@ -299,8 +315,10 @@ export const TERMS: Terms[] = [
       included: ["video"],
       excluded: [],
     },
+    type: "support",
   },  {
     id: "tvSupport",
+    title: "Soutien financier TV",
     territories: {
         included: ["France"],
         excluded: [],
@@ -309,12 +327,19 @@ export const TERMS: Terms[] = [
       included: ["pay-tv", "free-tv"],
       excluded: [],
     },
+    type: "support",
+  },
+  {
+    id: "bonusSupport",
+    title: "Majoration soutien financier",
+    territories: {
+        included: ["France"],
+        excluded: [],
+      },
+    channels: {
+      included: ["pay-tv", "free-tv"],
+      excluded: [],
+    },
+    type: "support",
   },
 ];
-
-
-export const CNC_SUPPORT: Record<number, number> = {
-  0: 1.1187,
-  1_500_000: 0.8502,
-  5_000_000: 0.0895
-};

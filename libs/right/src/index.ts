@@ -5,3 +5,4 @@ export * from './lib/condition.model';
 export * from './lib/utils';
 export * from './lib/local';
 export * from './lib/income';
+export * from './lib/fixtures';

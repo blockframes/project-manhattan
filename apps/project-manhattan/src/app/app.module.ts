@@ -30,7 +30,8 @@ const routes: Route[] = [{
     FlexLayoutModule.withConfig({ssrObserveBreakpoints: ['xs', 'lt-md'] }),
     RouterModule.forRoot(routes, {
       preloadingStrategy: PreloadAllModules,
-      paramsInheritanceStrategy: 'always'
+      paramsInheritanceStrategy: 'always',
+      relativeLinkResolution: 'corrected'
     }),
     BrowserAnimationsModule,
     HttpClientModule,

@@ -4,6 +4,7 @@ export class MovieForm extends FormGroup {
   constructor() {
     super({
       title: new FormControl(),
+      poster: new FormControl(),
     })
   }
 

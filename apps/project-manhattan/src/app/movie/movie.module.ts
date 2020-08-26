@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 
 const routes: Route[] = [{
@@ -41,13 +42,17 @@ const routes: Route[] = [{
   component: ViewComponent,
   data: { animation: 'view' },
   children: [{
-    path: 'right',
-    data: { animation: 0 },
-    loadChildren: () => import('../right/right.module').then(m => m.RightModule)
-  }, {
+    path: '',
+    redirectTo: 'income',
+    pathMatch: 'full'
+  },{
     path: 'income',
-    data: { animation: 1 },
+    data: { animation: 0 },
     loadChildren: () => import('../income/income.module').then(m => m.IncomeModule)
+  }, {
+    path: 'right',
+    data: { animation: 1 },
+    loadChildren: () => import('../right/right.module').then(m => m.RightModule)
   }]
 }];
 
@@ -66,6 +71,7 @@ const routes: Route[] = [{
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatRadioModule,
     MatRippleModule,
     RouterModule.forChild(routes)
   ],

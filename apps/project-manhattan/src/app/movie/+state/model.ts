@@ -3,6 +3,7 @@ import type { firestore } from 'firebase';
 export class Movie {
   id: string;
   title: string;
+  poster: string;
 }
 
 export const movieConverter: firestore.FirestoreDataConverter<Movie> = {
