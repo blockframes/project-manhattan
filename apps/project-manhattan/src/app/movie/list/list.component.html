@@ -18,10 +18,13 @@
       </grid>
     </ng-container>
   </ng-container>
+  <ng-template #empty>
+    <section class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <img src="assets/img/empty.svg"/>
+      <p>Add a new movie by clicking the "+" on the top.</p>
+    </section>
+  </ng-template>
   <ng-template #loading>
     <div class="loading" @slideDown fxLayout fxLayoutAlign="center center"></div>
-  </ng-template>
-  <ng-template #empty>
-    <p>Nothing here</p>
   </ng-template>
 </ng-container>

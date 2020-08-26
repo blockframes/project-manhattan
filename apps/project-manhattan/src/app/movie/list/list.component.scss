@@ -4,15 +4,6 @@ main {
   margin: 24px;
 }
 
-.loading {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(white, 0.3);
-}
-
 a.movie-card {
   border-radius: 4px;
   line-height: 0; // needed to remove bottom padding
@@ -29,4 +20,21 @@ a.movie-card {
 a.movie-card:hover {
   @include mat-elevation(8);
   transform: scale(1.02);
+}
+
+
+.empty {
+  height: calc(100% - 64px);
+  img {
+    max-width: 300px;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(white, 0.3);
 }

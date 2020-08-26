@@ -47,11 +47,14 @@
   </ng-container>
 
   <ng-template #empty>
-    <p>There is no waterfall loaded yet. For the demo click here to load a dataset.</p>
-    <button mat-button (click)="uplaodDataset()">
-      <mat-icon>cloud_upload</mat-icon>
-      <span>Upload dataset</span>
-    </button>
+    <section class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <img src="assets/img/upload.svg"/>
+      <p>There is no waterfall loaded yet. For the demo click here to load a dataset.</p>
+      <button mat-button (click)="uplaodDataset()">
+        <mat-icon>cloud_upload</mat-icon>
+        <span>Upload dataset</span>
+      </button>
+    </section>
   </ng-template>
   <ng-template #loading>
     <div class="loading" @slideDown fxLayout fxLayoutAlign="center center"></div>
