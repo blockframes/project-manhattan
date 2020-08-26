@@ -1,0 +1,13 @@
+{
+  "create": {
+    "ticket": {
+      "amount": {
+        "label": "Ticket vendus"
+      },
+      "price": {
+        "label": "Prix d'un ticket"
+      },
+      "submit": "Lancer la simulation"
+    }
+  }
+}

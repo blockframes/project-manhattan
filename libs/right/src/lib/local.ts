@@ -3,7 +3,7 @@ import { Income, Right, createSummary, createIncome } from './model';
 import { removeOverflow, checkCondition } from './utils';
 
 // Run locally the script
-export async function processIncome(
+export async function emulateSummary(
   db: firestore.Firestore,
   income: Income,
   movieId: string,

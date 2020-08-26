@@ -22,3 +22,5 @@ $light-theme: mat-light-theme((
 $config: mat-get-color-config($light-theme);
 $background: map-get($config, background);
 $background-color: mat-color($background, background);
+$background-card:  mat-color($background, card);
+$background-app-bar: mat-color($background, app-bar);

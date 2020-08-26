@@ -1,0 +1,23 @@
+@import 'theme';
+
+form {
+  background-color: $background-app-bar;
+  padding: 24px;
+}
+
+section {
+  padding: 24px;
+}
+
+table {
+  width: 100%;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(white, 0.3);
+}

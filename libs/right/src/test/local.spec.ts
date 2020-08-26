@@ -1,7 +1,7 @@
 import { firestore, initializeAdminApp } from '@firebase/testing';
 
 // Import functions only after initializing the app
-import { processIncome } from '../lib/local';
+import { emulateSummary } from '../lib/local';
 import { Income, Right, createRight, Terms, createTerms, Summary, createSummary } from '../lib/model';
 import { RIGHTS, TERMS } from './fixtures';
 
@@ -31,7 +31,7 @@ describe.only('Distribute income', () => {
   }
 
   const addIncome = (income: Income, oldSummary: Summary = createSummary()) => {
-    return processIncome(db, income, movieId, oldSummary);
+    return emulateSummary(db, income, movieId, oldSummary);
   }
 
   ////////////////

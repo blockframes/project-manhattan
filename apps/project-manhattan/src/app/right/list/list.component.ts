@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { slideUpList } from '../../animations';
+import { slideUpList, slideDown } from '../../animations';
 
 import { RIGHTS, TERMS } from './fixtures';
 
@@ -12,7 +12,7 @@ import { RIGHTS, TERMS } from './fixtures';
   selector: 'right-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [slideUpList('h2, mat-card')],
+  animations: [slideDown, slideUpList('h2, mat-card')],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit {
