@@ -28,6 +28,13 @@ mat-card {
   text-overflow: ellipsis;
 }
 
+.empty {
+  height: 100%;
+  img {
+    max-width: 300px;
+  }
+}
+
 
 .loading {
   position: absolute;

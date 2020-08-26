@@ -15,7 +15,7 @@
 
 
   <section *ngIf="!isLoading; else loading">
-    <ng-container *ngIf="summary">
+    <ng-container *ngIf="summary; else empty">
       <article @slideUpList fxLayout="column" fxLayoutGap="16px" class="summary">
         <h2 class="up">Summary</h2>
         <h3 class="up">Total: {{ summary.title.total | translocoCurrency }}</h3>
@@ -45,6 +45,12 @@
       </article>
     </ng-container>
   </section>
+  <ng-template #empty>
+    <section class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <img src="assets/img/calcul.svg"/>
+      <p>Use form above to run a simulation.</p>
+    </section>
+  </ng-template>
   <ng-template #loading>
     <div class="loading" @slideDown fxLayout fxLayoutAlign="center center">
       We are running the calculation, it will take less than a minute
