@@ -1,0 +1,36 @@
+<ng-container *transloco="let t; read: 'income.form'">
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngIf="form else empty">
+      <form @slideDownList [formGroup]="form">
+        <div formGroupName="terms" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+          <ng-container *ngFor="let terms of termsList">
+            <mat-form-field>
+              <mat-label>{{ terms.id }}</mat-label>
+              <input matInput [formControlName]="terms.id" type="number" />
+              <span matSuffix>€</span>
+            </mat-form-field>
+          </ng-container>
+        </div>
+
+        <div formGroupName="ticket" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+          <mat-form-field>
+            <mat-label>{{ t('ticket.amount') }}</mat-label>
+            <input matInput formControlName="amount" name="amount" type="number" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ t('ticket.price') }}</mat-label>
+            <input matInput formControlName="price" name="price" type="number" />
+            <span matSuffix>€</span>
+          </mat-form-field>
+          <button mat-button (click)="emulate()">{{ t('submit') }}</button>
+        </div>
+        
+      </form>
+    </ng-container>
+  </ng-container>
+  <ng-template #empty>
+    <header fxLayout fxLayoutAlign="center center">
+      <a @slideDown mat-button routerLink="../right">{{ t('empty') }}</a>
+    </header>
+  </ng-template>
+</ng-container>

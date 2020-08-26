@@ -12,6 +12,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CreateComponent implements OnInit {
 
   form = new MovieForm();
+  posters = [
+    "assets/img/poster-1.png",
+    "assets/img/poster-2.png",
+    "assets/img/poster-3.png",
+  ];
 
   constructor(
     private db: AngularFirestore,

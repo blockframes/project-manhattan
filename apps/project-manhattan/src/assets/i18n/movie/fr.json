@@ -1,5 +1,8 @@
 {
   "create": {
+    "poster": {
+      "label": "Choissir un poster"
+    },
     "title": {
       "label": "titre",
       "placeholder": "titre du film"
@@ -12,6 +15,11 @@
     "create": "ajouter",
     "item": {
       "alt": "poster du film"
-    }
+    },
+    "empty": "Ajouter un nouveau film en cliquant sur le bouton (+) en haut"
+  },
+  "view": {
+    "waterfall": "waterfall",
+    "emulator": "simulation"
   }
 }

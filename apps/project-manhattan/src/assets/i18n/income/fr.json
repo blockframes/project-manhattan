@@ -1,13 +1,21 @@
 {
-  "create": {
+  "form": {
     "ticket": {
-      "amount": {
-        "label": "Ticket vendus"
-      },
-      "price": {
-        "label": "Prix d'un ticket"
-      },
-      "submit": "Lancer la simulation"
-    }
+      "amount": "Ticket vendus",
+      "price": "Prix d'un ticket"
+    },
+    "submit": "Lancer la simulation",
+    "empty": "Créer le waterfall de votre film."
+  },
+  "simulation": {
+    "summary": {
+      "title": "Synthèse",
+      "chart": {
+        "1": "Recette par entreprise.",
+        "2": "Recette par entreprise."
+      }
+    },
+    "empty": "Remplir le formulaire au dessus pour lancer une simulation.",
+    "loading": "Le calcul est lancé, cela prendra moins d'une minute."
   }
 }

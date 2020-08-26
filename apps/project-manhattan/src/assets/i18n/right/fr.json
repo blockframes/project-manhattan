@@ -1,1 +1,11 @@
-{}
+{
+  "list": {
+    "empty": {
+      "text": "Il n'y a pas de waterfall pour ce film. Choissiez une des démo ci-dessous.",
+      "upload": {
+        "1": "Sans MG",
+        "2": "Avec MG"
+      }
+    }
+  }
+}

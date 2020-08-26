@@ -71,12 +71,16 @@ export interface Excludable {
 /** Terms of a right */
 export interface Terms {
   id: string;
+  type: 'origin' | 'support';
+  title: string;
   territories: Excludable;
   channels: Excludable;
 }
 
 export const createTerms = (params: Partial<Terms>): Terms => ({
   id: '',
+  type: 'origin',
+  title: '',
   territories: {
     included: [],
     excluded: []

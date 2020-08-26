@@ -6,7 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { slideUpList, slideDown } from '../../animations';
 
-import { RIGHTS, TERMS } from './fixtures';
+import { RIGHTS, TERMS } from '@blockframes/right';
 
 @Component({
   selector: 'right-list',

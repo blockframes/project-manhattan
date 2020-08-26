@@ -9,9 +9,9 @@
     </mat-toolbar>
   
     <nav mat-tab-nav-bar>
-      <ng-container *ngFor="let link of links">
-        <a mat-tab-link [routerLink]="link" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-          {{ link | titlecase }}
+      <ng-container *ngFor="let link of links | keyvalue">
+        <a mat-tab-link [routerLink]="link.key" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+          {{ t(link.value) | titlecase }}
         </a>
       </ng-container>
     </nav>
