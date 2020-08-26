@@ -25,7 +25,7 @@ export interface Summary {
 
 export function createSummary(params: Partial<Summary> = {}): Summary {
   return {
-    id: '',
+    id: 'genesis',
     date: new Date(),
     title: {
       total: 0

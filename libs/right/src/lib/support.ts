@@ -1,3 +1,9 @@
+export const CNC_SUPPORT: Record<number, number> = {
+  0: 1.1187,
+  1_500_000: 0.8502,
+  5_000_000: 0.0895
+};
+
 
 /**
  * Calculate the amount of income given by a support organization
@@ -5,7 +11,7 @@
  * @param ticketPrice Price of one ticket
  * @param steps The steps to used for the support (key: limit, value: percentage)
  */
-function getTheatricalSupport(ticketSold: number, ticketPrice: number, steps: Record<number, number>) {
+export function getTheatricalSupport(ticketSold: number, ticketPrice: number, steps: Record<number, number>) {
   const TSA = 0.1072; // Static
   let incomeAmount = 0;
   let rest = ticketSold;
