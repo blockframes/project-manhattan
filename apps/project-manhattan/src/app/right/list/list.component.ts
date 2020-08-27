@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { RightService, Right, Terms } from '../+state';
+import { RightService } from '../+state';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { slideUpList, slideDown } from '../../animations';
 
-import { RIGHTS, TERMS } from '@blockframes/right';
+import { RIGHTS, TERMS, Right, Terms } from '@blockframes/right';
 
 @Component({
   selector: 'right-list',

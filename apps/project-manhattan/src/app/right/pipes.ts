@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Terms, RightService, Right } from './+state';
+import { RightService } from './+state';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
+import { Terms, Right }  from '@blockframes/right';
 
 function orderRights(rights: Right[], termsId: string) {
   const sorted: Right[] = [];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
-import { Right, Terms } from './model';
+import { Right, Terms } from '@blockframes/right';
 import { combineLatest } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

@@ -8,7 +8,7 @@
           <ng-container *ngFor="let terms of termsList; trackBy: trackById">
             <ng-container *ngIf="terms | queryRight | async as rights">
               <div @slideUpList class="terms" fxLayout="column" fxLayoutGap="16px">
-                <h2>{{ terms.id }}</h2>
+                <h2>{{ terms.title }}</h2>
                 <ng-container *ngFor="let right of rights; trackBy: trackById">
                   <mat-card matRipple (click)="select(right)">
                     {{ right.id }}
