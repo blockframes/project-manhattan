@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; read: 'income.form'">
-  <ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="!isLoading; else loading">
     <ng-container *ngIf="form else empty">
       <form @slideDownList [formGroup]="form">
         <div formGroupName="terms" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
@@ -29,8 +29,21 @@
     </ng-container>
   </ng-container>
   <ng-template #empty>
+    <section @slideDown fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <p>{{ t('empty.text') }}</p>
+      <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+        <button mat-button (click)="uplaodDataset()">
+          {{ t('empty.upload.1') }}
+        </button>
+        <button mat-button (click)="uplaodDataset()">
+          {{ t('empty.upload.2') }}
+        </button>
+      </div>
+    </section>
+  </ng-template>
+  <ng-template #loading>
     <header fxLayout fxLayoutAlign="center center">
-      <a @slideDown mat-button routerLink="../right">{{ t('empty') }}</a>
+      <a mat-button>-</a> <!-- Empty loading just to have the same size -->
     </header>
   </ng-template>
 </ng-container>

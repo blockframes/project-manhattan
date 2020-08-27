@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { createForm } from '../+state/form';
 import { Income, Summary, emulateSummary, supportIncome, createSummary } from '@blockframes/right';
 import { slideDown, slideDownList } from '../../animations';
+import { RightService } from '../../right/+state';
 
 interface Result {
   summary: Summary;
@@ -38,10 +39,16 @@ export class FormComponent {
   constructor(
     private db: AngularFirestore,
     private route: ActivatedRoute,
+    private rightService: RightService,
   ) { }
 
   get formTerms() {
     return this.form.get('terms') as FormGroup;
+  }
+
+  uplaodDataset() {
+    const movieId = this.route.snapshot.params.movieId;
+    return this.rightService.uploadDemo(movieId);
   }
   
   async emulate() {

@@ -40,15 +40,6 @@ export class ListComponent implements OnInit {
 
   uplaodDataset() {
     const movieId = this.route.snapshot.params.movieId;
-    const batch = this.db.firestore.batch();
-    for (const right of RIGHTS) {
-      const ref = this.db.doc(`movies/${movieId}/rights/${right.id}`).ref;
-      batch.set(ref, right);
-    }
-    for (const terms of TERMS) {
-      const ref = this.db.doc(`movies/${movieId}/terms/${terms.id}`).ref;
-      batch.set(ref, terms);
-    }
-    return batch.commit();
+    return this.service.uploadDemo(movieId);
   }
 }

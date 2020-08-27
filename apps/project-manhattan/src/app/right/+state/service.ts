@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
-import { Right, Terms } from '@blockframes/right';
+import { RIGHTS, TERMS, Right, Terms } from '@blockframes/right';
 import { combineLatest } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -21,6 +21,19 @@ export class RightService {
 
   queryTerms(movieId: string, queryFn: QueryFn = ref => ref) {
     return this.db.collection<Terms>(`movies/${movieId}/terms`, queryFn).valueChanges();
+  }
+
+  uploadDemo(movieId: string) {
+    const batch = this.db.firestore.batch();
+    for (const right of RIGHTS) {
+      const ref = this.db.doc(`movies/${movieId}/rights/${right.id}`).ref;
+      batch.set(ref, right);
+    }
+    for (const terms of TERMS) {
+      const ref = this.db.doc(`movies/${movieId}/terms/${terms.id}`).ref;
+      batch.set(ref, terms);
+    }
+    return batch.commit();
   }
 
 }

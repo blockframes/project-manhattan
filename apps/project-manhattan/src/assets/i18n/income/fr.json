@@ -5,7 +5,13 @@
       "price": "Prix d'un ticket"
     },
     "submit": "Lancer la simulation",
-    "empty": "Créer le waterfall de votre film."
+    "empty": {
+      "text": "Il n'y a pas de waterfall pour ce film. Choissiez une des démo ci-dessous.",
+      "upload": {
+        "1": "Sans MG",
+        "2": "Avec MG"
+      }
+    }
   },
   "simulation": {
     "summary": {

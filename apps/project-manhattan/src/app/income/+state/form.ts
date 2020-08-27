@@ -12,5 +12,5 @@ export function createForm(terms: Terms[]) {
       price: new FormControl(),
     }),
     terms: termsForm
-  });;
+  });
 }

@@ -16,7 +16,7 @@
     "item": {
       "alt": "poster du film"
     },
-    "empty": "Ajouter un nouveau film en cliquant sur le bouton (+) en haut"
+    "empty": "Ajouter un nouveau film en cliquant sur le bouton (+) en haut à droite"
   },
   "view": {
     "waterfall": "waterfall",
