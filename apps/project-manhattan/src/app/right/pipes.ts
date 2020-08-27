@@ -24,9 +24,10 @@ function orderRights(rights: Right[], termsId: string) {
 export class QueryRightPipe implements PipeTransform {
   constructor(private service: RightService, private route: ActivatedRoute) {}
   transform(terms: Terms) {
+    const queryFn = ref => ref.where('termsIds', 'array-contains', terms.id)
     return this.route.params.pipe(
       map(params => params.movieId),
-      switchMap(movieId => this.service.queryRights(movieId, ref => ref.where('termsIds', 'array-contains', terms.id))),
+      switchMap(movieId => this.service.queryRights(movieId, queryFn)),
       map(rights => orderRights(rights, terms.id))
     );
   }
