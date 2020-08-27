@@ -4,6 +4,10 @@ main {
   margin: 24px;
 }
 
+list-layout {
+  height: calc(100% - 64px);
+}
+
 a.movie-card {
   border-radius: 4px;
   line-height: 0; // needed to remove bottom padding
