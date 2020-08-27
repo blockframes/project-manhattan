@@ -1,4 +1,4 @@
-import { Terms } from "../../right/+state";
+import { Terms } from '@blockframes/right';
 import { FormGroup, FormControl } from "@angular/forms";
 
 export function createForm(terms: Terms[]) {

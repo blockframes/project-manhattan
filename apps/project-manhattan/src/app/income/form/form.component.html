@@ -5,7 +5,7 @@
         <div formGroupName="terms" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
           <ng-container *ngFor="let terms of termsList">
             <mat-form-field>
-              <mat-label>{{ terms.id }}</mat-label>
+              <mat-label>{{ terms.title }}</mat-label>
               <input matInput [formControlName]="terms.id" type="number" />
               <span matSuffix>€</span>
             </mat-form-field>
