@@ -6,7 +6,7 @@ import { slideDown, slideUpList, scaleIn } from '../../animations';
   selector: 'movie-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  animations: [slideDown, scaleIn, slideUpList('.movie-card')],
+  animations: [slideUpList('.movie-card')],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListComponent implements OnInit {

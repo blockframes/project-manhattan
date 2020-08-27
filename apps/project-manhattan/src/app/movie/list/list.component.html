@@ -7,24 +7,18 @@
     </a>
   </mat-toolbar>
 
-  <ng-container *ngIf="list$ | async as list; else loading">
-    <ng-container *ngIf="list.length else empty">
-      <grid @slideUpList >
-        <ng-container *ngFor="let movie of list; trackBy: trackById">
-          <a matRipple @scaleIn class="movie-card" [routerLink]="['..', movie.id]">
-            <img [src]="movie.poster" [alt]="t('item.alt')" />
-          </a>
-        </ng-container>
-      </grid>
-    </ng-container>
-  </ng-container>
-  <ng-template #empty>
+  <list-layout *ngAsync="list$ | async as list" [list]="list">
+    <grid class="list" @slideUpList >
+      <ng-container *ngFor="let movie of list; trackBy: trackById">
+        <a matRipple class="movie-card" [routerLink]="['..', movie.id]">
+          <img [src]="movie.poster" [alt]="t('item.alt')" />
+        </a>
+      </ng-container>
+    </grid>
     <section class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
       <img src="assets/img/empty.svg"/>
       <p>{{ t('empty') }}.</p>
     </section>
-  </ng-template>
-  <ng-template #loading>
-    <div class="loading" @slideDown fxLayout fxLayoutAlign="center center"></div>
-  </ng-template>
+    <div class="loading" fxLayout fxLayoutAlign="center center"></div>
+  </list-layout>
 </ng-container>
