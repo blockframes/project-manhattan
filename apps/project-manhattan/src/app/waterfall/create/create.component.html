@@ -1,0 +1,14 @@
+<ng-container *transloco="let t; read: 'waterfall.create'">
+  <img src="assets/img/upload.svg"/>
+  <p>{{ t('text') }}</p>
+  <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+    <button mat-button (click)="uploadWaterfall()">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>{{ t('upload.1') }}</span>
+    </button>
+    <button mat-button (click)="uploadWaterfall()">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>{{ t('upload.2') }}</span>
+    </button>
+  </div>
+</ng-container>

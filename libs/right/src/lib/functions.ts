@@ -31,6 +31,10 @@ export async function processIncome(
 
     const lastSummary = lastSummarySnap.data() as Summary;
 
+    if (lastSummary.next) {
+      throw new Error('Last summary already have a next');
+    }
+
     // Create the summary: use the incomeId as id
     const summary = createSummary({
       id: incomeId,

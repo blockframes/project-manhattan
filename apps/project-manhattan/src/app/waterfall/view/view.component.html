@@ -1,0 +1,112 @@
+<ng-container *transloco="let t; read: 'waterfall.list'">
+  <ng-container *ngIf="waterfall$ | async as waterfall">
+    <header class="simulation" fxLayout="column" fxLayoutGap="16px">
+      <mat-chip-list fxLayout fxLayoutAlign="center center">
+        <ng-container *ngFor="let simulation of waterfall.simulations">
+          <mat-chip removable
+            (removed)="removeSimulation(waterfall, simulation)"
+            (click)="runSimulation(waterfall, simulation.name)"
+          >
+            <span>{{ simulation.name }}</span>
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </ng-container>
+      </mat-chip-list>
+  
+      <form @slideDownList [formGroup]="form">
+        <div formGroupName="terms" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+          <ng-container *ngFor="let terms of waterfall.terms | onlyOrigin">
+            <mat-form-field>
+              <mat-label>{{ terms.title }}</mat-label>
+              <input matInput [formControlName]="terms.id" type="number" />
+              <span matSuffix>€</span>
+            </mat-form-field>
+          </ng-container>
+        </div>
+  
+        <div formGroupName="ticket" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
+          <mat-form-field>
+            <mat-label>{{ t('ticket.amount') }}</mat-label>
+            <input matInput formControlName="amount" name="amount" type="number" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ t('ticket.price') }}</mat-label>
+            <input matInput formControlName="price" name="price" type="number" />
+            <span matSuffix>€</span>
+          </mat-form-field>
+          <button mat-button (click)="runSimulation(waterfall)">
+            <mat-icon>calculate</mat-icon>
+            <span>{{ t('submit') }}</span>
+          </button>
+        </div>
+      </form>
+    </header>
+
+
+    <list-layout [list]="incomes">
+      <article *ngIf="summary" class="list" @slideUpList fxLayout="column" fxLayoutGap="16px">
+        <header class="up" fxLayout fxLayoutAlign="space-between center">
+          <form [formGroup]="form">
+            <mat-form-field>
+              <mat-label>{{ t('simulation.label') }}</mat-label>
+              <input matInput formControlName="name" name="name"/>
+            </mat-form-field>
+            <button mat-button (click)="createSimulation(waterfall)">
+              <mat-icon>save</mat-icon>
+              <span>{{ t('simulation.create') }}</span>
+            </button>
+          </form>
+        </header>
+        <h2 class="up">{{t('summary.title')}}</h2>
+        <h3 class="up">Total: {{ summary.title.total | translocoCurrency }}</h3>
+        <!--  Terms -->
+        <mat-chip-list class="up">
+          <ng-container *ngFor="let income of incomes">
+            <mat-chip>{{ income.termsId }} - {{ income.amount | translocoCurrency }}</mat-chip>
+          </ng-container>
+        </mat-chip-list>
+        <!--  Table -->
+        <table class="up" mat-table [dataSource]="summary | orgDataSource">
+          <ng-container *ngFor="let column of waterfall.terms | tableColumns">
+            <ng-container [matColumnDef]="column">
+              <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+              <td mat-cell *matCellDef="let org">
+                <span *ngIf="column === 'name'">{{org[column] }}</span>
+                <span *ngIf="column !== 'name'">{{org[column] | translocoCurrency }}</span>
+              </td>
+            </ng-container>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="waterfall.terms | tableColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: waterfall.terms | tableColumns;"></tr>
+        </table>
+        <!-- Charts -->
+        <div fxLayout fxLayoutAlign="space-around center">
+          <mat-card class="up">
+            <apx-chart [chart]="{ width: 400, type: 'pie' }" [series]="summary | orgSeries"
+              [labels]="summary | orgLabel">
+            </apx-chart>
+            <span class="mat-caption">{{ t('summary.chart.1') }}</span>
+          </mat-card>
+          <mat-card class="up">
+            <apx-chart [chart]="{ width: 400, type: 'pie' }" [series]="summary | orgSeries"
+              [labels]="summary | orgLabel">
+            </apx-chart>
+            <span class="mat-caption">{{ t('summary.chart.2') }}</span>
+          </mat-card>
+        </div>
+      </article>
+
+      <article class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+        <img src="assets/img/calcul.svg"/>
+        <p>{{ t('empty') }}.</p>
+      </article>
+
+      <article class="loading" fxLayout="column" fxLayoutAlign="center center">
+        <p>Calculating</p>
+      </article>
+
+    </list-layout>
+
+
+  </ng-container>
+</ng-container>

@@ -1,0 +1,29 @@
+{
+  "create": {
+    "text": "Pour ajouter un waterfall à ce film, choisissez une des démo ci-dessous.",
+    "upload": {
+      "1": "Sans MG",
+      "2": "Avec MG"
+    }
+  },
+  "list": {
+    "add": "Ajouter un scenario",
+    "ticket": {
+      "amount": "Ticket vendus",
+      "price": "Prix d'un ticket"
+    },
+    "submit": "Lancer la simulation",
+    "simulation": {
+      "label": "Nom (low, medium, high, ...)",
+      "create": "Enregistrer"
+    },
+    "summary": {
+      "title": "Synthèse",
+      "chart": {
+        "1": "Recette par entreprise.",
+        "2": "Recette par entreprise."
+      }
+    },
+    "empty": "Remplir le formulaire au dessus pour lancer une simulation."
+  }
+}

@@ -1,100 +1,71 @@
-import { Right, Terms, Income, Summary, createSummary, createIncome } from './model';
-import { removeOverflow, checkCondition, termIncompatibility } from './utils';
+import { isIncome, Income, Right, createSummary, createIncome, Terms, Summary } from './model';
+import { removeOverflow, checkCondition } from './utils';
+import { supportIncome } from './income';
 
-interface WaterfallJson {
-  rights?: Right[];
-  terms?: Terms[];
+export interface Simulation {
+  name?: string;
+  ticket: {
+    amount: number;
+    price: number;
+  };
+  terms: Record<string, number>;
 }
 
-function toObject<T extends { id: string }>(list?: T[]): Record<string, T> {
-  const output: Record<string, T> = {};
-  if (!Array.isArray(list)) {
-    return output;
-  }
-  for (const item of list) {
-    output[item.id] = item;
-  }
-  return output;
+export interface SimulationResult {
+  summary: Summary;
+  incomes: Income[];
 }
 
-/**
- * For an income
- * 1. queryFirstRight(income) => right
- * 2. getIncome(income, right)
- * 21. checkEventCondition(right) -> boolean
- * 22. cashIn(income.amount) -> rest
- * 24. queryNext() -> next
- * 25. getIncome(restIncome, next)
- */
+export interface Waterfall {
+  id: string;
+  type: 'scenario' | 'main';
+  name?: string;
+  orgId: string;
+  simulations: Simulation[];
+  terms: Terms[];
+  rights: Right[];
+}
 
-export class LocalWaterfall {
-  private rights: Record<string, Right> = {};
-  private terms: Record<string, Terms> = {};
-  private incomes: Record<string, Income> = {};
-  private summary: Summary;
+function createSimulation(params: Partial<Simulation> = {}): Simulation {
+  return {
+    ticket: {
+      amount: 0,
+      price: 0,
+    },
+    terms: {}
+  }
+}
 
-  constructor(data: WaterfallJson = {}) {
-    this.rights = toObject(data.rights);
-    this.terms = toObject(data.terms);
-    this.summary = createSummary();
+// Run locally the script
+function emulateSummary(
+  watefall: Waterfall,
+  income: Income,
+  lastSummary = createSummary()
+) {
+
+  // Create the summary: use the incomeId as id
+  const summary = createSummary({
+    id: income.id,
+    previous: lastSummary.id,
+    title: lastSummary.title,
+    rights: lastSummary.rights,
+    orgs: lastSummary.orgs,
+  });
+
+  ///////////
+  // SETUP //
+  ///////////
+
+  /** Query rights by their parentId, if 'root' then it's the first */
+  const queryRights = (parentId: string) => {
+    return watefall.rights.filter(right => right.parentIds.includes(parentId));
   }
 
-  async queryRights(parentId: string | 'root', termsId: string) {
-    return Object.values(this.rights).filter((right) => {
-      const hasParent = right.parentIds.includes(parentId);
-      const hasTerms = right.termsIds.includes(termsId);
-      return hasParent && hasTerms;
-    });
-  }
-  async getTerms(id: string) {
-    if (!id) throw new Error('Provide an id to method "getTerms"');
-    return this.terms[id];
-  }
-  async getSummary() {
-    return this.summary;
-  }
-
-  /** Add an income to the movie & trigger the rest */
-  createIncome(income: Income) {
-    this.incomes[income.id] = income;
-    this.onCreateIncome(income);
-  }
-
-  /** When an income is created update summary & run process */
-  async onCreateIncome(income: Income) {
-    const right = await this.queryFirstRight(income);
-    if (right) {
-      this.summary.title.total += income.amount;
-      this.summary.title[income.termsId] += income.amount;
-      this.getIncome(income, right);
-    } else {
-      throw new Error('There is no first right for the income with id ' + income.id);
-    }
-  }
-
-
-  /** Check if terms are compatible */
-  async areTermsCompatible(termsA: string, termsB: string): Promise<boolean> {
-    // Same terms: Obviously compatible
-    if (termsA === termsB) {
-      return true;
-    }
-    const [ a, b ] = await Promise.all([
-      this.getTerms(termsA),
-      this.getTerms(termsB),
-    ]);
-    if (termIncompatibility(a, b, 'channels')) {
-      return false;
-    }
-    if (termIncompatibility(a, b, 'territories')) {
-      return false;
-    }
-    return true;
-  }
-  
   /** Get the first right for a specific income */
-  async queryFirstRight(income: Income): Promise<Right | undefined> {
-    const rights = await this.queryRights(income.termsId, income.termsId);
+  const queryFirstRight = (income: Income): Right => {
+    // If a right is the first for a terms, the parentId is the termsId
+    const rights = queryRights(income.termsId);
+
     if (rights.length > 1) {
       throw new Error('There are multiple first right for terms id: ' + income.termsId);
     }
@@ -104,50 +75,125 @@ export class LocalWaterfall {
     return rights[0];
   }
 
-  async getIncome(income: Income, right: Right): Promise<void> {
-    const canCashIn = await this.checkAllCondition(right);
-    const rest = canCashIn
-      ? await this.cashIn(income, right)
-      : income.amount;
-
-    if (rest > 0) {
-      // Create a copy of the income with the amount updated after right took value
-      const nextIncome = createIncome({ ...income, amount: rest });
-      const nexts = await this.queryRights(right.id, income.termsId);
-      for (const next of nexts) {
-        this.getIncome(nextIncome, next);
-      }
+  // We need to use parent / key to keep the mutation
+  /** Set the value of an entry of the summary */
+  const setSummaryEntry = (parent: { [key: string]: number }, key: string, increment: number): void => {
+    if (parent[key]) {
+      parent[key] = parent[key] + increment;
+    } else {
+      parent[key] = increment;
     }
   }
 
   /**
    * Update the amount received by the party & return the rest
-   * @param base The amount incoming to the right
+   * @param income The income for this right
    * @param right The right used for calculation
    */
-  async cashIn(income: Income, right: Right): Promise<number> {
+  const cashIn = (income: Income, right: Right): number => {
     const amount = income.amount * right.percentage;
-    const summary = await this.getSummary();
     const remain = removeOverflow(amount, right, summary);
     // Update summary
-    summary.rights[right.id] += remain;
-    summary.orgs[right.orgId].total += remain;
-    summary.orgs[right.orgId][income.termsId] += remain;
-    
+    if (!summary.orgs[right.orgId]) {
+      summary.orgs[right.orgId] = { total: 0 };
+    }
+    setSummaryEntry(summary.orgs[right.orgId], 'total', remain);
+    setSummaryEntry(summary.orgs[right.orgId], income.termsId, remain);
+    setSummaryEntry(summary.rights, right.id, remain);
+
     return income.amount - remain;
   }
 
-  ///////////////
-  // CONDITION //
-  ///////////////
-  async checkAllCondition(right: Right) {
-    if (right.conditions?.length) {
-      const summary = await this.getSummary();
-      return right.conditions.every(cdt => checkCondition(cdt, summary));
-    } else {
-      return true;
+  /** For one right, verify that each condition is validated */
+  const checkAllCondition = (right: Right) => {
+    return right.conditions?.length
+      ? right.conditions.every(cdt => checkCondition(cdt, summary))
+      : true;
+  }
+
+  /**
+   * Main process: recursively calculate the amount 
+   * @param income The income with the amount updated 
+   * @param right The right that get the income
+   */
+  const getIncome = (income: Income, right: Right): void => {
+    const canCashIn = checkAllCondition(right);
+    const rest = canCashIn
+      ? cashIn(income, right)
+      : income.amount;
+
+    if (rest > 0) {
+      // Create a copy of the income with the amount updated after right took value
+      const nextIncome = createIncome({ ...income, amount: rest });
+      const nexts = queryRights(right.id);
+
+      for (const next of nexts) {
+        // Verify if next has current termsId here because
+        // query doesn't support multiple array contains
+        if (next.termsIds.includes(income.termsId)) {
+          getIncome(nextIncome, next);
+        }
+      }
     }
   }
 
 
+  /////////////////
+  // RUN PROCESS //
+  /////////////////
+  /** Update the amount received by the title */
+  setSummaryEntry(summary.title, 'total', income.amount);
+  setSummaryEntry(summary.title, income.termsId, income.amount);
+
+  const firstRight = queryFirstRight(income);
+  getIncome(income, firstRight);
+
+  return summary;
+}
+
+export type SimulationSource = Partial<Simulation> | Income | Income[] | string;
+
+/** Create a simulation object out of a simulation source */
+export function getSimulation(waterfall: Waterfall, simulation: SimulationSource) {
+  if (typeof simulation === 'string') {
+    return waterfall.simulations.find(s => s?.name === simulation);
+  }
+  const result = createSimulation();
+  if (Array.isArray(simulation)) {
+    for (const income of simulation) {
+      result.terms[income.termsId] = income.amount;
+    }
+    return result;
+  }
+  if (isIncome(simulation)) {
+    result.terms[simulation.termsId] = simulation.amount;
+    return result;
+  }
+  return createSimulation(simulation);
+}
+
+/** Run one simulation */
+export function runSimulation(waterfall: Waterfall, simulation: SimulationSource) {
+  const simu = getSimulation(waterfall, simulation);
+  if (!simu) {
+    throw new Error('Could not find simulation ' + simulation);
+  }
+  const { terms, ticket } = simu;
+  const incomes: Income[] = [];
+  let summary = createSummary();
+  for (const termsId in terms) {
+    const amount = terms[termsId];
+    if (amount) {
+      const income = createIncome({ id: termsId, termsId, amount: terms[termsId] });
+      summary = emulateSummary(waterfall, income, summary);
+      incomes.push(income);
+    }
+  }
+  // Do support after the other one because it might need information for summary
+  const supports = supportIncome(ticket.amount, ticket.price, summary);
+  for (const support of supports) {
+    summary = emulateSummary(waterfall, support, summary);
+    incomes.push(support);
+  }
+  return { summary, incomes };
 }

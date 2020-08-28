@@ -104,6 +104,10 @@ export interface Income {
   amount: number;
 }
 
+export function isIncome(value: any): value is Income {
+  return 'termsId' in value && 'amount' in value; 
+}
+
 export function createIncome(params: Partial<Income> = {}): Income {
   return {
     id: '',
@@ -113,21 +117,3 @@ export function createIncome(params: Partial<Income> = {}): Income {
   }
 }
 
-export interface Waterfall {
-  // terms: Terms[];
-  // rights: Right[];
-  // events: Event[];
-  // parties: any[];
-
-  getEvent(id: string): Promise<Event>;
-  getRight(id: string): Promise<Right>;
-  getTerms(id: string): Promise<Terms>;
-
-  getIncome(income: Income, rightId: string): void;
-  /** Return the amount taken */
-  cashIn(amount: number, rightId: string): number;
-  /** Update an event to true on a cashIn process */
-  triggerEvent(): void;
-  /** Verify if an event has been triggered */
-  checkCondition(rightId: string): boolean;
-}

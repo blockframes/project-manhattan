@@ -1,6 +1,8 @@
 import { Income, createIncome, Summary } from './model';
 import { CNC_SUPPORT, getTheatricalSupport } from './support';
 
+
+
 export function supportIncome(amount: number, price: number, summary: Summary): Income[] {
   return [
     createIncome({

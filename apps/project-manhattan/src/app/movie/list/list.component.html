@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; read: 'movie.list'">
   <mat-toolbar fxLayoutAlign="space-between center">
     <h1>{{ t('title') | titlecase }}</h1>
-    <a mat-button routerLink="../create">
+    <a mat-stroked-button color="primary" routerLink="../create">
       <mat-icon>add</mat-icon>
       <span>{{ t('create') }}</span>
     </a>
