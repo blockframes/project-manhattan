@@ -57,7 +57,7 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['AYD']['originTheatrical']).toBe(577);
   });
 
-  it.only('List of 5 incomes', async () => {
+  it('List of 5 incomes', async () => {
     const amount = 1_000_000;
     const price = 2.6;
     const simulation: Simulation = {
