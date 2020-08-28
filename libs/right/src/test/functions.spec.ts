@@ -11,7 +11,7 @@ import { Income, Right, createRight, Terms, createTerms, Summary, createSummary 
 import { RIGHTS, TERMS } from '../lib/fixtures';
 import { supportIncome } from '../lib/income';
 
-describe.only('Distribute income', () => {
+describe('Distribute income', () => {
   const movieId = 'movie_0';
   let wrapped: WrappedFunction;
   let db: FirebaseFirestore.Firestore;
@@ -121,14 +121,14 @@ describe.only('Distribute income', () => {
     expect(summary.title['originTheatrical']).toBe(2600);
     expect(summary.rights['originTheatricalDistributionFees']).toBe(520);
     expect(summary.rights['originTheatricalExpenses']).toBe(1150);
-    expect(summary.orgs['Pathe'].total).toBe(2023);
-    expect(summary.orgs['Pathe']['originTheatrical']).toBe(2023);
+    expect(summary.orgs['pathe'].total).toBe(2023);
+    expect(summary.orgs['pathe']['originTheatrical']).toBe(2023);
     expect(summary.orgs['AYD'].total).toBe(577);
     expect(summary.orgs['AYD']['originTheatrical']).toBe(577);
   });
 
 
-  it.only('List of 5 incomes', async () => {
+  it('List of 5 incomes', async () => {
     const quantity = 1000;
     const price = 2.6;
     const incomes = [

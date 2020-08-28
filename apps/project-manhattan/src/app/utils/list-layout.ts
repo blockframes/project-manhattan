@@ -22,14 +22,14 @@ export const animation = trigger('animation', [
       style({ opacity: '0' }),
       animate(`0.2s ${Easing.easeIncubic}`, style({ opacity: '1' })),
       animateChild()
-    ])
+    ], { optional: true })
   ]),
   transition('loading => list', [
     ...prepare,
-    query(':enter', [style({ opacity: '0', transform: `translateY(20px)` })]),
+    query(':enter', [style({ opacity: '0', transform: `translateY(20px)` })], { optional: true }),
     sequence([
-      query(':leave', [slideInLeave]),
-      query(':enter', [slideInEnter, animateChild()]),
+      query(':leave', [slideInLeave], { optional: true }),
+      query(':enter', [slideInEnter, animateChild()], { optional: true }),
     ])
   ]),
   transition('loading => empty', []),
@@ -37,8 +37,12 @@ export const animation = trigger('animation', [
   transition('list => empty', []),
 ]);
 
-@Directive({ selector: 'list-items' })
-export class ListItem {}
+@Directive({ selector: '[listView]' })
+export class ListView {}
+@Directive({ selector: '[emptyView]' })
+export class EmptyView {}
+@Directive({ selector: '[loadingView]' })
+export class LoadingView {}
 
 @Component({
   selector: 'list-layout',
@@ -46,13 +50,13 @@ export class ListItem {}
   template: `
     <ng-container [ngSwitch]="state">
       <ng-container *ngSwitchCase="'list'">
-        <ng-content select=".list"></ng-content>
+        <ng-content select=".list, [listView]"></ng-content>
       </ng-container>
       <ng-container *ngSwitchCase="'empty'">
-        <ng-content select=".empty"></ng-content>
+        <ng-content select=".empty, [emptyView]"></ng-content>
       </ng-container>
       <ng-container *ngSwitchCase="'loading'">
-        <ng-content select=".loading"></ng-content>
+        <ng-content select=".loading, [loadingView]"></ng-content>
       </ng-container>
     </ng-container>
   `,
@@ -72,12 +76,11 @@ export class ListContext<T = unknown> {
 }
 
 @Directive({ selector: '[ngAsync]' })
-export class List<T = unknown> {
+export class NgAsync<T = unknown> {
   ref: EmbeddedViewRef<ListContext<T>>|null = null;
   @Input()
   set ngAsync(ngAsync: T) {
     if (this.ref) {
-      console.log(ngAsync);
       this.ref.context.$implicit = ngAsync;
       this.ref.context.ngAsync = ngAsync;
       this.ref.markForCheck();
@@ -94,24 +97,8 @@ export class List<T = unknown> {
 
 
 @NgModule({
-  declarations: [ListLayoutComponent, List],
-  exports: [ListLayoutComponent, List],
+  declarations: [ListLayoutComponent, NgAsync, ListView, EmptyView, LoadingView],
+  exports: [ListLayoutComponent, NgAsync, ListView, EmptyView, LoadingView],
   imports: [CommonModule]
 })
 export class ListLayoutModule {}
-
-
-// @Directive({ selector: '[list]' })
-// export class List<T = unknown> {
-//   @ViewChild()
-//   @Input()
-//   set list(list: T[]) {
-//     this._context.$implicit = this._context.ngIf = condition;
-//     this._updateView();
-//   }
-//   @Input()
-//   set listAs(list: T[]) {
-//     this._context.$implicit = this._context.ngIf = condition;
-//     this._updateView();
-//   }
-// }

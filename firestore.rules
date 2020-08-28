@@ -12,6 +12,9 @@ service cloud.firestore {
           match /rights/{rightId} {
             allow read, write: if true;
           }
+          match /waterfalls/{rightId} {
+            allow read, write: if true;
+          }
       }
     }
   }

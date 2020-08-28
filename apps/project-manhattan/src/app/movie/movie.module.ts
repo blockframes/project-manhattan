@@ -44,7 +44,7 @@ const routes: Route[] = [{
   data: { animation: 'view' },
   children: [{
     path: '',
-    redirectTo: 'income',
+    redirectTo: 'waterfall',
     pathMatch: 'full'
   },{
     path: 'income',
@@ -54,6 +54,9 @@ const routes: Route[] = [{
     path: 'right',
     data: { animation: 1 },
     loadChildren: () => import('../right/right.module').then(m => m.RightModule)
+  }, {
+    path: 'waterfall',
+    loadChildren: () => import('../waterfall/waterfall.module').then(m => m.WaterfallModule)
   }]
 }];
 

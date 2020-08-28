@@ -1,0 +1,21 @@
+@import 'theme';
+:host {
+  display: block;
+  height: 100%;
+}
+
+.simulation {
+  display: block;
+  background-color: $background-app-bar;
+  padding: 24px;
+}
+
+list-layout {
+  padding: 24px;
+}
+
+.empty {
+  img {
+    max-width: 400px;
+  }
+}

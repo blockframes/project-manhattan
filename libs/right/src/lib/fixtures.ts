@@ -1,5 +1,6 @@
 import { Right, Terms } from '../lib/model';
-import { RightCondition, Condition } from '../lib/condition.model';
+import { RightCondition } from '../lib/condition.model';
+import { Waterfall } from './waterfall';
 
 export const RIGHTS: Right[] = [
   {
@@ -117,7 +118,7 @@ export const RIGHTS: Right[] = [
   {
     id: "tVBroadcasterRNPP",
     orgId: "tVBroadcaster",
-    percentage: 0.15,
+    percentage: 0.08,
     parentIds: ["originTvDistributionFees"],
     termsIds: ["originTv"],
   },
@@ -343,3 +344,13 @@ export const TERMS: Terms[] = [
     type: "support",
   },
 ];
+
+export const WATERFALL: Waterfall = {
+  id: 'withoutMG',
+  type: 'scenario',
+  name: 'Sans MG',
+  orgId: '',
+  simulations: [],
+  terms: TERMS,
+  rights: RIGHTS,
+}

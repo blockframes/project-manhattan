@@ -1,7 +1,7 @@
 {
   "create": {
     "poster": {
-      "label": "Choissir un poster"
+      "label": "Choisir un poster"
     },
     "title": {
       "label": "titre",

@@ -71,6 +71,6 @@ export class FormComponent {
       summary = await emulateSummary(this.db.firestore, support, movieId, summary);
     }
     this.loading.emit(false);
-    this.onResult.emit({ summary, incomes })
+    this.onResult.emit({ summary, incomes: [...incomes, ...supports] })
   }
 }

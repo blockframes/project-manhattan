@@ -97,18 +97,18 @@ describe.only('Distribute income', () => {
     expect(summary.title['originTheatrical']).toBe(2600);
     expect(summary.rights['originTheatricalDistributionFees']).toBe(520);
     expect(summary.rights['originTheatricalExpenses']).toBe(1150);
-    expect(summary.orgs['Pathe'].total).toBe(2023);
-    expect(summary.orgs['Pathe']['originTheatrical']).toBe(2023);
+    expect(summary.orgs['pathe'].total).toBe(2023);
+    expect(summary.orgs['pathe']['originTheatrical']).toBe(2023);
     expect(summary.orgs['AYD'].total).toBe(577);
     expect(summary.orgs['AYD']['originTheatrical']).toBe(577);
   });
 
 
   it.only('List of 5 incomes', async () => {
-    const quantity = 1000;
+    const quantity =  1_000_000;
     const price = 2.6;
     const incomes = [
-      { id: '0', termsId: 'originTheatrical', amount: quantity * price },
+      { id: '0', termsId: 'originTheatrical', amount: (quantity / 1000) * price },
       { id: '1', termsId: 'originTv', amount: 600 },
       { id: '2', termsId: 'originVideo', amount: 312.34 },
       { id: '3', termsId: 'originVod', amount: 299 },
@@ -126,6 +126,7 @@ describe.only('Distribute income', () => {
     }
   
     roundSummary(summary);
+    console.log(summary);
     expect(summary.title['originTheatrical']).toBe(2600);
     expect(summary.title['originTv']).toBe(600);
     expect(summary.title['originVideo']).toBe(312);
@@ -139,18 +140,19 @@ describe.only('Distribute income', () => {
     expect(summary.rights['originTheatricalExpenses']).toBe(1150);
     expect(summary.rights['originVideoExpenses']).toBe(137);
     expect(summary.rights['rowExpenses']).toBe(56);
-    expect(summary.orgs['pathe'].total).toBe(3422);
-    expect(summary.orgs['AYD'].total).toBe(1438);
-    expect(summary.orgs['tVBroadcaster'].total).toBe(142);
+
     expect(summary.orgs['equity'].total).toBe(45);
     expect(summary.orgs['prod'].total).toBe(502);
+    expect(summary.orgs['AYD'].total).toBe(1438);
     expect(summary.orgs['AYD']['originTheatrical']).toBe(577);
     expect(summary.orgs['AYD']['originTv']).toBe(274);
     expect(summary.orgs['AYD']['originVideo']).toBe(70);
     expect(summary.orgs['AYD']['originVod']).toBe(148);
     expect(summary.orgs['AYD']['rowAllRights']).toBe(370);
+    expect(summary.orgs['tVBroadcaster'].total).toBe(142);
     expect(summary.orgs['tVBroadcaster'].total).toBe(38);
     expect(summary.orgs['tVBroadcaster']['originTv']).toBe(38);
+    expect(summary.orgs['pathe'].total).toBe(3422);
     expect(summary.orgs['pathe']['originTheatrical']).toBe(2023);
     expect(summary.orgs['pathe']['originTv']).toBe(288);
     expect(summary.orgs['pathe']['originVideo']).toBe(243);
