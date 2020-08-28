@@ -187,6 +187,6 @@ describe('Distribute income', () => {
     expect(summary.rights['prodFollowingSupport']).toBe(352);
     expect(summary.rights['patheSupport']).toBe(236);
     expect(summary.rights['patheBonusSupport']).toBe(35);
-  })
+  });
 
-})
+});

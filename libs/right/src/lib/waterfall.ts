@@ -32,7 +32,8 @@ function createSimulation(params: Partial<Simulation> = {}): Simulation {
       amount: 0,
       price: 0,
     },
-    terms: {}
+    terms: {},
+    ...params
   }
 }
 

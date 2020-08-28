@@ -6,7 +6,7 @@ import { Income, Right, createRight, Terms, createTerms, Summary, createSummary 
 import { RIGHTS, TERMS } from '../lib/fixtures';
 import { supportIncome } from '../lib/income';
 
-describe.only('Distribute income', () => {
+describe('Distribute income', () => {
   const movieId = 'movie_0';
   let db: firestore.Firestore;
 
@@ -66,14 +66,13 @@ describe.only('Distribute income', () => {
   it('Creates a Summary', async () => {
     const incomeId = 'income_0';
     const termsId = 'originTheatrical';
-    await addIncome({
+    const summary = await addIncome({
       id: incomeId,
       termsId: termsId,
       amount: 0
     });
 
-    const summary = await db.doc(`movies/${movieId}/summaries/${incomeId}`).get();
-    expect(summary.exists).toBeTruthy();
+    expect(summary).toBeDefined();
   })
 
   it('Update title', async () => {
@@ -104,7 +103,7 @@ describe.only('Distribute income', () => {
   });
 
 
-  it.only('List of 5 incomes', async () => {
+  it('List of 5 incomes', async () => {
     const quantity =  1_000_000;
     const price = 2.6;
     const incomes = [
