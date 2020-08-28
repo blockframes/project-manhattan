@@ -6,7 +6,8 @@
         <mat-chip-list fxLayout fxLayoutAlign="center center">
           <ng-container *ngFor="let simulation of waterfall.simulations">
             <mat-chip removable [selected]="simulation.name === form.value.name"
-              (removed)="removeSimulation(waterfall, simulation)" (click)="runSimulation(waterfall, simulation.name)">
+              (removed)="removeSimulation(waterfall, simulation)"
+              (click)="runSimulation(waterfall, simulation.name)">
               <span>{{ simulation.name }}</span>
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
@@ -25,7 +26,7 @@
           <mat-form-field>
             <mat-label>{{ terms.title }}</mat-label>
             <input matInput [formControlName]="terms.id" type="number" />
-            <span class="mat-caption" matSuffix>
+            <span matSuffix>
               {{ form.value.multiplier === 1000 ? 'k' : '' }}€
             </span>
           </mat-form-field>
@@ -37,7 +38,7 @@
         <mat-form-field>
           <mat-label>{{ t('ticket.amount.label') }}</mat-label>
           <input matInput formControlName="amount" name="amount" type="number" required />
-          <span class="mat-caption" matSuffix>
+          <span matSuffix>
             {{ form.value.multiplier === 1000 ? 'k' : '' }}
           </span>
           <mat-error *ngIf="form.hasError('required', 'ticket.amount')">
@@ -61,8 +62,8 @@
     </form>
 
 
-    <list-layout [list]="incomes">
-      <article *ngIf="summary" class="list" @slideUpList fxLayout="column" fxLayoutGap="16px">
+    <ng-container *ngIf="summary else empty">
+      <article class="list" @slideUpList fxLayout="column" fxLayoutGap="16px">
         <header class="up" fxLayout fxLayoutAlign="space-between center">
           <form [formGroup]="form">
             <mat-form-field>
@@ -116,18 +117,14 @@
           </mat-card>
         </div>
       </article>
-
+    </ng-container>
+  
+    <ng-template #empty>
       <article class="empty" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
         <img src="assets/img/calcul.svg" />
         <p>{{ t('empty') }}.</p>
       </article>
-
-      <article class="loading" fxLayout="column" fxLayoutAlign="center center">
-        <p>Calculating</p>
-      </article>
-
-    </list-layout>
-
+    </ng-template>
 
   </ng-container>
 </ng-container>

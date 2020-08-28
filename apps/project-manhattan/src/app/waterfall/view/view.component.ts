@@ -40,16 +40,17 @@ export class ViewComponent implements OnInit {
 
   /** Apply a multiplier on each entry */
   private applyMultiplier() {
-    const { multiplier, terms, ticket } = this.form.value;
+    // Deep copy to avoid mutation on deep values
+    const simulation = JSON.parse(JSON.stringify(this.form.value)) as Simulation;
+    const { name, multiplier, ticket, terms } = simulation;
     ticket.amount *= multiplier;
     for (const termsId in terms) {
       terms[termsId] *= multiplier;
     }
-    return { multiplier, terms, ticket };
+    return { name, multiplier, ticket, terms };
   }
 
   runSimulation(waterfall: Waterfall, name?: string) {
-    delete this.incomes;
     if (name) {
       const simulation = waterfall.simulations.find(s => s.name === name);
       this.form.setValue(simulation);

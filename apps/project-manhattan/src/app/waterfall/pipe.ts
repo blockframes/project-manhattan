@@ -42,7 +42,6 @@ export class OrgLabelPipe implements PipeTransform {
 @Pipe({ name: 'tableColumns' })
 export class TableColumnPipe implements PipeTransform {
   transform(terms: Terms[]) {
-    console.log([ 'name', 'total', ...terms.map(t => t.id) ]);
     return [ 'name', 'total', ...terms.map(t => t.id) ];
   }
 }

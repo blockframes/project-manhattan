@@ -1,6 +1,6 @@
 import { Right, Terms, Income, createTerms, createRight } from '../index';
 import { createIncome, Summary, createSummary } from '../lib/model';
-import { runSimulation, Simulation } from '../lib/waterfall';
+import { runSimulation, Simulation, createSimulation } from '../lib/waterfall';
 import { removeOverflow } from '../lib/utils';
 import { RightCondition } from '../lib/condition.model';
 import { WATERFALL } from '../lib/fixtures';
@@ -60,7 +60,7 @@ describe('Get Income from waterfall', () => {
   it('List of 5 incomes', async () => {
     const amount = 1_000_000;
     const price = 6.01;
-    const simulation: Simulation = {
+    const simulation: Simulation = createSimulation({
       ticket: { amount, price },
       terms: {
         originTheatrical: 2600000,
@@ -69,21 +69,21 @@ describe('Get Income from waterfall', () => {
         originVod: 299000,
         rowAllRights: 816000
       }
-    }
+    });
     const { summary } = runSimulation(WATERFALL, simulation);
     roundSummary(summary);
 
     console.log(summary);
     expect(summary.title['originTheatrical']).toBe(2600000);
     expect(summary.title['originTv']).toBe(600000);
-    expect(summary.title['originVideo']).toBe(312320);
+    expect(summary.title['originVideo']).toBe(312340);
     expect(summary.title['originVod']).toBe(299000);
     expect(summary.title['rowAllRights']).toBe(816000);
     expect(summary.rights['originTheatricalDistributionFees']).toBe(520000);
     expect(summary.rights['originTvDistributionFees']).toBe(120000);
-    expect(summary.rights['originVideoDistributionFees']).toBe(62000);
-    expect(summary.rights['originVodDistributionFees']).toBe(60000);
-    expect(summary.rights['rowAllRightsDistributionFees']).toBe(163000);
+    expect(summary.rights['originVideoDistributionFees']).toBe(62468);
+    expect(summary.rights['originVodDistributionFees']).toBe(59800);
+    expect(summary.rights['rowAllRightsDistributionFees']).toBe(163200);
     expect(summary.rights['originTheatricalExpenses']).toBe(1150000);
     expect(summary.rights['originVideoExpenses']).toBe(137000);
     expect(summary.rights['rowExpenses']).toBe(56000);
