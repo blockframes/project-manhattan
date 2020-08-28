@@ -9,10 +9,10 @@
   "list": {
     "add": "Ajouter un scenario",
     "terms": {
-      "title": "Recette par couloir:"
+      "title": "Recettes par couloir:"
     },
     "ticket": {
-      "title": "CNC:",
+      "title": "Eléments de calcul soutien CNC:",
       "amount": {
         "label": "Ticket vendus",
         "error": "Champ obligatoire"
