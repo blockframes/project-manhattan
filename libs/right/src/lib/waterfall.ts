@@ -4,6 +4,7 @@ import { supportIncome } from './income';
 
 export interface Simulation {
   name?: string;
+  multiplier: number;
   ticket: {
     amount: number;
     price: number;
@@ -26,8 +27,9 @@ export interface Waterfall {
   rights: Right[];
 }
 
-function createSimulation(params: Partial<Simulation> = {}): Simulation {
+export function createSimulation(params: Partial<Simulation> = {}): Simulation {
   return {
+    multiplier: 1,
     ticket: {
       amount: 0,
       price: 0,
@@ -196,5 +198,15 @@ export function runSimulation(waterfall: Waterfall, simulation: SimulationSource
     summary = emulateSummary(waterfall, support, summary);
     incomes.push(support);
   }
+
+  const bonus = createIncome({
+    id: 'bonusSupportIncome',
+    termsId: 'bonusSupport',
+    amount: 0.15 * summary.rights['patheSupport'] || 0,
+  });
+  summary = emulateSummary(waterfall, bonus, summary);
+  incomes.push(bonus);
+
+
   return { summary, incomes };
 }

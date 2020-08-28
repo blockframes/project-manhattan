@@ -8,9 +8,13 @@ form {
   display: block;
   background-color: $background-app-bar;
   padding: 24px;
+
+  input[type=number] {
+    text-align: right;
+  }
 }
 
-list-layout {
+article {
   padding: 24px;
 }
 

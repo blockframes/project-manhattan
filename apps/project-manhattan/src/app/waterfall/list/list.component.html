@@ -1,36 +1,17 @@
 <ng-container *transloco="let t; read: 'waterfall.list'">
-  <ng-container *ngAsync="waterfalls$ | async as waterfalls">
-    <list-layout [list]="waterfalls">
+  <nav mat-tab-nav-bar>
+    <ng-container *ngFor="let waterfall of waterfalls$ | async">
+      <a mat-tab-link [routerLink]="waterfall.id" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        {{ waterfall.name | titlecase }}
+      </a>
+    </ng-container>
+    <a mat-tab-link routerLink="./create" routerLinkActive #active="routerLinkActive" [active]="active.isActive">
+      <mat-icon>add</mat-icon>
+      <span>{{ t('add') }}</span>
+    </a>
+  </nav>
 
-      <!-- List -->
-      <section class="list">
-        <nav mat-tab-nav-bar>
-          <ng-container *ngFor="let waterfall of waterfalls">
-            <a mat-tab-link [routerLink]="waterfall.id" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-              {{ waterfall.name | titlecase }}
-            </a>
-          </ng-container>
-          <a mat-tab-link routerLink="./create" routerLinkActive #active="routerLinkActive" [active]="active.isActive">
-            <mat-icon>add</mat-icon>
-            <span>{{ t('add') }}</span>
-          </a>
-        </nav>
-    
-        <main [@routeAnimation]="routeChange(outlet)">
-          <router-outlet #outlet="outlet"></router-outlet>
-        </main>
-      </section>
-
-      <!-- Empty -->
-      <section class="empty">
-        <waterfall-create></waterfall-create>
-      </section>
-
-      <!-- Loading -->
-      <ng-template loadingView>
-
-      </ng-template>
-  
-    </list-layout>
-  </ng-container>
+  <main [@routeAnimation]="routeChange(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
 </ng-container>

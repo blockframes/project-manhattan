@@ -20,10 +20,5 @@ export function supportIncome(amount: number, price: number, summary: Summary): 
       termsId: 'tvSupport',
       amount: 0.1 * 900, // TODO: get 900 from contract investment
     }),
-    createIncome({
-      id: 'bonusSupportIncome',
-      termsId: 'bonusSupport',
-      amount: 0.15 * summary.rights['patheSupport'] || 0,
-    }),
   ]
 }
