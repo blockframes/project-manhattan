@@ -11,16 +11,28 @@ const prepare = [
   ], { optional: true }),
 ];
 
+// SLIDE IN
 export const slideInEnter = 
   animate(`0.2s ${Easing.easeOutcubic}`, style({opacity: '1', transform: 'translateY(0)'}));
 export const slideInLeave = 
   animate(`0.2s ${Easing.easeIncubic}`, style({opacity: '0', transform: 'translateY(-20px)'}));
+
+// SCALE IN
+export const scaleInEnter = 
+  animate(`0.2s ${Easing.easeOutcubic}`, style({opacity: '1', transform: 'scale(1)'}));
 
 export const animation = trigger('animation', [
   transition('void => loading', [
     query(':enter', [
       style({ opacity: '0' }),
       animate(`0.2s ${Easing.easeIncubic}`, style({ opacity: '1' })),
+      animateChild()
+    ], { optional: true })
+  ]),
+  transition('void => empty', [
+    query(':enter', [
+      style({ opacity: '0', transform: 'scale(0.95)' }),
+      scaleInEnter,
       animateChild()
     ], { optional: true })
   ]),

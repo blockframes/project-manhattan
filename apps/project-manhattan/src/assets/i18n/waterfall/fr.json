@@ -8,9 +8,19 @@
   },
   "list": {
     "add": "Ajouter un scenario",
+    "terms": {
+      "title": "Recette par couloir:"
+    },
     "ticket": {
-      "amount": "Ticket vendus",
-      "price": "Prix d'un ticket"
+      "title": "CNC:",
+      "amount": {
+        "label": "Ticket vendus",
+        "error": "Champ obligatoire"
+      },
+      "price": {
+        "label": "Prix d'un ticket",
+        "error": "Champ obligatoire"
+      }
     },
     "submit": "Lancer la simulation",
     "simulation": {

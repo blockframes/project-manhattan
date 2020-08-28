@@ -1,6 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Terms, Summary } from './+state';
 
+@Pipe({ name: 'amountSize' })
+export class AmountSize implements PipeTransform {
+  transform(multiplier: number) {
+    return multiplier === 1000 ? 'k' : '';
+  }
+}
+
 @Pipe({ name: 'onlyOrigin' })
 export class OnlyOriginPipe implements PipeTransform {
   transform(terms: Terms[]) {

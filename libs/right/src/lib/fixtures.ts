@@ -1,7 +1,6 @@
 import { Right, Terms } from '../lib/model';
 import { RightCondition } from '../lib/condition.model';
 import { Waterfall } from './waterfall';
-
 export const RIGHTS: Right[] = [
   {
     id: "originTheatricalDistributionFees",
@@ -47,7 +46,7 @@ export const RIGHTS: Right[] = [
     conditions: [
       {
         kind: "right",
-        max: 1150,
+        max: 1150000,
         rightId: "originTheatricalExpenses",
       } as RightCondition,
     ],
@@ -61,7 +60,7 @@ export const RIGHTS: Right[] = [
     conditions: [
       {
         kind: "right",
-        max: 137,
+        max: 137000,
         rightId: "originVideoExpenses",
       },
     ],
@@ -75,7 +74,7 @@ export const RIGHTS: Right[] = [
     conditions: [
       {
         kind: "right",
-        max: 56,
+        max: 56000,
         rightId: "rowExpenses",
       },
     ],
@@ -179,9 +178,9 @@ export const RIGHTS: Right[] = [
     percentage: 1,
     conditions:  [ {
       kind: "right",
-      max: 150,
+      max: 150000,
       rightId: "prodFullSupport",
-    },],
+    }],
   },
   {
     id: "prodFollowingSupport",
@@ -208,22 +207,22 @@ export const RIGHTS: Right[] = [
 export const CONDITIONS: RightCondition[] = [
   {
     kind: "right",
-    max: 1150,
+    max: 1150000,
     rightId: "originTheatricalExpenses",
   },
   {
     kind: "right",
-    max: 137,
+    max: 137000,
     rightId: "originVideoExpenses",
   },
   {
     kind: "right",
-    max: 56,
+    max: 56000,
     rightId: "rowExpenses",
   },
   {
     kind: "right",
-    max: 150,
+    max: 150000,
     rightId: "prodFullSupport",
   },
 ];

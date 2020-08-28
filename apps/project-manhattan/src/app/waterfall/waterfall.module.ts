@@ -13,6 +13,7 @@ import { ListComponent } from './list/list.component';
 import { ViewComponent } from './view/view.component';
 import { CreateComponent } from './create/create.component';
 import { pipes } from './pipe';
+import { WaterfallGuard } from './guard';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,10 +23,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 const routes: Route[] = [{
   path: '',
   component: ListComponent,
+  canActivate: [WaterfallGuard],
   children: [{
     path: 'create',
     component: CreateComponent,
@@ -55,6 +59,7 @@ const routes: Route[] = [{
     MatInputModule,
     MatCardModule,
     MatTableModule,
+    MatButtonToggleModule,
     RouterModule.forChild(routes)
   ],
   providers: [{provide: TRANSLOCO_SCOPE, useValue: 'waterfall'}]
