@@ -1,7 +1,7 @@
 export const CNC_SUPPORT: Record<number, number> = {
-  0: 1.1187,
-  1_500_000: 0.8502,
-  5_000_000: 0.0895
+  0: 1.25, // should be: 1.1187,
+  1_500_000: 0.95, // should be: 0.8502,
+  5_000_000: 0.1 // should be: 0.0895
 };
 
 

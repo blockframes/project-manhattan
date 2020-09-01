@@ -8,7 +8,7 @@ export function supportIncome(amount: number, price: number, summary: Summary): 
     createIncome({
       id: 'theatricalSupportIncome',
       termsId: 'theatricalSupport',
-      amount: getTheatricalSupport(amount, price, CNC_SUPPORT),
+      amount: 0.93 * getTheatricalSupport(amount, price, CNC_SUPPORT),
     }),
     createIncome({
       id: 'videoSupportIncome',
@@ -18,7 +18,7 @@ export function supportIncome(amount: number, price: number, summary: Summary): 
     createIncome({
       id: 'tvSupportIncome',
       termsId: 'tvSupport',
-      amount: 0.1 * 900, // TODO: get 900 from contract investment
+      amount: 0.1 * 900_000, // TODO: get 900 from contract investment
     }),
   ]
 }
