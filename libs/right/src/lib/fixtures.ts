@@ -180,7 +180,7 @@ export const RIGHTS: Right[] = [
       kind: "right",
       max: 150000,
       rightId: "prodFullSupport",
-    }],
+    },],
   },
   {
     id: "prodFollowingSupport",
