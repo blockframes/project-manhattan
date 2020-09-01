@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Terms, Summary } from './+state';
+import { Terms, Summary, Waterfall } from './+state';
 
 @Pipe({ name: 'amountSize' })
 export class AmountSize implements PipeTransform {
@@ -46,4 +46,11 @@ export class TableColumnPipe implements PipeTransform {
   }
 }
 
-export const pipes = [OnlyOriginPipe, OrgDataSourcePipe, OrgSeriesPipe, OrgLabelPipe, TableColumnPipe]
+@Pipe({ name: 'margin' })
+export class MarginPipe implements PipeTransform {
+  transform(waterfall: Waterfall, summary: Summary, orgId: string) {
+    return summary.orgs[orgId].total - waterfall.investments[orgId];
+  }
+}
+
+export const pipes = [OnlyOriginPipe, OrgDataSourcePipe, OrgSeriesPipe, OrgLabelPipe, TableColumnPipe, MarginPipe]
