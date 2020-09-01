@@ -1,0 +1,9 @@
+{
+  "create": {
+    "amount": {
+      "label": "Missing value for 'contract.create.amount.label'",
+      "error": "Missing value for 'contract.create.amount.error'"
+    },
+    "sumbit": "Missing value for 'contract.create.sumbit'"
+  }
+}

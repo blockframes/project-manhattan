@@ -3,6 +3,7 @@
     <form [formGroup]="form" @slideDownList fxLayout="column" fxLayoutGap="16px">
 
       <div class="down" fxLayout fxLayoutAlign="space-between center">
+        <h3>{{ t('investment') }}: {{ waterfall.investments['pathe'] | translocoCurrency }}</h3>
         <mat-chip-list fxLayout fxLayoutAlign="center center">
           <ng-container *ngFor="let simulation of waterfall.simulations">
             <mat-chip removable [selected]="simulation.name === form.value.name"
@@ -77,7 +78,14 @@
           </form>
         </header>
         <h2 class="up">{{t('summary.title')}}</h2>
-        <h3 class="up">Total: {{ summary.title.total | translocoCurrency : 'symbol' : { minimumFractionDigits: 0 } }}
+        <h3 class="up">
+          Total: {{ summary.title.total | translocoCurrency : 'symbol' : { minimumFractionDigits: 0 } }}
+        </h3>
+        <h3 class="up">
+          <span>{{ t('summary.margin') }}:</span>
+          <b [benefice]="waterfall | margin:summary:'pathe'">
+            {{ waterfall | margin:summary:'pathe' | translocoCurrency : 'symbol' : { minimumFractionDigits: 0 } }}
+          </b>
         </h3>
         <!--  Terms -->
         <mat-chip-list class="up">

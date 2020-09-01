@@ -73,8 +73,6 @@ describe('Get Income from waterfall', () => {
     const { summary } = runSimulation(WATERFALL, simulation);
     roundSummary(summary);
 
-    console.log(summary);
-
     // Title
     expect(summary.title.total).toBe(5515798);
     expect(summary.title['originTheatrical']).toBe(2600000);

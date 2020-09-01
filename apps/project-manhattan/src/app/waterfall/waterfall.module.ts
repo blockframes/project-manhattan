@@ -14,6 +14,7 @@ import { ViewComponent } from './view/view.component';
 import { CreateComponent } from './create/create.component';
 import { pipes } from './pipe';
 import { WaterfallGuard } from './guard';
+import { BeneficeDirective } from './directive';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,7 +43,7 @@ const routes: Route[] = [{
 }]
 
 @NgModule({
-  declarations: [ListComponent, ViewComponent, CreateComponent, ...pipes],
+  declarations: [ListComponent, ViewComponent, CreateComponent, BeneficeDirective, ...pipes],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -25,6 +25,9 @@ export interface Waterfall {
   simulations: Simulation[];
   terms: Terms[];
   rights: Right[];
+  investments: {
+    [orgId: string]: number
+  }
 }
 
 export function createSimulation(params: Partial<Simulation> = {}): Simulation {

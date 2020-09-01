@@ -352,4 +352,7 @@ export const WATERFALL: Waterfall = {
   simulations: [],
   terms: TERMS,
   rights: RIGHTS,
+  investments: {
+    'pathe': 10_000_000
+  }
 }
