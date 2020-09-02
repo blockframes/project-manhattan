@@ -3,7 +3,11 @@
     <form [formGroup]="form" @slideDownList fxLayout="column" fxLayoutGap="16px">
 
       <div class="down" fxLayout fxLayoutAlign="space-between center">
-        <h3>{{ t('investment') }}: {{ waterfall.investments['pathe'] | translocoCurrency }}</h3>
+        <div fxLayout="column">
+          <ng-container *ngFor="let investment of waterfall.investments | keyvalue">
+            <p>{{ t('investment') }} {{ investment.key | titlecase }}: {{ investment.value | translocoCurrency }}</p>
+          </ng-container>
+        </div>
         <mat-chip-list fxLayout fxLayoutAlign="center center">
           <ng-container *ngFor="let simulation of waterfall.simulations">
             <mat-chip removable [selected]="simulation.name === form.value.name"
@@ -79,19 +83,21 @@
         </header>
         <h2 class="up">{{t('summary.title')}}</h2>
         <h3 class="up">
-          Total: {{ summary.title.total | translocoCurrency : 'symbol' : { minimumFractionDigits: 0 } }}
+          Total: {{ summary.title.total | translocoCurrency }}
         </h3>
-        <h3 class="up">
-          <span>{{ t('summary.margin') }}:</span>
-          <b [benefice]="waterfall | margin:summary:'pathe'">
-            {{ waterfall | margin:summary:'pathe' | translocoCurrency : 'symbol' : { minimumFractionDigits: 0 } }}
-          </b>
-        </h3>
+        <ng-container *ngFor="let investment of waterfall.investments | keyvalue">
+          <h3 class="up">
+            <span>{{ t('summary.margin') }} {{ investment.key }}:</span>
+            <b [benefice]="waterfall | margin:summary:investment.key">
+              {{ waterfall | margin:summary:investment.key | translocoCurrency }}
+            </b>
+          </h3>
+        </ng-container>
         <!--  Terms -->
         <mat-chip-list class="up">
           <ng-container *ngFor="let income of incomes">
             <mat-chip>{{ income.termsId }} -
-              {{ income.amount | translocoCurrency: 'symbol' : { minimumFractionDigits: 0 } }}</mat-chip>
+              {{ income.amount | translocoCurrency }}</mat-chip>
           </ng-container>
         </mat-chip-list>
         <!--  Table -->
@@ -102,7 +108,7 @@
               <td mat-cell *matCellDef="let org">
                 <span *ngIf="column === 'name'">{{org[column] }}</span>
                 <span
-                  *ngIf="column !== 'name'">{{org[column] | translocoCurrency: 'symbol' : { minimumFractionDigits: 0 } }}</span>
+                  *ngIf="column !== 'name'">{{org[column] | translocoCurrency }}</span>
               </td>
             </ng-container>
           </ng-container>
@@ -116,12 +122,6 @@
               [labels]="summary | orgLabel">
             </apx-chart>
             <span class="mat-caption">{{ t('summary.chart.1') }}</span>
-          </mat-card>
-          <mat-card class="up">
-            <apx-chart [chart]="{ width: 400, type: 'pie' }" [series]="summary | orgSeries"
-              [labels]="summary | orgLabel">
-            </apx-chart>
-            <span class="mat-caption">{{ t('summary.chart.2') }}</span>
           </mat-card>
         </div>
       </article>
