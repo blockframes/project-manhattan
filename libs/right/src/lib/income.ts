@@ -9,13 +9,22 @@ export const CNC_SUPPORT: Record<number, number> = {
 
 // Base: price * ticketSold
 export const DIST_THEATRICAL_SUPPORT: Record<number, number> = {
-  0: 2.20,
-  308_000: 1.40,
-  615_000: 1.20,
-  1_230_000: 0.50,
-  3_075_000: 0.30,
-  4_305_000: 0.10,
-  6_150_000: 0,
+  // Divided by 6 to get the ticket amount
+  0: 2.2,
+  51333: 1.4,
+  102500: 1.2,
+  205000: 0.5,
+  512500: 0.3,
+  717500: 0.1,
+  1025000: 0,
+  // Original values
+  // 0: 2.20,
+  // 308000: 1.40,
+  // 615000: 1.20,
+  // 1230000: 0.50,
+  // 3075000: 0.30,
+  // 4305000: 0.10,
+  // 6150000: 0,
 };
 
 
@@ -30,13 +39,14 @@ export function getTheatricalSupport(ticketSold: number, ticketPrice: number, st
   let incomeAmount = 0;
   let rest = ticketSold;
 
-  const limits = Object.keys(steps).sort();
+  // We don't sort the keys as they are considered as string
+  const limits = Object.keys(steps);
   for (let i = 0; i < limits.length; i++) {
     if (rest === 0) break;
     const limit = Number(limits[i]);
     const percentage = steps[limit];
     // If last limit take the rest
-    if (i === limits.length) {
+    if (i === limits.length - 1) {
       incomeAmount += rest * ticketPrice * percentage * TSA;
     } else {
       const nextLimit = Number(limits[i + 1]);
@@ -49,29 +59,31 @@ export function getTheatricalSupport(ticketSold: number, ticketPrice: number, st
 }
 
 
-export function getDistTheatricalSupport(ticketSold: number, ticketPrice: number, steps: Record<number, number>) {
-  const TSA = 0.1072; // Static
+// export function getDistTheatricalSupport(ticketSold: number, ticketPrice: number, steps: Record<number, number>) {
+//   const TSA = 0.1072; // Static
 
-  let incomeAmount = 0;
-  let rest = ticketSold * ticketPrice;  // Limit is done on income
+//   let incomeAmount = 0;
+//   let rest = ticketSold * ticketPrice;  // Limit is done on income
 
-  const limits = Object.keys(steps).sort();
-  for (let i = 0; i < limits.length; i++) {
-    if (rest === 0) break;
-    const limit = Number(limits[i]);
-    const percentage = steps[limit];
-    // If last limit take the rest
-    if (i === limits.length) {
-      incomeAmount += rest * ticketPrice * percentage * TSA;
-    } else {
-      const nextLimit = Number(limits[i + 1]);
-      const range = Math.min(nextLimit - limit, rest);
-      incomeAmount += range * ticketPrice * percentage * TSA;
-      rest -= range;
-    }
-  }
-  return incomeAmount;
-}
+//   const limits = Object.keys(steps); //.map(s => Number(s)).sort();
+//   for (let i = 0; i < limits.length; i++) {
+//     if (rest === 0) break;
+//     const limit = Number(limits[i]);
+//     const percentage = steps[limit];
+//     // If last limit take the rest
+//     if (i === limits.length - 1) {
+//       incomeAmount += rest * percentage;
+//     } else {
+//       const nextLimit = Number(limits[i + 1]);
+//       const range = Math.min(nextLimit - limit, rest);
+//       console.log(nextLimit, limit, rest, range);
+//       incomeAmount += range * percentage;
+//       rest -= range;
+//     }
+//   }
+//   console.log(incomeAmount * TSA);
+//   return incomeAmount * TSA;
+// }
 
 
 
@@ -96,7 +108,7 @@ export function supportIncome(amount: number, price: number, summary: Summary): 
     createIncome({
       id: 'theatricalDistSupportIncome',
       termsId: 'theatricalDistSupport',
-      amount: getDistTheatricalSupport(amount, 6, DIST_THEATRICAL_SUPPORT),
+      amount: getTheatricalSupport(amount, 6, DIST_THEATRICAL_SUPPORT),
     }),
     createIncome({
       id: 'videoDistSupportIncome',

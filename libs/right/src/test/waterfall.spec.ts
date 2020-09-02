@@ -4,6 +4,7 @@ import { runSimulation, Simulation, createSimulation } from '../lib/waterfall';
 import { removeOverflow } from '../lib/utils';
 import { RightCondition } from '../lib/condition.model';
 import { WATERFALL } from '../lib/fixtures';
+import { getTheatricalSupport, CNC_SUPPORT } from '../lib/income';
 
 const roundSummary = (summary: Summary) => {
   for (const key in summary.title) {
@@ -59,6 +60,13 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['AYD']['originTheatrical']).toBe(577);
   });
 
+  it('Calculate Theatrical Support', () => {
+    const test1 = getTheatricalSupport(5_000_000, 6.01, CNC_SUPPORT);
+    expect(Math.round(test1)).toBe(3_350_214);
+    const test2 = getTheatricalSupport(10_000_000, 6.01, CNC_SUPPORT);
+    expect(Math.round(test2)).toBe(3_672_350);
+  })
+
   it('List of 5 incomes', async () => {
     const amount = 1_000_000;
     const price = 6.01;
@@ -76,7 +84,7 @@ describe('Get Income from waterfall', () => {
     roundSummary(summary);
     console.log(summary);
     // Title
-    expect(summary.title.total).toBe(5_515_798);
+    expect(summary.title.total).toBe(5884299); // was 5_515_798
     expect(summary.title['originTheatrical']).toBe(2_600_000);
     expect(summary.title['originTv']).toBe(600_000);
     expect(summary.title['originVideo']).toBe(312_344);
