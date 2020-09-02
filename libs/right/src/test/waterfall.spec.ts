@@ -63,16 +63,18 @@ describe('Get Income from waterfall', () => {
     const simulation: Simulation = createSimulation({
       ticket: { amount, price },
       terms: {
-        originTheatrical: 2600000,
-        originTv: 600000,
-        originVideo: 312344,
-        originVod: 299000,
-        rowAllRights: 816000
+        originTheatrical: 2_600_000,
+        originTv: 600_000,
+        originVideo: 312_344,
+        originVod: 299_000,
+        rowAllRights: 816_000
       }
     });
     const { summary } = runSimulation(WATERFALL, simulation);
     roundSummary(summary);
-
+  ​
+    console.log(summary);
+  ​
     // Title
     expect(summary.title.total).toBe(5515798);
     expect(summary.title['originTheatrical']).toBe(2600000);
@@ -85,21 +87,31 @@ describe('Get Income from waterfall', () => {
     expect(summary.title['tvSupport']).toBe(90000);
     expect(summary.title['bonusSupport']).toBe(35432);
     // Pathé
-    expect(summary.orgs['pathe'].total).toBe(3422089);
-    expect(summary.orgs['pathe']['originTheatrical']).toBe(2023400);
-    expect(summary.orgs['pathe']['originTv']).toBe(288000);
-    expect(summary.orgs['pathe']['originVideo']).toBe(242361);
-    expect(summary.orgs['pathe']['originVod']).toBe(150696);
-    expect(summary.orgs['pathe']['rowAllRights']).toBe(445984);
-    expect(summary.orgs['pathe']['theatricalSupport']).toBe(201253);
-    expect(summary.orgs['pathe']['videoSupport']).toBe(4723);
-    expect(summary.orgs['pathe']['tvSupport']).toBe(30240);
+    expect(summary.orgs['pathe'].total).toBe(2400539);
+    expect(summary.orgs['pathe']['originTheatrical']).toBe(1586700);
+    expect(summary.orgs['pathe']['originTv']).toBe(144000);
+    expect(summary.orgs['pathe']['originVideo']).toBe(189959);
+    expect(summary.orgs['pathe']['originVod']).toBe(75348);
+    expect(summary.orgs['pathe']['rowAllRights']).toBe(250992);
+    expect(summary.orgs['pathe']['theatricalSupport']).toBe(100626);
+    expect(summary.orgs['pathe']['videoSupport']).toBe(2361);
+    expect(summary.orgs['pathe']['tvSupport']).toBe(15120);
     expect(summary.orgs['pathe']['bonusSupport']).toBe(35432);
+    // Partner
+    expect(summary.orgs['pathe'].total).toBe(1021763);
+    expect(summary.orgs['pathe']['originTheatrical']).toBe(436700);
+    expect(summary.orgs['pathe']['originTv']).toBe(144000);
+    expect(summary.orgs['pathe']['originVideo']).toBe(52615);
+    expect(summary.orgs['pathe']['originVod']).toBe(75348);
+    expect(summary.orgs['pathe']['rowAllRights']).toBe(194992);
+    expect(summary.orgs['pathe']['theatricalSupport']).toBe(100626);
+    expect(summary.orgs['pathe']['videoSupport']).toBe(2361);
+    expect(summary.orgs['pathe']['tvSupport']).toBe(15120);
     // AYD
-    expect(summary.orgs['AYD'].total).toBe(1438503);
+    expect(summary.orgs['AYD'].total).toBe(1438289);
     expect(summary.orgs['AYD']['originTheatrical']).toBe(576600);
     expect(summary.orgs['AYD']['originTv']).toBe(273600);
-    expect(summary.orgs['AYD']['originVideo']).toBe(69983);
+    expect(summary.orgs['AYD']['originVideo']).toBe(69769);
     expect(summary.orgs['AYD']['originVod']).toBe(148304);
     expect(summary.orgs['AYD']['rowAllRights']).toBe(370016);
     // TV Broadcaster
@@ -120,35 +132,47 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['equity']['tvSupport']).toBe(5760);
     // Rights
     // theatrical
-    expect(summary.rights['originTheatricalDistributionFees']).toBe(520000);
+    expect(summary.rights['originPatheTheatricalDistributionFees']).toBe(260_000);
+    expect(summary.rights['originPartnerTheatricalDistributionFees']).toBe(260_000);
     expect(summary.rights['originTheatricalExpenses']).toBe(1150000);
     expect(summary.rights['RNPPAydTheatrical']).toBe(576600);
-    expect(summary.rights['RNPPpatheTheatrical']).toBe(353400);
+    expect(summary.rights['RNPPpatheTheatrical']).toBe(176_700);
+    expect(summary.rights['RNPPPartnerTheatrical']).toBe(176_700);
     // TV
-    expect(summary.rights['originTvDistributionFees']).toBe(120000);
+    expect(summary.rights['originPatheTvDistributionFees']).toBe(60_000);
+    expect(summary.rights['originPartnerTvDistributionFees']).toBe(60_000);
     expect(summary.rights['RNPPAydTv']).toBe(273600);
     expect(summary.rights['tVBroadcasterRNPP']).toBe(38400);
-    expect(summary.rights['RNPPpatheTv']).toBe(168000);
+    expect(summary.rights['RNPPpatheTv']).toBe(84_000);
+    expect(summary.rights['RNPPPartnerTv']).toBe(84_000);
     // Video
-    expect(summary.rights['originVideoDistributionFees']).toBe(62469);
-    expect(summary.rights['originVideoExpenses']).toBe(137000);
-    expect(summary.rights['RNPPAydVideo']).toBe(69983);
-    expect(summary.rights['RNPPpatheVideo']).toBe(42893);
+    expect(summary.rights['originPatheVideoDistributionFees']).toBe(31_234);
+    expect(summary.rights['originPartnerVideoDistributionFees']).toBe(31_234);
+    expect(summary.rights['originVideoExpenses']).toBe(137344);
+    expect(summary.rights['RNPPAydVideo']).toBe(69769);
+    expect(summary.rights['RNPPpatheVideo']).toBe(21_381);
+    expect(summary.rights['RNPPPartnerVideo']).toBe(21_381);
     // Vod
-    expect(summary.rights['originVodDistributionFees']).toBe(59800);
+    expect(summary.rights['originPatheVodDistributionFees']).toBe(29_900);
+    expect(summary.rights['originPartnerVodDistributionFees']).toBe(29_900);
     expect(summary.rights['RNPPAydVod']).toBe(148304);
-    expect(summary.rights['RNPPpatheVod']).toBe(90896);
+    expect(summary.rights['RNPPpatheVod']).toBe(45_448);
+    expect(summary.rights['RNPPPartnerVod']).toBe(45_448);
     // ROW
-    expect(summary.rights['rowAllRightsDistributionFees']).toBe(163200);
+    expect(summary.rights['rowAllPatheRightsDistributionFees']).toBe(81_600);
+    expect(summary.rights['rowAllPartnerRightsDistributionFees']).toBe(81_600);
     expect(summary.rights['rowExpenses']).toBe(56000);
     expect(summary.rights['RNPPAydRow']).toBe(370016);
-    expect(summary.rights['RNPPpatheRow']).toBe(226784);
+    expect(summary.rights['RNPPpatheRow']).toBe(113_392);
+    expect(summary.rights['RNPPPartnerRow']).toBe(113_392);
     // Support
     expect(summary.rights['prodFullSupport']).toBe(150000);
     expect(summary.rights['tVBroadcasterSupport']).toBe(70302);
     expect(summary.rights['equitySupport']).toBe(44993);
     expect(summary.rights['prodFollowingSupport']).toBe(351511);
-    expect(summary.rights['patheSupport']).toBe(236215);
+    expect(summary.rights['patheSupport']).toBe(118_108);
+    expect(summary.rights['partnerSupport']).toBe(118_108);
     expect(summary.rights['patheBonusSupport']).toBe(35432);
-  })
+  });  
+  
 });

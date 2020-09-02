@@ -1,48 +1,84 @@
 import { Right, Terms } from '../lib/model';
 import { RightCondition } from '../lib/condition.model';
 import { Waterfall } from './waterfall';
+
 export const RIGHTS: Right[] = [
   {
-    id: "originTheatricalDistributionFees",
+    id: "originPatheTheatricalDistributionFees",
     orgId: "pathe",
-    percentage: 0.2,
+    percentage: 0.1,
     termsIds: ["originTheatrical"],
     parentIds: ["originTheatrical"],
   },
   {
-    id: "originTvDistributionFees",
+    id: "originPartnerTheatricalDistributionFees",
+    orgId: "partner",
+    percentage: 0.1111,
+    termsIds: ["originTheatrical"],
+    parentIds: ["originPatheTheatricalDistributionFees"],
+  },
+  {
+    id: "originPatheTvDistributionFees",
     orgId: "pathe",
-    percentage: 0.2,
+    percentage: 0.1,
     termsIds: ["originTv"],
     parentIds: ["originTv"],
   },
   {
-    id: "originVideoDistributionFees",
+    id: "originPartnerTvDistributionFees",
+    orgId: "partner",
+    percentage: 0.1111,
+    termsIds: ["originTv"],
+    parentIds: ["originPatheTvDistributionFees"],
+  },
+  {
+    id: "originPatheVideoDistributionFees",
     orgId: "pathe",
-    percentage: 0.2,
+    percentage: 0.1,
     termsIds: ["originVideo"],
     parentIds: ["originVideo"],
   },
   {
-    id: "originVodDistributionFees",
+    id: "originPartnerVideoDistributionFees",
+    orgId: "partner",
+    percentage: 0.1111,
+    termsIds: ["originVideo"],
+    parentIds: ["originPatheVideoDistributionFees"],
+  },
+  {
+    id: "originPatheVodDistributionFees",
     orgId: "pathe",
-    percentage: 0.2,
+    percentage: 0.1,
     termsIds: ["originVod"],
     parentIds: ["originVod"],
   },
   {
-    id: "rowAllRightsDistributionFees",
+    id: "originPartnerVodDistributionFees",
+    orgId: "partner",
+    percentage: 0.1111,
+    termsIds: ["originVod"],
+    parentIds: ["originPatheVodDistributionFees"],
+  },
+  {
+    id: "rowAllPatheRightsDistributionFees",
     orgId: "pathe",
-    percentage: 0.2,
+    percentage: 0.1,
     termsIds: ["rowAllRights"],
     parentIds: ["rowAllRights"],
+  },
+  {
+    id: "rowAllPartnerRightsDistributionFees",
+    orgId: "partner",
+    percentage: 0.1111,
+    termsIds: ["rowAllRights"],
+    parentIds: ["rowAllPatheRightsDistributionFees"],
   },
   {
     id: "originTheatricalExpenses",
     orgId: "pathe",
     percentage: 1,
     termsIds: ["originTheatrical"],
-    parentIds: ["originTheatricalDistributionFees"],
+    parentIds: ["originPartnerTheatricalDistributionFees"],
     conditions: [
       {
         kind: "right",
@@ -56,11 +92,11 @@ export const RIGHTS: Right[] = [
     orgId: "pathe",
     percentage: 1,
     termsIds: ["originVideo"],
-    parentIds: ["originVideoDistributionFees"],
+    parentIds: ["originPartnerVideoDistributionFees"],
     conditions: [
       {
         kind: "right",
-        max: 137000,
+        max: 137344,
         rightId: "originVideoExpenses",
       },
     ],
@@ -70,7 +106,7 @@ export const RIGHTS: Right[] = [
     orgId: "pathe",
     percentage: 1,
     termsIds: ["rowAllRights"],
-    parentIds: ["rowAllRightsDistributionFees"],
+    parentIds: ["rowAllPartnerRightsDistributionFees"],
     conditions: [
       {
         kind: "right",
@@ -96,7 +132,7 @@ export const RIGHTS: Right[] = [
   {
     id: "RNPPAydVod",
     orgId: "AYD",
-    parentIds: ["originVodDistributionFees"],
+    parentIds: ["originPartnerVodDistributionFees"],
     termsIds: ["originVod"],
     percentage: 0.62,
   },
@@ -111,49 +147,84 @@ export const RIGHTS: Right[] = [
     id: "RNPPAydTv",
     orgId: "AYD",
     percentage: 0.57,
-    parentIds: ["originTvDistributionFees"],
+    parentIds: ["originPartnerTvDistributionFees"],
     termsIds: ["originTv"],
   },
   {
     id: "tVBroadcasterRNPP",
     orgId: "tVBroadcaster",
     percentage: 0.08,
-    parentIds: ["originTvDistributionFees"],
+    parentIds: ["originPartnerTvDistributionFees"],
     termsIds: ["originTv"],
   },
   {
     id: "RNPPpatheTheatrical",
     orgId: "pathe",
-    percentage: 0.38,
+    percentage: 0.19,
     parentIds: ["originTheatricalExpenses"],
     termsIds: ["originTheatrical"],
   },
   {
     id: "RNPPpatheVideo",
     orgId: "pathe",
-    percentage: 0.38,
+    percentage: 0.19,
     parentIds: ["originVideoExpenses"],
     termsIds: ["originVideo"],
   },
   {
     id: "RNPPpatheVod",
     orgId: "pathe",
-    percentage: 0.38,
-    parentIds: ["originVodDistributionFees"],
+    percentage: 0.19,
+    parentIds: ["originPartnerVodDistributionFees"],
     termsIds: ["originVod"],
   },
   {
     id: "RNPPpatheRow",
     orgId: "pathe",
-    percentage: 0.38,
+    percentage: 0.19,
     parentIds: ["rowExpenses"],
     termsIds: ["rowAllRights"],
   },
   {
     id: "RNPPpatheTv",
     orgId: "pathe",
-    percentage: 0.35,
-    parentIds: ["originTvDistributionFees"],
+    percentage: 0.175,
+    parentIds: ["originPartnerTvDistributionFees"],
+    termsIds: ["originTv"],
+  },
+  {
+    id: "RNPPPartnerTheatrical",
+    orgId: "partner",
+    percentage: 0.19,
+    parentIds: ["originTheatricalExpenses"],
+    termsIds: ["originTheatrical"],
+  },
+  {
+    id: "RNPPPartnerVideo",
+    orgId: "partner",
+    percentage: 0.19,
+    parentIds: ["originVideoExpenses"],
+    termsIds: ["originVideo"],
+  },
+  {
+    id: "RNPPPartnerVod",
+    orgId: "partner",
+    percentage: 0.19,
+    parentIds: ["originPartnerVodDistributionFees"],
+    termsIds: ["originVod"],
+  },
+  {
+    id: "RNPPPartnerRow",
+    orgId: "partner",
+    percentage: 0.19,
+    parentIds: ["rowExpenses"],
+    termsIds: ["rowAllRights"],
+  },
+  {
+    id: "RNPPPartnerTv",
+    orgId: "partner",
+    percentage: 0.175,
+    parentIds: ["originPartnerTvDistributionFees"],
     termsIds: ["originTv"],
   },
   {
@@ -192,7 +263,14 @@ export const RIGHTS: Right[] = [
   {
     id: "patheSupport",
     orgId: "pathe",
-    percentage: 0.336,
+    percentage: 0.168,
+    parentIds: ["prodFullSupport"],
+    termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
+  },
+  {
+    id: "partnerSupport",
+    orgId: "partner",
+    percentage: 0.168,
     parentIds: ["prodFullSupport"],
     termsIds: ["theatricalSupport", "videoSupport", "tvSupport"],
   },
@@ -343,7 +421,6 @@ export const TERMS: Terms[] = [
     type: "support",
   },
 ];
-
 export const WATERFALL: Waterfall = {
   id: 'withoutMG',
   type: 'scenario',
@@ -353,6 +430,7 @@ export const WATERFALL: Waterfall = {
   terms: TERMS,
   rights: RIGHTS,
   investments: {
-    'pathe': 10_000_000
+    'pathe': 750_000,
+    'partner': 750_000
   }
 }

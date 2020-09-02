@@ -8,6 +8,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { TranslocoLocaleModule } from '@ngneat/transloco-locale';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ListLayoutModule } from '../utils/list-layout';
+import { ExpansionModule } from '../utils/expansion';
 
 import { ListComponent } from './list/list.component';
 import { ViewComponent } from './view/view.component';
@@ -46,6 +47,7 @@ const routes: Route[] = [{
   declarations: [ListComponent, ViewComponent, CreateComponent, BeneficeDirective, ...pipes],
   imports: [
     CommonModule,
+    ExpansionModule,
     ReactiveFormsModule,
     ListLayoutModule,
     FlexLayoutModule,

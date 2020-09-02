@@ -21,10 +21,21 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   }
 }
 
+
+
+const formatting = {
+  currency: {
+    minimumFractionDigits: 0
+  }
+};
+
 @NgModule({
   imports: [
     TranslocoLocaleModule.init({
       defaultLocale: 'fr-FR',
+      localeConfig: {
+        global: formatting
+      },
       langToLocaleMapping: {
         fr: 'fr-FR'
       }

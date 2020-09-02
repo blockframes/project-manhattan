@@ -202,10 +202,13 @@ export function runSimulation(waterfall: Waterfall, simulation: SimulationSource
     incomes.push(support);
   }
 
+  // For this base we take twice the amount received by pathe
+  const patheSupportBase = summary.rights['patheSupport'] * 2;
+
   const bonus = createIncome({
     id: 'bonusSupportIncome',
     termsId: 'bonusSupport',
-    amount: 0.15 * summary.rights['patheSupport'] || 0,
+    amount: 0.15 * patheSupportBase || 0, 
   });
   summary = emulateSummary(waterfall, bonus, summary);
   incomes.push(bonus);

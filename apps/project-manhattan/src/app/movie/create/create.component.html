@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; read: 'movie.create'">
-  <form [formGroup]="form" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+  <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
     <mat-radio-group formControlName="poster" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
       <ng-container *ngFor="let poster of posters">
         <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
@@ -17,7 +17,7 @@
       <a mat-button routerLink="../list">
         {{ t('cancel') | titlecase }}
       </a>
-      <button mat-button  (click)="create()" color="primary">
+      <button mat-button type="submit" color="primary">
         {{ t('submit') | titlecase }}
       </button>
     </footer>
