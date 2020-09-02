@@ -287,15 +287,15 @@ export const RIGHTS: Right[] = [
     id: 'patheDistSupport',
     orgId: 'pathe',
     percentage: 0.5,
-    parentIds: ['theatricalDistSupportIncome', 'videoDistSupportIncome'],
-    termsIds: ['theatricalDistSupportIncome', 'videoDistSupportIncome'],
+    parentIds: ['theatricalDistSupport', 'videoDistSupport'],
+    termsIds: ['theatricalDistSupport', 'videoDistSupport'],
   },
   {
     id: 'partnerDistSupport',
     orgId: 'partner',
     percentage: 1,
     parentIds: ['patheDistSupport'],
-    termsIds: ['theatricalDistSupportIncome', 'videoDistSupportIncome'],
+    termsIds: ['theatricalDistSupport', 'videoDistSupport'],
   },
 ];
 export const CONDITIONS: RightCondition[] = [
