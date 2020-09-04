@@ -11,7 +11,7 @@ export function createForm(terms: Terms[]) {
     name: new FormControl(),
     ticket: new FormGroup({
       amount: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
+      price: new FormControl(6.01, Validators.required),
     }),
     terms: termsForm
   });
