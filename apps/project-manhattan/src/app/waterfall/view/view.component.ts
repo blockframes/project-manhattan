@@ -6,6 +6,7 @@ import { switchMap, filter, distinctUntilKeyChanged, shareReplay } from 'rxjs/op
 import { Income, Summary, Simulation } from '@blockframes/right';
 import { slideDownList, slideUpList } from '../../animations';
 import { FormControl } from '@angular/forms';
+import { ApexChart } from 'ng-apexcharts';
 
 @Component({
   selector: 'waterfall-view',
@@ -21,6 +22,7 @@ export class ViewComponent implements OnInit {
   waterfall$: Observable<Waterfall>;
   form = createForm([]);
   multiplier = new FormControl(1);
+  chartOptions: ApexChart = { width: 400, height: 250, type: 'pie' };
 
   constructor(
     private service: WaterfallService,

@@ -10,16 +10,13 @@
     "add": "Ajouter un waterfall",
     "investment": "Investissement",
     "terms": {
-      "title": "Recettes par couloir:"
+      "title": "Recettes par couloir"
     },
     "ticket": {
-      "title": "Eléments de calcul soutien CNC:",
+      "title": "Eléments de calcul soutien CNC",
+      "price": "Prix ticket CNC",
       "amount": {
         "label": "Ticket vendus",
-        "error": "Champ obligatoire"
-      },
-      "price": {
-        "label": "Prix d'un ticket",
         "error": "Champ obligatoire"
       }
     },
@@ -33,7 +30,8 @@
       "margin": "Marge",
       "chart": {
         "1": "Recette par entreprise.",
-        "2": "Recette par entreprise."
+        "2": "Répartition des recettes pour Pathe.",
+        "3": "Répartition des recettes pour Partenaire."
       }
     },
     "empty": "Remplir le formulaire au dessus pour lancer une simulation."

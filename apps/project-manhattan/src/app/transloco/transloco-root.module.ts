@@ -26,6 +26,10 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 const formatting = {
   currency: {
     minimumFractionDigits: 0
+  },
+  decimal: {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
   }
 };
 
