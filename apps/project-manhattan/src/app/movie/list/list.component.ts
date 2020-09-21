@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
 
   constructor(private service: MovieService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }
