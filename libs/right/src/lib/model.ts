@@ -1,4 +1,4 @@
-import { Condition } from './condition.model';
+import { RightCondition } from './condition.model';
 
 /////////////
 // SUMMARY //
@@ -41,12 +41,12 @@ export function createSummary(params: Partial<Summary> = {}): Summary {
 ///////////
 export interface Right {
   id: string;
-  title: string;
+  title?: string;
   percentage: number;
   parentIds: string[];
   orgId: string;
   termsIds: string[];
-  conditions?:  Condition[];
+  conditions?:  RightCondition[];
 }
 
 export function createRight(params: Partial<Right> = {}): Right {
