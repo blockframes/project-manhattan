@@ -1,3 +1,7 @@
 {
+  "create": "ajouter",
+  "ticket": {
+    "price": "Missing value for 'ticket.price'"
+  },
   "pathe": "Missing value for 'pathe'"
 }

@@ -1,5 +1,6 @@
 {
   "create": {
+    "myMovies": "mes films",
     "poster": {
       "label": "Choisir un poster"
     },
@@ -11,14 +12,15 @@
     "submit": "valider"
   },
   "list": {
-    "title": "mes films",
-    "create": "ajouter",
     "item": {
       "alt": "poster du film"
     },
-    "empty": "Ajouter un nouveau film en cliquant sur le bouton (+) en haut à droite"
+    "empty": "Ajouter un nouveau film en cliquant sur le bouton (+) en haut à droite",
+    "title": "mes films",
+    "create": "ajouter"
   },
   "view": {
+    "myMovies": "mes films",
     "waterfall": "waterfall",
     "emulator": "simulation"
   }

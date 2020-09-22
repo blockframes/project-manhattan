@@ -1,10 +1,15 @@
 :host {
-  display: block;
+  display: flex;
   height: 100%;
+  flex-direction: column;
+}
+
+header {
+  padding: 24px 32px;
 }
 
 form {
-  height: 100%;
+  flex: 1;
 }
 
 mat-radio-group {

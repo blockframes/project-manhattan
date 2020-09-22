@@ -1,11 +1,15 @@
-:host, list-layout {
+@import 'theme';
+
+:host {
+  background-color: $background-card;
+  border-radius: 4px;
+}
+
+section, list-layout {
   display: block;
   height: 100%;
 }
 
-section {
-  height: 100%;
-}
 
 main {
   height: calc(100% - 50px); // 48px = size of the tabs

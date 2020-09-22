@@ -1,4 +1,10 @@
 <ng-container *transloco="let t; read: 'movie.create'">
+  <header fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
+    <a mat-button routerLink="../list">
+      <mat-icon>arrow_back</mat-icon>
+      <span>{{ t('myMovies') | titlecase }}</span>
+    </a>
+  </header>
   <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
     <mat-radio-group formControlName="poster" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
       <ng-container *ngFor="let poster of posters">
