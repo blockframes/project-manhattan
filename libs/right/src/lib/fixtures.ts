@@ -5,7 +5,7 @@ import { Waterfall } from './waterfall';
 export const RIGHTS: Right[] = [
   {
     id: 'originPatheTheatricalDistributionFees',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     title: 'Commission Salles',
     percentage: 0.1,
     termsIds: ['originTheatrical'],
@@ -13,7 +13,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPartnerTheatricalDistributionFees',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     title: 'Commission Salles',
     percentage: 0.11111111111,
     termsIds: ['originTheatrical'],
@@ -21,7 +21,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPatheTvDistributionFees',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     title: 'Commission TV',
     percentage: 0.1,
     termsIds: ['originTv'],
@@ -29,7 +29,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPartnerTvDistributionFees',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     title: 'Commission TV',
     percentage: 0.11111111111,
     termsIds: ['originTv'],
@@ -37,7 +37,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPatheVideoDistributionFees',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     title: 'Commission Vidéo',
     percentage: 0.1,
     termsIds: ['originVideo'],
@@ -45,7 +45,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPartnerVideoDistributionFees',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     title: 'Commission Vidéo',
     percentage: 0.11111111111,
     termsIds: ['originVideo'],
@@ -53,7 +53,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPatheVodDistributionFees',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     title: 'Commission VOD',
     percentage: 0.1,
     termsIds: ['originVod'],
@@ -61,7 +61,7 @@ export const RIGHTS: Right[] = [
   },
   {
     id: 'originPartnerVodDistributionFees',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     title: 'Commission VOD',
     percentage: 0.11111111111,
     termsIds: ['originVod'],
@@ -70,7 +70,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'rowAllPatheRightsDistributionFees',
     title: 'Commission Export',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.1,
     termsIds: ['rowAllRights'],
     parentIds: ['rowAllRights'],
@@ -78,7 +78,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'rowAllPartnerRightsDistributionFees',
     title: 'Commission Export',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.11111111111,
     termsIds: ['rowAllRights'],
     parentIds: ['rowAllPatheRightsDistributionFees'],
@@ -86,7 +86,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originTheatricalExpenses',
     title: "Frais d'édition Salles",
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 1,
     termsIds: ['originTheatrical'],
     parentIds: ['originPartnerTheatricalDistributionFees'],
@@ -101,7 +101,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originVideoExpenses',
     title: "Frais d'édition Vidéo",
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 1,
     termsIds: ['originVideo'],
     parentIds: ['originPartnerVideoDistributionFees'],
@@ -116,7 +116,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'rowExpenses',
     title: 'Frais Export',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 1,
     termsIds: ['rowAllRights'],
     parentIds: ['rowAllPartnerRightsDistributionFees'],
@@ -171,7 +171,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'tVBroadcasterRNPP',
     title: 'RNPP Chaîne TV',
-    orgId: 'Chaîne TV',
+    orgId: 'tvBroadcaster',
     percentage: 0.08,
     parentIds: ['originPartnerTvDistributionFees'],
     termsIds: ['originTv'],
@@ -179,7 +179,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPpatheTheatrical',
     title: 'RNPP Pathé Salles',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.19,
     parentIds: ['originTheatricalExpenses'],
     termsIds: ['originTheatrical'],
@@ -187,7 +187,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPpatheVideo',
     title: 'RNPP Pathé Vidéo',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.19,
     parentIds: ['originVideoExpenses'],
     termsIds: ['originVideo'],
@@ -195,7 +195,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPpatheVod',
     title: 'RNPP Pathé VOD',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.19,
     parentIds: ['originPartnerVodDistributionFees'],
     termsIds: ['originVod'],
@@ -203,7 +203,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPpatheRow',
     title: 'RNPP Pathé Export',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.19,
     parentIds: ['rowExpenses'],
     termsIds: ['rowAllRights'],
@@ -211,7 +211,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPpatheTv',
     title: 'RNPP Pathé TV',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.175,
     parentIds: ['originPartnerTvDistributionFees'],
     termsIds: ['originTv'],
@@ -219,7 +219,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPPartnerTheatrical',
     title: 'RNPP Partenaire Salles',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.19,
     parentIds: ['originTheatricalExpenses'],
     termsIds: ['originTheatrical'],
@@ -227,7 +227,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPPartnerVideo',
     title: 'RNPP Partenaire Vidéo',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.19,
     parentIds: ['originVideoExpenses'],
     termsIds: ['originVideo'],
@@ -235,7 +235,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPPartnerVod',
     title: 'RNPP Partenaire VOD',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.19,
     parentIds: ['originPartnerVodDistributionFees'],
     termsIds: ['originVod'],
@@ -243,7 +243,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPPartnerRow',
     title: 'RNPP Partenaire Export',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.19,
     parentIds: ['rowExpenses'],
     termsIds: ['rowAllRights'],
@@ -251,7 +251,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'RNPPPartnerTv',
     title: 'RNPP Partenaire TV',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.175,
     parentIds: ['originPartnerTvDistributionFees'],
     termsIds: ['originTv'],
@@ -259,7 +259,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'tVBroadcasterSupport',
     title: 'Soutien financier Chaîne TV',
-    orgId: 'Chaîne TV',
+    orgId: 'tvBroadcaster',
     percentage: 0.1,
     parentIds: ['prodFullSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
@@ -267,7 +267,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'equitySupport',
     title: 'Soutien financier Fonds Equity',
-    orgId: 'Fonds equity',
+    orgId: 'equity',
     percentage: 0.064,
     parentIds: ['prodFullSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
@@ -275,7 +275,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'prodFullSupport',
     title: 'Soutien financier Producteur 100%',
-    orgId: 'Producteur',
+    orgId: 'prod',
     parentIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
     percentage: 1,
@@ -290,7 +290,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'prodFollowingSupport',
     title: 'Soutien financier Producteur 50%',
-    orgId: 'Producteur',
+    orgId: 'prod',
     percentage: 0.5,
     parentIds: ['prodFullSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
@@ -298,7 +298,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'patheSupport',
     title: 'Soutien financier Pathé',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.168,
     parentIds: ['prodFullSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
@@ -306,7 +306,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'partnerSupport',
     title: 'Soutien financier Pathé',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 0.168,
     parentIds: ['prodFullSupport'],
     termsIds: ['theatricalSupport', 'videoSupport', 'tvSupport'],
@@ -315,7 +315,7 @@ export const RIGHTS: Right[] = [
     id: 'patheBonusSupport',
 
     title: 'Majoration soutien financier Pathé',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 1,
     parentIds: ['bonusSupport'],
     termsIds: ['bonusSupport'],
@@ -323,7 +323,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'patheDistSupport',
     title: 'Soutien distributeur Pathé',
-    orgId: 'Pathé',
+    orgId: 'pathe',
     percentage: 0.5,
     parentIds: ['theatricalDistSupport', 'videoDistSupport'],
     termsIds: ['theatricalDistSupport', 'videoDistSupport'],
@@ -331,7 +331,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'partnerDistSupport',
     title: 'Soutien distributeur Partenaire',
-    orgId: 'Partenaire',
+    orgId: 'partner',
     percentage: 1,
     parentIds: ['patheDistSupport'],
     termsIds: ['theatricalDistSupport', 'videoDistSupport'],
