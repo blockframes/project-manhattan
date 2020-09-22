@@ -22,6 +22,7 @@ import { routeAnimation } from './animations';
   </ng-container>`,
   styles: [
     ':host { display: block; height: 100%; }',
+    'mat-toolbar { padding: 0 36px; }',
     '.img-link { height: 80%; }',
     'img { height: 100%; }',
     'main { height: calc(100% - 64px) }'
