@@ -488,7 +488,19 @@ export const WATERFALL: Waterfall = {
   type: 'scenario',
   name: 'Sans MG',
   orgId: '',
-  simulations: [],
+  simulations: [
+    {
+      name: 'budget',
+      multiplier: 1,
+      ticket: {
+        amount: 1_000_000,
+        price: 6.01,
+      },
+      terms: {
+        rowAllRights: 700_000,
+      },
+    },
+  ],
   terms: TERMS,
   rights: RIGHTS,
   investments: {
@@ -496,3 +508,15 @@ export const WATERFALL: Waterfall = {
     partner: 750_000,
   },
 };
+
+export interface Simulation {
+  name: 'budget';
+  multiplier: 1;
+  ticket: {
+    amount: 1_000_000;
+    price: 6.01;
+  };
+  terms: {
+    rowAllRights: 700_000;
+  };
+}

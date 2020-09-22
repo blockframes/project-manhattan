@@ -1,4 +1,4 @@
-import { Right, Terms, Income, createTerms, createRight } from '../index';
+import { Right, createRight } from '../index';
 import { createIncome, Summary, createSummary } from '../lib/model';
 import { runSimulation, Simulation, createSimulation } from '../lib/waterfall';
 import { removeOverflow } from '../lib/utils';
@@ -65,7 +65,7 @@ describe('Get Income from waterfall', () => {
     expect(Math.round(test1)).toBe(3_350_214);
     const test2 = getTheatricalSupport(10_000_000, 6.01, CNC_SUPPORT);
     expect(Math.round(test2)).toBe(3_672_350);
-  })
+  });
 
   it('List of 5 incomes', async () => {
     const amount = 1_000_000;
@@ -107,7 +107,8 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['pathe']['videoSupport']).toBe(2_361);
     expect(summary.orgs['pathe']['tvSupport']).toBe(15_120);
     expect(summary.orgs['pathe']['bonusSupport']).toBe(35_432);
-    expect(summary.orgs['pathe']['patheDistSupport']).toBe(184_251);
+    expect(summary.orgs['pathe']['theatricalDistSupport']).toBe(177_223);
+    expect(summary.orgs['pathe']['videoDistSupport']).toBe(7_028);
     // Partner
     expect(summary.orgs['partner'].total).toBe(1_206_014);
     expect(summary.orgs['partner']['originTheatrical']).toBe(436_700);
@@ -118,7 +119,8 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['partner']['theatricalSupport']).toBe(100_626);
     expect(summary.orgs['partner']['videoSupport']).toBe(2_361);
     expect(summary.orgs['partner']['tvSupport']).toBe(15_120);
-    expect(summary.orgs['partner']['partnerDistSupport']).toBe(184_251);
+    expect(summary.orgs['partner']['theatricalDistSupport']).toBe(177_223);
+    expect(summary.orgs['partner']['videoDistSupport']).toBe(7_028);
     // AYD
     expect(summary.orgs['AYD'].total).toBe(1_438_289);
     expect(summary.orgs['AYD']['originTheatrical']).toBe(576_600);
@@ -127,7 +129,7 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['AYD']['originVod']).toBe(148_304);
     expect(summary.orgs['AYD']['rowAllRights']).toBe(370_016);
     // TV Broadcaster
-    expect(summary.orgs['tvBroadcaster'].total).toBe(108_703);
+    expect(summary.orgs['tvBroadcaster'].total).toBe(108_702);
     expect(summary.orgs['tvBroadcaster']['originTv']).toBe(38_400);
     expect(summary.orgs['tvBroadcaster']['theatricalSupport']).toBe(59_897);
     expect(summary.orgs['tvBroadcaster']['videoSupport']).toBe(1_406);
