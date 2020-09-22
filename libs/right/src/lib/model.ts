@@ -41,6 +41,7 @@ export function createSummary(params: Partial<Summary> = {}): Summary {
 ///////////
 export interface Right {
   id: string;
+  title: string;
   percentage: number;
   parentIds: string[];
   orgId: string;
@@ -51,6 +52,7 @@ export interface Right {
 export function createRight(params: Partial<Right> = {}): Right {
   return {
     id: '',
+    title: '',
     percentage: 0,
     orgId: '',
     termsIds: [],
@@ -105,7 +107,7 @@ export interface Income {
 }
 
 export function isIncome(value: any): value is Income {
-  return 'termsId' in value && 'amount' in value; 
+  return 'termsId' in value && 'amount' in value;
 }
 
 export function createIncome(params: Partial<Income> = {}): Income {
@@ -116,4 +118,3 @@ export function createIncome(params: Partial<Income> = {}): Income {
     ...params
   }
 }
-

@@ -6,6 +6,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originPatheTheatricalDistributionFees',
     orgId: 'Pathé',
+    title: 'Commission Salles',
     percentage: 0.1,
     termsIds: ['originTheatrical'],
     parentIds: ['originTheatrical'],
