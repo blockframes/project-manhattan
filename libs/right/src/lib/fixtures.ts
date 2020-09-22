@@ -337,28 +337,7 @@ export const RIGHTS: Right[] = [
     termsIds: ['theatricalDistSupport', 'videoDistSupport'],
   },
 ];
-export const CONDITIONS: RightCondition[] = [
-  {
-    kind: 'right',
-    max: 1150000,
-    rightId: 'originTheatricalExpenses',
-  },
-  {
-    kind: 'right',
-    max: 137000,
-    rightId: 'originVideoExpenses',
-  },
-  {
-    kind: 'right',
-    max: 56000,
-    rightId: 'rowExpenses',
-  },
-  {
-    kind: 'right',
-    max: 150000,
-    rightId: 'prodFullSupport',
-  },
-];
+
 export const TERMS: Terms[] = [
   {
     id: 'originTheatrical',
