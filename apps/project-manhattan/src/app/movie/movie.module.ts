@@ -37,7 +37,7 @@ const routes: Route[] = [{
 },{
   path: 'create',
   component: CreateComponent,
-  data: { animation: 'view' }
+  data: { animation: 'create' }
 }, {
   path: ':movieId',
   component: ViewComponent,
