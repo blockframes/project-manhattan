@@ -20,10 +20,10 @@
       <input matInput formControlName="title" [placeholder]="t('title.placeholder') | titlecase" />
     </mat-form-field>
     <footer fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
-      <a mat-button routerLink="../list">
+      <a mat-stroked-button color="primary" routerLink="../list">
         {{ t('cancel') | titlecase }}
       </a>
-      <button mat-button type="submit" color="primary">
+      <button mat-flat-button type="submit" color="primary">
         {{ t('submit') | titlecase }}
       </button>
     </footer>

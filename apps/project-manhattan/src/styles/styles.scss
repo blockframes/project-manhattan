@@ -27,3 +27,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+button[mat-button], button[mat-flat-button], button[mat-stroked-button],
+a[mat-button], a[mat-flat-button], a[mat-stroked-button] {
+  border-radius: 22px;
+}
