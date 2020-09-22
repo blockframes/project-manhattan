@@ -84,7 +84,7 @@ describe('Get Income from waterfall', () => {
     roundSummary(summary);
     console.log(summary);
     // Title
-    expect(summary.title.total).toBe(5884299); // was 5_515_798
+    expect(summary.title.total).toBe(5_884_299); // was 5_515_798
     expect(summary.title['originTheatrical']).toBe(2_600_000);
     expect(summary.title['originTv']).toBe(600_000);
     expect(summary.title['originVideo']).toBe(312_344);
@@ -127,7 +127,7 @@ describe('Get Income from waterfall', () => {
     expect(summary.orgs['AYD']['originVod']).toBe(148_304);
     expect(summary.orgs['AYD']['rowAllRights']).toBe(370_016);
     // TV Broadcaster
-    expect(summary.orgs['tVBroadcaster'].total).toBe(108_702);
+    expect(summary.orgs['tVBroadcaster'].total).toBe(108_703);
     expect(summary.orgs['tVBroadcaster']['originTv']).toBe(38_400);
     expect(summary.orgs['tVBroadcaster']['theatricalSupport']).toBe(59_897);
     expect(summary.orgs['tVBroadcaster']['videoSupport']).toBe(1_406);

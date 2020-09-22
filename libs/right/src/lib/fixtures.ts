@@ -13,7 +13,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originPartnerTheatricalDistributionFees',
     orgId: 'partner',
-    percentage: 0.1111,
+    percentage: 0.11111111111,
     termsIds: ['originTheatrical'],
     parentIds: ['originPatheTheatricalDistributionFees'],
   },
@@ -27,7 +27,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originPartnerTvDistributionFees',
     orgId: 'partner',
-    percentage: 0.1111,
+    percentage: 0.11111111111,
     termsIds: ['originTv'],
     parentIds: ['originPatheTvDistributionFees'],
   },
@@ -41,7 +41,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originPartnerVideoDistributionFees',
     orgId: 'partner',
-    percentage: 0.1111,
+    percentage: 0.11111111111,
     termsIds: ['originVideo'],
     parentIds: ['originPatheVideoDistributionFees'],
   },
@@ -55,7 +55,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'originPartnerVodDistributionFees',
     orgId: 'partner',
-    percentage: 0.1111,
+    percentage: 0.11111111111,
     termsIds: ['originVod'],
     parentIds: ['originPatheVodDistributionFees'],
   },
@@ -69,7 +69,7 @@ export const RIGHTS: Right[] = [
   {
     id: 'rowAllPartnerRightsDistributionFees',
     orgId: 'partner',
-    percentage: 0.1111,
+    percentage: 0.11111111111,
     termsIds: ['rowAllRights'],
     parentIds: ['rowAllPatheRightsDistributionFees'],
   },
