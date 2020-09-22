@@ -11,7 +11,7 @@
     </a>
   </nav>
 
-  <main [@routeAnimation]="routeChange(outlet)">
+  <div class="route-container" [@routeAnimation]="routeChange(outlet)">
     <router-outlet #outlet="outlet"></router-outlet>
-  </main>
+  </div>
 </ng-container>

@@ -132,7 +132,7 @@ const prepare = [
 ];
 
 export const routeAnimation = trigger('routeAnimation', [
-  transition('list => view', [
+  transition('list => view, list => create, view => create', [
       ...prepare,
       query(':enter', [ style({ opacity: 0, transform: 'translateY(40vh)', boxShadow: '0px -2px 16px 0px rgba(0,0,0,0.3)' }) ], { optional: true }),
       group([
@@ -140,7 +140,7 @@ export const routeAnimation = trigger('routeAnimation', [
           query(':enter', [ animate(`500ms 100ms ${Easing.easeOutCirc}`, style({ opacity: 1, transform: 'translateY(0)' })) ], { optional: true })
       ]),
   ]),
-  transition('view => list', [
+  transition('view => list, create => list, create => view', [
       ...prepare,
       query(':enter', [ style({ opacity: 0, transform: 'scale(0.95)' }) ], { optional: true }),
       query(':leave', [ style({ zIndex: 1, boxShadow: '0px -2px 16px 0px rgba(0,0,0,0.3)' }) ], { optional: true }),

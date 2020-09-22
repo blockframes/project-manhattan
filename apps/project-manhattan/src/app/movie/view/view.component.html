@@ -7,7 +7,12 @@
         <span>{{ t('myMovies') | titlecase }}</span>
       </a>
     </header>
-    <main>
+
+    <section>
+      <article fxLayout fxLayoutGap="16px">
+        <img [src]="movie.poster" alt="poster"/>
+        <h1>{{ movie.title }}</h1>
+      </article>
       <router-outlet></router-outlet>
-    </main>
+    </section>
 </ng-container>

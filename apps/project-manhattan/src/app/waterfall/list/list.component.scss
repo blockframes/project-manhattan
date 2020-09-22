@@ -1,8 +1,10 @@
 @import 'theme';
 
 :host {
+  display: block;
   background-color: $background-card;
   border-radius: 4px;
+  margin: 16px;
 }
 
 section, list-layout {
@@ -11,6 +13,6 @@ section, list-layout {
 }
 
 
-main {
-  height: calc(100% - 50px); // 48px = size of the tabs
+.route-container {
+  min-height: 50vh; // needed for animations
 }
