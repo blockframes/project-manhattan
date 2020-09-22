@@ -1,5 +1,6 @@
 <ng-container *transloco="let t; read: 'waterfall.list'">
   <ng-container *ngIf="waterfall$ | async as waterfall">
+    <button mat-button (click)="openDetails(waterfall)">Détails</button>
     <form [formGroup]="form" @slideDownList fxLayout="column" fxLayoutGap="16px">
 
       <div class="down" fxLayout fxLayoutAlign="space-between center">

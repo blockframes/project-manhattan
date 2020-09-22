@@ -26,7 +26,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { GraphComponent } from './graph/graph.component';
+import { G6GraphModule } from 'ng-antv-g6';
 
 const routes: Route[] = [{
   path: '',
@@ -44,7 +46,7 @@ const routes: Route[] = [{
 }]
 
 @NgModule({
-  declarations: [ListComponent, ViewComponent, CreateComponent, BeneficeDirective, ...pipes],
+  declarations: [ListComponent, ViewComponent, CreateComponent, GraphComponent, BeneficeDirective, ...pipes],
   imports: [
     CommonModule,
     ExpansionModule,
@@ -63,6 +65,8 @@ const routes: Route[] = [{
     MatCardModule,
     MatTableModule,
     MatButtonToggleModule,
+    MatDialogModule,
+    G6GraphModule,
     RouterModule.forChild(routes)
   ],
   providers: [{provide: TRANSLOCO_SCOPE, useValue: 'waterfall'}]

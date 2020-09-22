@@ -7,6 +7,8 @@ import { Income, Summary, Simulation } from '@blockframes/right';
 import { slideDownList, slideUpList } from '../../animations';
 import { FormControl } from '@angular/forms';
 import { ApexChart } from 'ng-apexcharts';
+import { MatDialog } from '@angular/material/dialog';
+import { GraphComponent } from '../graph/graph.component';
 
 @Component({
   selector: 'waterfall-view',
@@ -26,7 +28,8 @@ export class ViewComponent implements OnInit {
 
   constructor(
     private service: WaterfallService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +41,10 @@ export class ViewComponent implements OnInit {
       filter(waterfall => !!waterfall),
       distinctUntilKeyChanged('id'),
     ).subscribe(waterfall => this.form = createForm(waterfall.terms))
+  }
+
+  openDetails(data: Waterfall) {
+    this.dialog.open(GraphComponent, { data, width: '70vw', height: '70vh'})
   }
 
   /** Apply a multiplier on each entry */
