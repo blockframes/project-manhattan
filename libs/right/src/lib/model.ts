@@ -41,6 +41,7 @@ export function createSummary(params: Partial<Summary> = {}): Summary {
 ///////////
 export interface Right {
   id: string;
+  orgName?: string;
   title?: string;
   percentage: number;
   parentIds: string[];
