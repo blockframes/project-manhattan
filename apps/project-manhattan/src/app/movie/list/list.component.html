@@ -1,12 +1,4 @@
 <ng-container *transloco="let t; read: 'movie.list'">
-  <mat-toolbar fxLayoutAlign="space-between center">
-    <h1>{{ t('title') | titlecase }}</h1>
-    <a mat-stroked-button color="primary" routerLink="../create">
-      <mat-icon>add</mat-icon>
-      <span>{{ t('create') | titlecase }}</span>
-    </a>
-  </mat-toolbar>
-
   <list-layout *ngAsync="list$ | async as list" [list]="list">
     <grid class="list" @slideUpList >
       <ng-container *ngFor="let movie of list; trackBy: trackById">

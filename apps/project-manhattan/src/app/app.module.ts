@@ -13,6 +13,10 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { TranslocoRootModule } from './transloco/transloco-root.module';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 const routes: Route[] = [{
   path: '',
   redirectTo: 'movie',
@@ -37,7 +41,11 @@ const routes: Route[] = [{
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
-    TranslocoRootModule
+    TranslocoRootModule,
+
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [{
     provide: SETTINGS,
