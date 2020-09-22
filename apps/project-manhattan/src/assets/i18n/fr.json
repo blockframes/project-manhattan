@@ -3,5 +3,5 @@
   "ticket": {
     "price": "Missing value for 'ticket.price'"
   },
-  "pathe": "Missing value for 'Pathé'"
+  "pathe": "Missing value for 'pathe'"
 }
