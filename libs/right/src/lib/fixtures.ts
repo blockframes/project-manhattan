@@ -528,6 +528,21 @@ export const WATERFALL: Waterfall = {
   orgId: '',
   simulations: [
     {
+      name: 'crash',
+      multiplier: 1,
+      ticket: {
+        amount: 650_000,
+        price: 6.01,
+      },
+      terms: {
+        originTheatrical: 1_690_000,
+        originVideo: 187_406,
+        originVod: 202_800,
+        originTv: 450_000,
+        rowAllRights: 550_000,
+      },
+    },
+    {
       name: 'budget',
       multiplier: 1,
       ticket: {
@@ -535,7 +550,26 @@ export const WATERFALL: Waterfall = {
         price: 6.01,
       },
       terms: {
-        rowAllRights: 700_000,
+        originTheatrical: 2_600_000,
+        originVideo: 312_344,
+        originVod: 299_000,
+        originTv: 600_000,
+        rowAllRights: 816_000,
+      },
+    },
+    {
+      name: 'succès',
+      multiplier: 1,
+      ticket: {
+        amount: 1_300_000,
+        price: 6.01,
+      },
+      terms: {
+        originTheatrical: 3_380_000,
+        originVideo: 624_688,
+        originVod: 520_000,
+        originTv: 800_000,
+        rowAllRights: 1_790_000,
       },
     },
   ],
@@ -546,15 +580,3 @@ export const WATERFALL: Waterfall = {
     partner: 750_000,
   },
 };
-
-export interface Simulation {
-  name: 'budget';
-  multiplier: 1;
-  ticket: {
-    amount: 1_000_000;
-    price: 6.01;
-  };
-  terms: {
-    rowAllRights: 700_000;
-  };
-}
