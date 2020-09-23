@@ -16,6 +16,13 @@ export class OnlyOriginPipe implements PipeTransform {
   }
 }
 
+@Pipe({ name: 'getTerms' })
+export class GetTermsPipe implements PipeTransform {
+  transform(waterfall: Waterfall, termsId: string) {
+    return waterfall.terms.find(t => t.id === termsId);
+  }
+}
+
 @Pipe({ name: 'orgDataSource' })
 export class OrgDataSourcePipe implements PipeTransform {
   transform(summary: Summary) {
@@ -84,6 +91,7 @@ export class LargeNumberPipe implements PipeTransform {
 }
 
 export const pipes = [
+  GetTermsPipe,
   OnlyOriginPipe,
   OrgDataSourcePipe,
   OrgSeriesPipe,

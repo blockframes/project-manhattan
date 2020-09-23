@@ -26,6 +26,7 @@
       "label": "Nom (low, medium, high, ...)",
       "create": "Enregistrer"
     },
+    "view": "Voir le Waterfall",
     "summary": {
       "title": "Synthèse",
       "margin": "Marge",

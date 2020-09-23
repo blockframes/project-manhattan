@@ -3,11 +3,15 @@
     <g6-node [id]="terms.id" [label]="terms.title"></g6-node>
   </ng-container>
   <ng-container *ngFor="let right of waterfall.rights">
-    <g6-node [id]="right.id" [label]="right.id"></g6-node>
+    <g6-node [id]="right.id" [label]="right.title"></g6-node>
   </ng-container>
   <ng-container *ngFor="let right of waterfall.rights">
     <ng-container *ngFor="let parent of (right.parentIds || [])">
-      <g6-edge [source]="parent" [target]="right.id" [label]="right.percentage | percent"></g6-edge>
+      <g6-edge
+        [source]="parent" [target]="right.id"
+        [label]="right.percentage | percent"
+        [labelCfg]="{ style: { fill: 'steelblue', opacity: 1 } }"
+      ></g6-edge>
     </ng-container>
   </ng-container>
 </g6-graph>

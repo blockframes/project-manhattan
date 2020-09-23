@@ -103,6 +103,7 @@ export const createTerms = (params: Partial<Terms>): Terms => ({
 
 export interface Income {
   id: string;
+  title: string;
   termsId: string;
   amount: number;
 }
@@ -114,6 +115,7 @@ export function isIncome(value: any): value is Income {
 export function createIncome(params: Partial<Income> = {}): Income {
   return {
     id: '',
+    title: '',
     termsId: '',
     amount: 0,
     ...params

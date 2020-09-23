@@ -2,7 +2,7 @@
   <nav mat-tab-nav-bar>
     <ng-container *ngFor="let waterfall of waterfalls$ | async">
       <a mat-tab-link [routerLink]="waterfall.id" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
-        {{ waterfall.name | titlecase }}
+        <span>{{ waterfall.name | titlecase }}</span>
       </a>
     </ng-container>
     <a mat-tab-link routerLink="./create" routerLinkActive #active="routerLinkActive" [active]="active.isActive">

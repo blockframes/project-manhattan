@@ -43,6 +43,10 @@ export class ViewComponent implements OnInit {
     ).subscribe(waterfall => this.form = createForm(waterfall.terms))
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+  
   openDetails(data: Waterfall) {
     this.dialog.open(GraphComponent, { data, width: '70vw', height: '70vh'})
   }

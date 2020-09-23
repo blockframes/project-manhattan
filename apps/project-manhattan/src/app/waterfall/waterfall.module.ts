@@ -27,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { GraphComponent } from './graph/graph.component';
 import { G6GraphModule } from 'ng-antv-g6';
 
@@ -66,6 +67,7 @@ const routes: Route[] = [{
     MatTableModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatDividerModule,
     G6GraphModule,
     RouterModule.forChild(routes)
   ],
