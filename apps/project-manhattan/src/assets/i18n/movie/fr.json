@@ -1,12 +1,9 @@
 {
   "create": {
+    "title": "Choisir un film",
     "myMovies": "mes films",
     "poster": {
       "label": "Choisir un poster"
-    },
-    "title": {
-      "label": "titre",
-      "placeholder": "titre du film"
     },
     "cancel": "annuler",
     "submit": "valider"

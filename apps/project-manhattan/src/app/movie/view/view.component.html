@@ -11,7 +11,10 @@
     <section>
       <article fxLayout fxLayoutGap="16px">
         <img [src]="movie.poster" alt="poster"/>
-        <h1>{{ movie.title }}</h1>
+        <div fxLayout="column" fxLayoutGap="16px">
+          <h1 class="mat-title">{{ movie.title }}</h1>
+          <p>{{ movie.description }}</p>
+        </div>
       </article>
       <router-outlet></router-outlet>
     </section>

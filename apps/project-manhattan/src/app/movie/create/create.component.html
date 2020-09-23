@@ -5,28 +5,12 @@
       <span>{{ t('myMovies') | titlecase }}</span>
     </a>
   </header>
-  <form [formGroup]="form" (ngSubmit)="create()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-    <mat-radio-group formControlName="poster" fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
-      <ng-container *ngFor="let poster of posters">
-        <div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-          <img matRipple (click)="form.get('poster').setValue(poster)" [src]="poster" />
-          <mat-radio-button [value]="poster"></mat-radio-button>
-        </div>
+  <section fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="24px">
+    <h2>{{ t('title') }}</h2>
+    <article fxLayout fxLayoutAlign="center center" fxLayoutGap="24px">
+      <ng-container *ngFor="let movie of movies">
+        <img matRipple (click)="create(movie)" [src]="movie.poster" />
       </ng-container>
-    </mat-radio-group>
-    <p>{{ t('poster.label') }}</p>
-    <mat-form-field>
-      <mat-label>{{ t('title.label') | titlecase }}</mat-label>
-      <input matInput formControlName="title" [placeholder]="t('title.placeholder') | titlecase" />
-    </mat-form-field>
-    <footer fxLayout fxLayoutAlign="center center" fxLayoutGap="16px">
-      <a mat-stroked-button color="primary" routerLink="../list">
-        {{ t('cancel') | titlecase }}
-      </a>
-      <button mat-flat-button type="submit" color="primary">
-        {{ t('submit') | titlecase }}
-      </button>
-    </footer>
-  </form>
-
+    </article>
+  </section>
 </ng-container>
