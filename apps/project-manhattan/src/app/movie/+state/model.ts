@@ -4,6 +4,7 @@ export class Movie {
   id: string;
   title: string;
   poster: string;
+  description: string;
 }
 
 export const movieConverter: firestore.FirestoreDataConverter<Movie> = {

@@ -50,7 +50,7 @@ const routes: Route[] = [{
   providers: [{
     provide: SETTINGS,
     useValue: environment.production ? undefined : {
-      host: 'localhost:8080',
+      host: 'localhost:8081',
       ssl: false
     }
   }],

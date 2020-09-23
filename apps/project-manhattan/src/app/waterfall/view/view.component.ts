@@ -62,7 +62,7 @@ export class ViewComponent implements OnInit {
   runSimulation(waterfall: Waterfall, name?: string) {
     if (name) {
       const simulation = waterfall.simulations.find(s => s.name === name);
-      this.form.setValue(simulation);
+      this.form.patchValue(simulation);
     }
     const source = this.applyMultiplier();
     const { incomes, summary } = this.service.runSimulation(waterfall, source);

@@ -8,6 +8,14 @@ header {
   padding: 24px 32px;
 }
 
+section {
+  padding: 24px;
+  flex: 1;
+  img {
+    height: 300px;
+  }
+}
+
 form {
   flex: 1;
 }
@@ -15,9 +23,7 @@ form {
 mat-radio-group {
   width: 50%;
   display: block;
-  img {
-    width: 100%;
-  }
+
 }
 
 img {
