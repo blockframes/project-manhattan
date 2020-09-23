@@ -29,8 +29,8 @@ export class CreateComponent implements OnInit {
 
   async create() {
     if (this.form.valid) {
-      await this.db.collection('movies').add(this.form.value);
-      this.router.navigate(['../list'], { relativeTo: this.route });
+      const { id } = await this.db.collection('movies').add(this.form.value);
+      this.router.navigate(['..', id], { relativeTo: this.route });
     }
   }
 }

@@ -65,7 +65,7 @@
 
 
     <ng-container *ngIf="summary else empty">
-      <article class="list" @slideUpList fxLayout="column" fxLayoutGap="16px">
+      <article class="list" @slideUpList fxLayout="column" fxLayoutGap="24px">
         <header class="up" fxLayout fxLayoutAlign="space-between center">
           <form [formGroup]="form">
             <mat-form-field>
@@ -78,7 +78,7 @@
             </button>
           </form>
         </header>
-        <h2 class="up">{{t('summary.title')}}</h2>
+        <h2 class="up">{{ t('summary.title') }}</h2>
         <h3 class="up">
           Total: {{ summary.title.total | largeCurrency }}
         </h3>
