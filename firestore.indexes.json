@@ -13,11 +13,7 @@
     "indexes": [{
       "queryScope": "COLLECTION",
       "order": "DESCENDING"
-    }]
-  },{
-    "collectionGroup": "waterfalls",
-    "fieldPath": "type",
-    "indexes": [{
+    }, {
       "queryScope": "COLLECTION",
       "order": "ASCENDING"
     }]
