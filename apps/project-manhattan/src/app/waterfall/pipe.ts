@@ -19,6 +19,8 @@ export class OnlyOriginPipe implements PipeTransform {
 @Pipe({ name: 'getTerms' })
 export class GetTermsPipe implements PipeTransform {
   transform(waterfall: Waterfall, termsId: string) {
+    if (termsId === 'name') return { title: 'Nom' };
+    if (termsId === 'total') return { title: 'Total' };
     return waterfall.terms.find(t => t.id === termsId);
   }
 }
@@ -65,17 +67,11 @@ export class TermsLabelPipe implements PipeTransform {
 
 @Pipe({ name: 'tableColumns' })
 export class TableColumnPipe implements PipeTransform {
-  transform(terms: Terms[]) {
-    return [ 'name', 'total', ...terms.map(t => t.id) ];
+  transform(terms: Terms[]): string[] {
+    return [ 'name', 'total', ...terms.map(t => t.id) ]
   }
 }
 
-@Pipe({ name: 'margin' })
-export class MarginPipe implements PipeTransform {
-  transform(waterfall: Waterfall, summary: Summary, orgId: string) {
-    return summary.orgs[orgId].total - waterfall.investments[orgId];
-  }
-}
 
 
 @Pipe({ name: 'largeCurrency' })
@@ -84,11 +80,65 @@ export class LargeNumberPipe implements PipeTransform {
 
   transform(value: number) {
     if (!value) return '';
-    return (value / 1000) > 1
+    return Math.abs(value / 1000) > 1
       ? `${this.service.localizeNumber(value / 1000, 'decimal')}k €`
       : `${this.service.localizeNumber(value, 'decimal')} €`;
   }
 }
+
+
+
+//// MARGE
+function receipts(summary: Summary) {
+  const { rights, title } = summary;
+  return title['originTheatrical'] + title['originTv']+ title['originVideo'] + title['originVod'] + title['rowAllRights'] + title['theatricalDistSupport'] + title['videoDistSupport'] - rights['originTheatricalExpenses'] - rights['originVideoExpenses'] - rights['rowExpenses']
+}
+@Pipe({ name: 'receipts' })
+export class ReceiptsPipe implements PipeTransform {
+  transform(summary: Summary) {
+    return receipts(summary);
+  }
+}
+
+function support(summary: Summary) {
+  const { title, orgs } = summary;
+  return title['theatricalSupport'] + title['videoSupport'] + title['tvSupport'] + title['bonusSupport'] - orgs['tvBroadcaster']['theatricalSupport'] - orgs['tvBroadcaster']['videoSupport'] - orgs['tvBroadcaster']['tvSupport'] - orgs['prod']['theatricalSupport'] - orgs['prod']['videoSupport'] - orgs['prod']['tvSupport'] - orgs['equity']['theatricalSupport'] - orgs['equity']['videoSupport'] - orgs['equity']['tvSupport'];
+}
+@Pipe({ name: 'support' })
+export class SupportPipe implements PipeTransform {
+  transform(summary: Summary) {
+    return support(summary);
+  }
+}
+
+function shareholders(summary: Summary, waterfall: Waterfall) {
+  const { orgs } = summary;
+  return - orgs['AYD'].total - orgs['tvBroadcaster']['originTv'] - orgs['partner'].total + waterfall.investments['partner'] 
+}
+@Pipe({ name: 'shareholders' })
+export class ShareholdersPipe implements PipeTransform {
+  transform(summary: Summary, waterfall: Waterfall) {
+    return shareholders(summary, waterfall);
+  }
+}
+
+function investment(waterfall: Waterfall) {
+  return - waterfall.investments['partner'] - waterfall.investments['pathe']
+}
+@Pipe({ name: 'investment' })
+export class InvestmentPipe implements PipeTransform {
+  transform(waterfall: Waterfall) {
+    return investment(waterfall);
+  }
+}
+
+@Pipe({ name: 'margin' })
+export class MarginPipe implements PipeTransform {
+  transform(summary: Summary, waterfall: Waterfall) {
+    return receipts(summary) + support(summary) + shareholders(summary, waterfall) + investment(waterfall);
+  }
+}
+
 
 export const pipes = [
   GetTermsPipe,
@@ -99,6 +149,10 @@ export const pipes = [
   OrgLabelPipe,
   TermsLabelPipe,
   TableColumnPipe,
-  MarginPipe,
   LargeNumberPipe,
+  ReceiptsPipe,
+  SupportPipe,
+  ShareholdersPipe,
+  InvestmentPipe,
+  MarginPipe,
 ];

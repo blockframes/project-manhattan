@@ -5,7 +5,7 @@
 
       <!--  Simulation -->
       <header class="down" fxLayout fxLayoutAlign="space-between center">
-        <div fxLayout fxLayout="start center" fxLayoutGap="4px">
+        <div fxLayout fxLayout="start center">
           <mat-chip-list fxLayout fxLayoutAlign="center center">
             <ng-container *ngFor="let simulation of waterfall.simulations">
               <mat-chip removable [selected]="simulation.name === form.value.name"
@@ -17,9 +17,8 @@
             </ng-container>
           </mat-chip-list>
           <input class="chips" [placeholder]="t('simulation.label')" formControlName="name" name="name" />
-          <button matSuffix mat-button (click)="createSimulation(waterfall)">
+          <button mat-icon-button color="primary" (click)="createSimulation(waterfall)">
             <mat-icon>save</mat-icon>
-            <span>{{ t('simulation.create') }}</span>
           </button>
         </div>
         <button mat-stroked-button (click)="openDetails(waterfall)">
@@ -33,16 +32,11 @@
       <div class="down" fxLayout fxLayoutGap="32px">
         <ng-container *ngFor="let investment of waterfall.investments | keyvalue">
           <p>
-            <span class="mat-subheading-1">{{ t('investment') }} {{ investment.key | titlecase }}:</span>
+            <b class="mat-subheading-1">{{ t('investment') }} {{ investment.key | titlecase }}:</b>
             <span class="mat-body-1"> {{ investment.value | largeCurrency }}</span>
           </p>
         </ng-container>
       </div>
-          <!-- <mat-button-toggle-group formControlName="multiplier" name="multiplier">
-            <mat-button-toggle [value]="1">x1</mat-button-toggle>
-            <mat-button-toggle [value]="1000">x1000</mat-button-toggle>
-          </mat-button-toggle-group> -->
-
 
       <div>
         <h2 class="down mat-title">{{ t('terms.title') }}:</h2>
@@ -99,25 +93,25 @@
           <ng-container *ngIf="waterfall.investments['pathe'] as investment">
             <table class="margin up">
               <tr>
-                <td>Résultat d’exploitation</td>
-                <td>X€</td>
+                <td>{{ t('receipts') }}</td>
+                <td>{{ summary | receipts | largeCurrency }}</td>
               </tr>
               <tr>
-                <td>FDS net</td>
-                <td>X€</td>
+                <td>{{ t('support') }}</td>
+                <td>{{ summary | support | largeCurrency }}</td>
               </tr>
               <tr>
-                <td>Ayants droit</td>
-                <td>X€</td>
+                <td>{{ t('shareholders') }}</td>
+                <td>{{ summary | shareholders:waterfall | largeCurrency }}</td>
               </tr>
               <tr>
                 <td>{{ t('investment') }} Pathé</td>
-                <td>{{ investment | largeCurrency }}</td>
+                <td>{{ waterfall | investment | largeCurrency }}</td>
               </tr>
-              <tfoot [benefice]="waterfall | margin:summary:'pathe'">
-                <tr>
+              <tfoot [benefice]="summary | margin:waterfall">
+                <tr class="mat-subheading-1">
                   <td>{{ t('summary.margin') }} Pathé:</td>
-                  <td>{{ waterfall | margin:summary:'pathe' | largeCurrency }}</td>
+                  <td>{{ summary | margin:waterfall | largeCurrency }}</td>
                 </tr>
               </tfoot>
             </table>
@@ -137,7 +131,7 @@
         <table class="up" mat-table [dataSource]="summary | orgDataSource">
           <ng-container *ngFor="let column of waterfall.terms | tableColumns">
             <ng-container [matColumnDef]="column">
-              <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+              <th mat-header-cell *matHeaderCellDef> {{ (waterfall | getTerms:column)?.title }} </th>
               <td mat-cell *matCellDef="let org">
                 <span *ngIf="column === 'name'">{{org[column] }}</span>
                 <span *ngIf="column !== 'name'">{{org[column] | largeCurrency }}</span>

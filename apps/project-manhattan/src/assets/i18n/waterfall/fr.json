@@ -9,7 +9,6 @@
   },
   "list": {
     "add": "Ajouter un waterfall",
-    "investment": "Investissement",
     "terms": {
       "title": "Recettes par couloir"
     },
@@ -27,6 +26,10 @@
       "create": "Enregistrer"
     },
     "view": "Voir le Waterfall",
+    "receipts": "Résultat d’exploitation",
+    "support": "FDS net",
+    "investment": "Investissement",
+    "shareholders": "Ayants droit",
     "summary": {
       "title": "Synthèse",
       "margin": "Marge",
